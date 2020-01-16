@@ -123,32 +123,32 @@ Lab1/fast:
 	$(MAKE) -f CMakeFiles/Lab1.dir/build.make CMakeFiles/Lab1.dir/build
 .PHONY : Lab1/fast
 
-main.o: main.cpp.o
+lab1_polynomial.o: lab1_polynomial.cpp.o
 
-.PHONY : main.o
+.PHONY : lab1_polynomial.o
 
 # target to build an object file
-main.cpp.o:
-	$(MAKE) -f CMakeFiles/Lab1.dir/build.make CMakeFiles/Lab1.dir/main.cpp.o
-.PHONY : main.cpp.o
+lab1_polynomial.cpp.o:
+	$(MAKE) -f CMakeFiles/Lab1.dir/build.make CMakeFiles/Lab1.dir/lab1_polynomial.cpp.o
+.PHONY : lab1_polynomial.cpp.o
 
-main.i: main.cpp.i
+lab1_polynomial.i: lab1_polynomial.cpp.i
 
-.PHONY : main.i
+.PHONY : lab1_polynomial.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) -f CMakeFiles/Lab1.dir/build.make CMakeFiles/Lab1.dir/main.cpp.i
-.PHONY : main.cpp.i
+lab1_polynomial.cpp.i:
+	$(MAKE) -f CMakeFiles/Lab1.dir/build.make CMakeFiles/Lab1.dir/lab1_polynomial.cpp.i
+.PHONY : lab1_polynomial.cpp.i
 
-main.s: main.cpp.s
+lab1_polynomial.s: lab1_polynomial.cpp.s
 
-.PHONY : main.s
+.PHONY : lab1_polynomial.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) -f CMakeFiles/Lab1.dir/build.make CMakeFiles/Lab1.dir/main.cpp.s
-.PHONY : main.cpp.s
+lab1_polynomial.cpp.s:
+	$(MAKE) -f CMakeFiles/Lab1.dir/build.make CMakeFiles/Lab1.dir/lab1_polynomial.cpp.s
+.PHONY : lab1_polynomial.cpp.s
 
 # Help Target
 help:
@@ -159,9 +159,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... Lab1"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... lab1_polynomial.o"
+	@echo "... lab1_polynomial.i"
+	@echo "... lab1_polynomial.s"
 .PHONY : help
 
 

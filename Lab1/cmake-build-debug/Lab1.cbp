@@ -78,7 +78,10 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab1/main.cpp">
+		<Unit filename="/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab1/lab1_polynomial.cpp">
+			<Option target="Lab1"/>
+		</Unit>
+		<Unit filename="/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab1/lab1_polynomial.h">
 			<Option target="Lab1"/>
 		</Unit>
 		<Unit filename="/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab1/CMakeLists.txt">

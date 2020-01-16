@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/Lab1.dir/main.cpp.o"
+  "CMakeFiles/Lab1.dir/lab1_polynomial.cpp.o"
   "Lab1"
   "Lab1.pdb"
 )

@@ -57,27 +57,27 @@ include CMakeFiles/Lab1.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/Lab1.dir/flags.make
 
-CMakeFiles/Lab1.dir/main.cpp.o: CMakeFiles/Lab1.dir/flags.make
-CMakeFiles/Lab1.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Lab1.dir/main.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Lab1.dir/main.cpp.o -c /Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab1/main.cpp
+CMakeFiles/Lab1.dir/lab1_polynomial.cpp.o: CMakeFiles/Lab1.dir/flags.make
+CMakeFiles/Lab1.dir/lab1_polynomial.cpp.o: ../lab1_polynomial.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Lab1.dir/lab1_polynomial.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Lab1.dir/lab1_polynomial.cpp.o -c /Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab1/lab1_polynomial.cpp
 
-CMakeFiles/Lab1.dir/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Lab1.dir/main.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab1/main.cpp > CMakeFiles/Lab1.dir/main.cpp.i
+CMakeFiles/Lab1.dir/lab1_polynomial.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Lab1.dir/lab1_polynomial.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab1/lab1_polynomial.cpp > CMakeFiles/Lab1.dir/lab1_polynomial.cpp.i
 
-CMakeFiles/Lab1.dir/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Lab1.dir/main.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab1/main.cpp -o CMakeFiles/Lab1.dir/main.cpp.s
+CMakeFiles/Lab1.dir/lab1_polynomial.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Lab1.dir/lab1_polynomial.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab1/lab1_polynomial.cpp -o CMakeFiles/Lab1.dir/lab1_polynomial.cpp.s
 
 # Object files for target Lab1
 Lab1_OBJECTS = \
-"CMakeFiles/Lab1.dir/main.cpp.o"
+"CMakeFiles/Lab1.dir/lab1_polynomial.cpp.o"
 
 # External object files for target Lab1
 Lab1_EXTERNAL_OBJECTS =
 
-Lab1: CMakeFiles/Lab1.dir/main.cpp.o
+Lab1: CMakeFiles/Lab1.dir/lab1_polynomial.cpp.o
 Lab1: CMakeFiles/Lab1.dir/build.make
 Lab1: CMakeFiles/Lab1.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable Lab1"
