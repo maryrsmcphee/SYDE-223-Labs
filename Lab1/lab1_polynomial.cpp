@@ -39,7 +39,11 @@ public:
     }
 
     // performs *this == target
-    bool operator==(const Polynomial& target);
+    bool operator==(const Polynomial& target){
+        for (int i = 0; i < target.size(); i++){
+            target[i] == A[i];
+        }
+    };
 
     // prints the polynomial
     void print();

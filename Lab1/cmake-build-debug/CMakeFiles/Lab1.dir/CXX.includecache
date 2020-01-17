@@ -9,4 +9,8 @@
 /Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab1/lab1_polynomial.cpp
 iostream
 -
+cassert
+-
+vector
+-
 
