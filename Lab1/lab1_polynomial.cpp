@@ -50,7 +50,6 @@ public:
         int i = 0;
         while(equals == true && i < target.data.size()) {
             if (target.data[i] == this->data[i]) {
-                cout << "compared true";
                 i++;
             } else {
                 equals = false;
@@ -60,10 +59,14 @@ public:
     };
 
     // prints the polynomial
-    void print(){};
+    void print(){
+        for(int i = 0; i < data.size(); i++){
+            cout << data[i] << " x ^" << i ;
+        }
+    };
 
     // performs *this + target
-    Polynomial operator+(const Polynomial& target);
+    Polynomial operator+(const Polynomial& target){};
 
     // performs *this - target
     Polynomial operator-(const Polynomial& target);
@@ -93,6 +96,5 @@ public:
 int main() {
     PolynomialTest my_test;
     my_test.run();
-
     return 0;
 }
