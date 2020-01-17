@@ -1,24 +1,40 @@
 #include <iostream>
 #include <cassert>
 #include <vector>
-
+#include <string>
 using namespace std;
+// constants
+const string creatingPolynomialVector = "Creating polynomial vector... \n";
 
 class Polynomial {
+private:
     vector<int> data;
-
-    Polynomial(int A[], int size){
+public:
+    /**
+     * Polynomial class constructor
+     * expecting:
+     * @param {int array} input
+     * @param {int} size
+     */
+    Polynomial(int input[], int size){
         data.resize(size);
-    }
+        cout<<creatingPolynomialVector;
+        for(int i = 0; i < size; i++){
+            data.push_back(input[i]);
+        }
 
-    Polynomial(){
-
     }
+    /**
+     * default {empty} constructor
+     */
+    Polynomial() = default;
 
     Polynomial(string fileName){
 
     }
-
+    /**
+     * default class destructor
+     */
     ~Polynomial() {
     }
 
