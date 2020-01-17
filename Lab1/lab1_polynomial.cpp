@@ -2,6 +2,8 @@
 #include <cassert>
 #include <vector>
 #include <string>
+#include "lab1_polynomial.h"
+
 using namespace std;
 // constants
 const string creatingPolynomialVector = "Creating polynomial vector... \n";
@@ -39,14 +41,26 @@ public:
     }
 
     // performs *this == target
+    /**
+     * @param {Polynomial} target
+     * @return bool
+     */
     bool operator==(const Polynomial& target){
-        for (int i = 0; i < target.size(); i++){
-            target[i] == A[i];
-        }
+        bool equals = true;
+        int i = 0;
+        while(equals == true && i < target.data.size()) {
+            if (target.data[i] == this->data[i]) {
+                cout << "compared true";
+                i++;
+            } else {
+                equals = false;
+            };
+        };
+        return equals;
     };
 
     // prints the polynomial
-    void print();
+    void print(){};
 
     // performs *this + target
     Polynomial operator+(const Polynomial& target);
