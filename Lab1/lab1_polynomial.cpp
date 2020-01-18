@@ -65,6 +65,11 @@ public:
     };
 
     // performs *this + target
+    /**
+     *
+     * @param target
+     * @return Polynomial of addedPolys
+     */
     Polynomial operator+(const Polynomial &target){
         int addedPolys[target.data.size()];
         for(int i = 0; i <= target.data.size(); i++){
@@ -74,6 +79,11 @@ public:
     };
 
     // performs *this - target
+    /**
+     *
+     * @param target
+     * @return Polynomial of subtractedPolys
+     */
     Polynomial operator-(const Polynomial& target){
         int subtractedPolys[target.data.size()];
         for(int i = 0; i <= target.data.size(); i++){
@@ -83,6 +93,11 @@ public:
     };
 
     // performs *this * target
+    /**
+     *
+     * @param target
+     * @return Polynomial of multipliedPolys
+     */
     Polynomial operator*(const Polynomial& target){
         int multipliedPolys[target.data.size()];
         for(int i = 0; i <= target.data.size(); i++){
@@ -92,6 +107,10 @@ public:
     };
 
     // computes the derivative d/dx of *this
+    /**
+     * computes derivative of poly
+     * returns new Polynomial of derivedPoly
+     */
     Polynomial derivative(){
         int derivedPoly[data.size() - 1];
         for(int i = 0; i < data.size() - 1; i++){
