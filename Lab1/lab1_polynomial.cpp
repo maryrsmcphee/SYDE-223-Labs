@@ -163,7 +163,7 @@ public:
     Polynomial derivative(){
         int derivedPoly[data.size() - 1];
         for(int i = 0; i < data.size() - 1; i++){
-            derivedPoly[i] = data[i+1] * [i+1];
+            derivedPoly[i] = data[i+1] * (i+1);
         }
         return Polynomial(derivedPoly, data.size() - 1);
     };
