@@ -2,10 +2,17 @@
 #include <cassert>
 #include <vector>
 #include <string>
+#include <fstream>
+
 using namespace std;
 // constants
 const string creatingPolynomialVector = "Creating polynomial vector... \n";
+// constants / error messages
+const string unableToReadFileERROR = "ERROR: Unable to read from file. Check that the file is in the root directory and that it has the correct file extension (.*txt). \n";
 
+/**
+ * Class Polynomial
+ */
 class Polynomial {
 private:
     vector<int> data;
@@ -28,9 +35,28 @@ public:
      * default {empty} constructor
      */
     Polynomial() = default;
-
+    /**
+     * Polynomial class constructor
+     * takes filename and extracts text from file.
+     * @param {string} fileName
+     */
     Polynomial(string fileName){
+        string filePath = "./"+ fileName;
+        ifstream inFile(fileName);
+        if(!inFile){
+            cout<<unableToReadFileERROR;;
+        }
+        string lineReading;
+        vector<string> valuesFromFile;
+        while(getline(inFile,lineReading)){
+            valuesFromFile.push_back(lineReading);
+            for (unsigned i=0; i < valuesFromFile.size(); i++) {
+                cout<<valuesFromFile[i];
 
+            }
+            cout<<"\n";
+        }
+        // TODO cast to ints form string and pass to second constructor
     }
     /**
      * default class destructor
@@ -75,6 +101,6 @@ public:
 int main() {
     PolynomialTest my_test;
     my_test.run();
-
+    Polynomial test("test.txt");
     return 0;
 }
