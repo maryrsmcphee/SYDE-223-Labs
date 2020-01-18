@@ -24,7 +24,6 @@ public:
         for(int i = 0; i < size; i++){
             data.push_back(input[i]);
         }
-
     }
     /**
      * default {empty} constructor
@@ -45,37 +44,61 @@ public:
      * @param {Polynomial} target
      * @return bool
      */
-    bool operator==(const Polynomial& target){
+    bool operator==(const Polynomial &target){
         bool equals = true;
         int i = 0;
-        while(equals == true && i < target.data.size()) {
+        while(equals == true && i <= target.data.size()) {
             if (target.data[i] == this->data[i]) {
                 i++;
             } else {
                 equals = false;
-            };
-        };
+            }
+        }
         return equals;
     };
 
     // prints the polynomial
     void print(){
-        for(int i = 0; i < data.size(); i++){
+        for(int i = 0; i <= data.size(); i++){
             cout << data[i] << " x ^" << i ;
         }
     };
 
     // performs *this + target
-    Polynomial operator+(const Polynomial& target){};
+    Polynomial operator+(const Polynomial &target){
+        int addedPolys[target.data.size()];
+        for(int i = 0; i <= target.data.size(); i++){
+            addedPolys[i] = target.data[i] + this->data[i];
+        }
+        return Polynomial(addedPolys, target.data.size());
+    };
 
     // performs *this - target
-    Polynomial operator-(const Polynomial& target);
+    Polynomial operator-(const Polynomial& target){
+        int subtractedPolys[target.data.size()];
+        for(int i = 0; i <= target.data.size(); i++){
+            subtractedPolys[i] = this->data[i] - target.data[i];
+        }
+        return Polynomial(subtractedPolys, target.data.size());
+    };
 
     // performs *this * target
-    Polynomial operator*(const Polynomial& target);
+    Polynomial operator*(const Polynomial& target){
+        int multipliedPolys[target.data.size()];
+        for(int i = 0; i <= target.data.size(); i++){
+            multipliedPolys[i] = this->data[i] * target.data[i];
+        }
+        return Polynomial(multipliedPolys, target.data.size());
+    };
 
     // computes the derivative d/dx of *this
-    Polynomial derivative();
+    Polynomial derivative(){
+        int derivedPoly[data.size() - 1];
+        for(int i = 0; i < data.size() - 1; i++){
+            derivedPoly[i] = data[i+1] * [i+1];
+        }
+        return Polynomial(derivedPoly, data.size() - 1);
+    };
 };
 
 class PolynomialTest{
