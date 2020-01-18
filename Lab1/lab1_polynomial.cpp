@@ -10,7 +10,6 @@ using namespace std;
 // constants
 const string creatingPolynomialVector = "Creating polynomial vector... \n";
 // constants / error messages
-const string unableToReadFileERROR = "ERROR: Unable to read from file. Check that the file is in the root directory and that it has the correct file extension (.*txt). \n";
 
 /**
  * Class Polynomial
@@ -69,7 +68,7 @@ public:
         string filePath = "./" + fileName;
         ifstream inFile(fileName);
         if (!inFile) {
-            cout << unableToReadFileERROR;;
+            printf("ERROR: Unable to read from file. Make sure it is in the build directory and is a *.txt file, at line: %d \n",__LINE__);
         }
         string lineReading;
         vector<int> valuesFromFile;
@@ -178,13 +177,18 @@ public:
 
     void run() {
         if (test_constructors1()) {
-            cout << "Test Constructors1 Passed" << endl;
+            printf("PASS: Test Constructor1, at line:  %d \n",__LINE__);
+
         } else {
-            cout << "Test Constructors1 Failed" << endl;
+            printf("FAIL: Test Constructor1, at line:  %d \n",__LINE__);
+
         }
     }
 };
-
+/**
+ * Main function
+ * @return int
+ */
 int main() {
     PolynomialTest my_test;
     my_test.run();
