@@ -4,6 +4,7 @@
 #include <string>
 #include <fstream>
 #include "lab1_polynomial.h"
+#include <random>
 
 using namespace std;
 // constants
@@ -24,40 +25,65 @@ public:
      * @param {int array} input
      * @param {int} size
      */
-    Polynomial(int input[], int size){
+    Polynomial(int input[], int size) {
         data.resize(size);
-        cout<<creatingPolynomialVector;
-        for(int i = 0; i < size; i++){
+        cout << creatingPolynomialVector;
+        for (int i = 0; i < size; i++) {
             data.push_back(input[i]);
         }
     }
+
     /**
-     * default {empty} constructor
+     * Generates a random polynomial of a random degree and then passes
+     * it to the polynomial constructor
      */
-    Polynomial() = default;
+    Polynomial() {
+        default_random_engine generator;
+        uniform_int_distribution<int> distribution(0, 1000);
+        int generatedRandomNumberOfTerms = distribution(generator);
+        vector<int> randomGeneratedCoefficients;
+        const int numberOfTerms = ++generatedRandomNumberOfTerms;
+        for (int i = 0; i < numberOfTerms; i++) {
+            default_random_engine generatorCoefficients;
+            uniform_int_distribution<int> distributionCoefficients(-1000, 1000);
+            int generatedRandomNumberOfCoefficients = distributionCoefficients(generatorCoefficients);
+            randomGeneratedCoefficients.push_back(generatedRandomNumberOfCoefficients);
+        }
+        /*
+         * Setting vector to  array
+         * we can do this by pointing an array to the location in memory
+         * of the first element of the vector since both arrays and vectors
+         * store their elements sequentially in memory
+         * */
+        int *coefficientArr = &randomGeneratedCoefficients[0];
+        int coefficientArrSize = randomGeneratedCoefficients.size();
+        Polynomial randomPolynomial(coefficientArr,coefficientArrSize);
+    }
+
     /**
      * Polynomial class constructor
      * takes filename and extracts text from file.
      * @param {string} fileName
      */
-    Polynomial(string fileName){
-        string filePath = "./"+ fileName;
+    Polynomial(string fileName) {
+        string filePath = "./" + fileName;
         ifstream inFile(fileName);
-        if(!inFile){
-            cout<<unableToReadFileERROR;;
+        if (!inFile) {
+            cout << unableToReadFileERROR;;
         }
         string lineReading;
         vector<string> valuesFromFile;
-        while(getline(inFile,lineReading)){
+        while (getline(inFile, lineReading)) {
             valuesFromFile.push_back(lineReading);
-            for (unsigned i=0; i < valuesFromFile.size(); i++) {
-                cout<<valuesFromFile[i];
+            for (unsigned i = 0; i < valuesFromFile.size(); i++) {
+                cout << valuesFromFile[i];
 
             }
-            cout<<"\n";
+            cout << "\n";
         }
         // TODO cast to ints form string and pass to second constructor
     }
+
     /**
      * default class destructor
      */
@@ -145,14 +171,14 @@ public:
     };
 };
 
-class PolynomialTest{
+class PolynomialTest {
 public:
     bool test_constructors1() {
         return true;
     }
 
     void run() {
-        if (test_constructors1 ()) {
+        if (test_constructors1()) {
             cout << "Test Constructors1 Passed" << endl;
         } else {
             cout << "Test Constructors1 Failed" << endl;
