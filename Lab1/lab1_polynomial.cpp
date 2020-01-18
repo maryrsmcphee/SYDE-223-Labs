@@ -57,7 +57,7 @@ public:
          * */
         int *coefficientArr = &randomGeneratedCoefficients[0];
         int coefficientArrSize = randomGeneratedCoefficients.size();
-        Polynomial randomPolynomial(coefficientArr,coefficientArrSize);
+        Polynomial randomPolynomial(coefficientArr, coefficientArrSize);
     }
 
     /**
@@ -72,16 +72,15 @@ public:
             cout << unableToReadFileERROR;;
         }
         string lineReading;
-        vector<string> valuesFromFile;
+        vector<int> valuesFromFile;
         while (getline(inFile, lineReading)) {
-            valuesFromFile.push_back(lineReading);
-            for (unsigned i = 0; i < valuesFromFile.size(); i++) {
-                cout << valuesFromFile[i];
-
-            }
-            cout << "\n";
+            valuesFromFile.push_back(stoi(lineReading));
         }
-        // TODO cast to ints form string and pass to second constructor
+        // store the first element of the vector as size
+        int sizeOfPoly = valuesFromFile[0];
+        // set array to the rest of the vector, which are the coefficients
+        int *ArrOfCoefficients = &valuesFromFile[1];
+        Polynomial readFromFilePoly(ArrOfCoefficients, sizeOfPoly);
     }
 
     /**
