@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/sammyrobens-paradise/CLionProjects/SYDE-223-Labs/Lab1/lab1_polynomial.cpp
+iostream
+-
+cassert
+-
+vector
+-
+string
+-
+fstream
+-
+random
+-
+
