@@ -11,6 +11,32 @@ using namespace std;
 const string creatingPolynomialVector = "Creating polynomial vector... \n";
 // constants / error messages
 
+// sorting helpers
+/**
+ * void
+ * @param arrToSort
+ * @param size
+ */
+void insertSortGreatestToLeast(int *arrToSort, int size){
+    int j,k;
+    // for each el in array...
+    for(int i = 0; i < size;  i++){
+        // get the value at the i'th el...
+         k = arrToSort[i];
+         // store the i'th -1 index > 0...
+         j= i;
+         /*
+          * while the i'th -1 element is greater then  0
+          * and the i'th -1 element is greater
+          * */
+        while(j > 0 && arrToSort[j+1]> k){
+            arrToSort[j+1] = arrToSort[j];
+            j--;
+        }
+        arrToSort[j+1] = k;
+    }
+
+}
 /**
  * Class Polynomial
  */
@@ -28,6 +54,7 @@ public:
         data.resize(size);
         cout << creatingPolynomialVector;
         // TODO add sorting from  greatest to least
+        insertSortGreatestToLeast(input,size);
         for (int i = 0; i < size; i++) {
             data.push_back(input[i]);
         }
@@ -164,7 +191,8 @@ public:
     Polynomial derivative(){
         int derivedPoly[data.size() - 1];
         for(int i = 0; i < data.size() - 1; i++){
-            derivedPoly[i] = data[i+1] * [i+1];
+            // TODO take another look at this?
+            derivedPoly[i] = data[i+1] * data[i+1];
         }
         return Polynomial(derivedPoly, data.size() - 1);
     };
