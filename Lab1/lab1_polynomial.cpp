@@ -27,6 +27,7 @@ public:
     Polynomial(int input[], int size) {
         data.resize(size);
         cout << creatingPolynomialVector;
+        // TODO add sorting from  greatest to least
         for (int i = 0; i < size; i++) {
             data.push_back(input[i]);
         }
