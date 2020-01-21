@@ -125,7 +125,7 @@ public:
         }
         // store the first element of the vector as size
         if(valuesFromFile[0] < 0){
-            printf("WARNING: Your power is less then 0. This is not allowed. The absolute value of the power will be used   %d \n",__LINE__);
+            printf("⚠️ WARNING: Your power is less then 0. This is not allowed. The absolute value of the power will be used, at line:  %d \n",__LINE__);
         }
 
         int sizeOfPoly = abs(valuesFromFile[0]);
