@@ -1,3 +1,12 @@
+/*******************************
+ * @author Sammy Robens-Paradise
+ * @author Mary McPhee
+ * @date Sunday Jan 20, 2020
+ * @IDE: CLion, macOS
+ * @SYDE_223: Lab 1
+ ******************************/
+
+
 #include <iostream>
 #include <cassert>
 #include <vector>
@@ -6,9 +15,13 @@
 #include "lab1_polynomial.h"
 #include <random>
 
+#define ASSERT_TRUE(T) if (!(T)) return false;
+#define ASSERT_FALSE(T) if ((T)) return false;
+
 using namespace std;
 // constants
 const string creatingPolynomialVector = "Creating polynomial vector... \n";
+const string pullingArrayFromFile = "Pulling Array from file... \n";
 // constants / error messages
 
 // sorting helpers
@@ -17,19 +30,19 @@ const string creatingPolynomialVector = "Creating polynomial vector... \n";
  * @param arrToSort
  * @param size
  */
-void insertSortGreatestToLeast(int *arrToSort, int size){
+void insertSortLeastToGreatest(int *arrToSort, int size){
     int j,k;
     // for each el in array...
     for(int i = 0; i < size;  i++){
         // get the value at the i'th el...
          k = arrToSort[i];
          // store the i'th -1 index > 0...
-         j= i;
+         j= i -1;
          /*
           * while the i'th -1 element is greater then  0
-          * and the i'th -1 element is greater
+          * and the i'th -1 element is greater then k
           * */
-        while(j > 0 && arrToSort[j+1]> k){
+        while(j >= 0 && arrToSort[j]> k){
             arrToSort[j+1] = arrToSort[j];
             j--;
         }
@@ -53,9 +66,9 @@ public:
     Polynomial(int input[], int size) {
         data.resize(size);
         cout << creatingPolynomialVector;
-        // TODO add sorting from  greatest to least
-        insertSortGreatestToLeast(input,size);
+        insertSortLeastToGreatest(input,size);
         for (int i = 0; i < size; i++) {
+            cout<<input[i]<<endl;
             data.push_back(input[i]);
         }
     }
@@ -97,7 +110,9 @@ public:
         ifstream inFile(fileName);
         if (!inFile) {
             printf("ERROR: Unable to read from file. Make sure it is in the build directory and is a *.txt file, at line: %d \n",__LINE__);
+            exit(1);
         }
+        cout<<pullingArrayFromFile<<"\n";
         string lineReading;
         vector<int> valuesFromFile;
         while (getline(inFile, lineReading)) {
@@ -198,20 +213,49 @@ public:
     };
 };
 
-class PolynomialTest {
+class PolynomialTest{
+    friend class Polynomial;
 public:
-    bool test_constructors1() {
+
+    void setup(){
+
+    };
+    void cleanup(){
+
+    };
+
+    bool testInsertionSort(){
+        const int size = 10;
+        int simpleArray[size] = {1,6,7,9,4,7,5,1,8,4};
+        int simpleArrayControl[size] = {1,1,4,4,5,6,7,7,8,9};
+        insertSortLeastToGreatest(simpleArray, size);
+        bool detector = true;
+        for(int i = 0; i< size; i++){
+            simpleArray[i]  == simpleArrayControl[i] ? detector = true: detector = false;
+        }
+        if(!detector){
+            printf("❌ FAIL: insertSortLeastToGreatest  with simple array, at line:  %d \n",__LINE__);
+        }
+        ASSERT_TRUE(detector);
+        printf("✅ PASS: insertSortLeastToGreatest  with simple array, at line:  %d \n",__LINE__);
+        int simpleNegativeArray[size] = {1,6,7,9,4,7,5,1,8,-4};
+        int simpleNegativeArrayControl[size] = {-4,1,1,4,5,6,7,7,8,9};
+        insertSortLeastToGreatest(simpleNegativeArray, size);
+        bool detector2 = true;
+        for(int i = 0; i< size; i++){
+            simpleNegativeArray[i]  == simpleNegativeArrayControl[i] ? detector2 = true: detector2 = false;
+        }
+        if(!detector2){
+            printf("❌ FAIL: insertSortLeastToGreatest  with simple array, at line:  %d \n",__LINE__);
+        }
+        ASSERT_TRUE(detector2);
+        printf("✅ PASS: insertSortLeastToGreatest  with simple array with negative value, at line:  %d \n",__LINE__);
         return true;
     }
-
     void run() {
-        if (test_constructors1()) {
-            printf("PASS: Test Constructor1, at line:  %d \n",__LINE__);
-
-        } else {
-            printf("FAIL: Test Constructor1, at line:  %d \n",__LINE__);
-
-        }
+        cout<<"Starting Test Runner... \n";
+        testInsertionSort();
+        cleanup();
     }
 };
 /**
@@ -219,9 +263,8 @@ public:
  * @return int
  */
 int main() {
+//    Polynomial test("test.txt");
     PolynomialTest my_test;
     my_test.run();
-    Polynomial test("test.txt");
-
     return 0;
 }
