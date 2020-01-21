@@ -219,8 +219,8 @@ public:
     Polynomial derivative() {
         int derivedPoly[data.size() - 1];
         for (int i = 0; i < data.size() - 1; i++) {
-            // TODO take another look at this?
-            derivedPoly[i] = data[i + 1] * data[i + 1];
+            // TODO take another look at this? -- should be ok, was a syntax error fixed in deleted PR
+            derivedPoly[i] = data[i + 1] * (i + 1);
         }
         return Polynomial(derivedPoly, data.size() - 1);
     };
