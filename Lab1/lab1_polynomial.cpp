@@ -15,6 +15,8 @@
 #include "lab1_polynomial.h"
 #include <random>
 #include <cmath>
+#include <stdexcept>
+#include <limits>
 
 #define ASSERT_TRUE(T) if (!(T)) return false;
 #define ASSERT_FALSE(T) if ((T)) return false;
@@ -67,7 +69,6 @@ public:
      */
     Polynomial(int input[], int size) {
         data.resize(size);
-        cout << creatingPolynomialVector;
         insertSortLeastToGreatest(input, size);
         for (int i = 0; i < size; i++) {
             data.push_back(input[i]);
@@ -110,10 +111,11 @@ public:
         string filePath = "./" + fileName;
         ifstream inFile(fileName);
         if (!inFile) {
-            printf("ERROR: Unable to read from file. Make sure it is in the build directory and is a *.txt file, at line: %d \n",
+            printf("❌ ERROR: Unable to read from file. Make sure it is in the build directory and is a *.txt file, at line: %d \n",
                    __LINE__);
-            printf("ERROR: Falling back to un parameterized constructor , at line: %d \n", __LINE__);
+            printf("⚠️ WARNING: Falling back to un parameterized constructor , at line: %d \n", __LINE__);
             Polynomial fileFallback;
+            throw invalid_argument("Unable to read from file");
         }
         cout << pullingArrayFromFile << "\n";
         string lineReading;
@@ -124,8 +126,9 @@ public:
             noc++;
         }
         // store the first element of the vector as size
-        if(valuesFromFile[0] < 0){
-            printf("⚠️ WARNING: Your power is less then 0. This is not allowed. The absolute value of the power will be used, at line:  %d \n",__LINE__);
+        if (valuesFromFile[0] < 0) {
+            printf("⚠️ WARNING: Your power is less then 0. This is not allowed. The absolute value of the power will be used, at line:  %d \n",
+                   __LINE__);
         }
 
         int sizeOfPoly = abs(valuesFromFile[0]);
@@ -269,11 +272,11 @@ public:
             simpleNegativeArray[i] == simpleNegativeArrayControl[i] ? detector2 = true : detector2 = false;
         }
         if (!detector2) {
-            printf("❌ FAIL: insertSortLeastToGreatest  with simple array with negative value, at line:  %d \n",
+            printf("❌ TEST FAIL: insertSortLeastToGreatest  with simple array with negative value, at line:  %d \n",
                    __LINE__);
         }
         ASSERT_TRUE(detector2);
-        printf("✅ PASS: insertSortLeastToGreatest  with simple array with negative value, at line:  %d \n", __LINE__);
+        printf("✅ TEST PASS: insertSortLeastToGreatest  with simple array with negative value, at line:  %d \n", __LINE__);
         // 3
         const int zeroSize = 1;
         int zeroArray[zeroSize] = {0};
@@ -282,24 +285,51 @@ public:
         bool detector3;
         zeroArray[0] == zeroArrayControl[0] ? detector3 = true : detector3 = false;
         if (!detector3) {
-            printf("❌ FAIL: insertSortLeastToGreatest 0 array, at line:  %d \n", __LINE__);
+            printf("❌ TEST FAIL: insertSortLeastToGreatest 0 array, at line:  %d \n", __LINE__);
         }
         ASSERT_TRUE(detector3);
-        printf("✅ PASS: insertSortLeastToGreatest 0 array, at line:  %d \n", __LINE__);
+        printf("✅ TEST PASS: insertSortLeastToGreatest 0 array, at line:  %d \n", __LINE__);
         return true;
     }
 
     void testPolynomialFileReadIn() {
         string fileThatExists = "test.txt";
         string fileThatDoesNotExist = "error.txt";
-        string incorrectFileType = "test.exe";
-
+        bool pass1 = true;
+        bool pass2 = true;
+        try {
+            Polynomial testPolynomial(fileThatExists);
+        }
+        catch (invalid_argument &e) {
+            cerr << e.what() << endl;
+            pass1 = false;
+        }
+        if(pass1){
+            printf("✅ TEST PASS: testPolynomialReadIn with expected file, at line:  %d \n", __LINE__);
+        }else{
+            printf("❌ TEST FAIL: testPolynomialReadIn with expected file, at line:  %d \n", __LINE__);
+        }
+        try {
+            Polynomial testPolynomial2(fileThatDoesNotExist);
+        }
+        catch (invalid_argument &e) {
+            cerr << e.what() << endl;
+            pass2 = false;
+        }
+        if(!pass2){
+            printf("✅ TEST PASS: testPolynomialReadIn with unexpected file, at line:  %d \n", __LINE__);
+        }else{
+            printf("❌ TEST FAIL: testPolynomialReadIn with unexpected file, at line:  %d \n", __LINE__);
+        }
     }
 
     void run() {
         cout << "Starting Test Runner... \n";
         setup();
+        cout << "\n ------------------------------------\n";
         testInsertionSort();
+        cout << "\n ------------------------------------\n";
+        testPolynomialFileReadIn();
         cleanup();
     }
 };
