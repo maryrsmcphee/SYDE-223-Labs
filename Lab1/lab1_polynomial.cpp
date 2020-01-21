@@ -112,7 +112,7 @@ public:
             printf("ERROR: Unable to read from file. Make sure it is in the build directory and is a *.txt file, at line: %d \n",
                    __LINE__);
             printf("ERROR: Falling back to un parameterized constructor , at line: %d \n", __LINE__);
-            Polynomial();
+            Polynomial fileFallback;
         }
         cout << pullingArrayFromFile << "\n";
         string lineReading;
@@ -132,7 +132,7 @@ public:
         if (isInvalidSize || hasSizeLessThanOrZero) {
             printf("ERROR: cannot have more params then your power+1, at line %d \n", __LINE__);
             printf("ERROR: Falling back to un parameterized constructor , at line: %d \n", __LINE__);
-            Polynomial();
+            Polynomial fallback;
         } else {
             Polynomial readFromFilePoly(ArrOfCoefficients, sizeOfPoly);
         }
