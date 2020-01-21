@@ -136,8 +136,8 @@ public:
         bool isInvalidSize = noc > sizeOfPoly + 1;
         bool hasSizeLessThanOrZero = sizeOfPoly <= 0;
         if (isInvalidSize || hasSizeLessThanOrZero) {
-            printf("ERROR: cannot have more params then your power+1, at line %d \n", __LINE__);
-            printf("ERROR: Falling back to un parameterized constructor , at line: %d \n", __LINE__);
+            printf("❌ ERROR: cannot have more params then your power+1, at line %d \n", __LINE__);
+            printf("⚠️ WARNING: Falling back to un parameterized constructor , at line: %d \n", __LINE__);
             Polynomial fallback;
         } else {
             Polynomial readFromFilePoly(ArrOfCoefficients, sizeOfPoly);
