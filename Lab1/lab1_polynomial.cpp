@@ -14,6 +14,7 @@
 #include <fstream>
 #include "lab1_polynomial.h"
 #include <random>
+#include <cmath>
 
 #define ASSERT_TRUE(T) if (!(T)) return false;
 #define ASSERT_FALSE(T) if ((T)) return false;
@@ -123,7 +124,12 @@ public:
             noc++;
         }
         // store the first element of the vector as size
-        int sizeOfPoly = valuesFromFile[0];
+        if(valuesFromFile[0] < 0){
+            printf("WARNING: Your power is less then 0. This is not allowed. The absolute value of the power will be used   %d \n",__LINE__);
+        }
+
+        int sizeOfPoly = abs(valuesFromFile[0]);
+
         // set array to the rest of the vector, which are the coefficients
         int *ArrOfCoefficients = &valuesFromFile[1];
         // check for errors before passing to constructor
