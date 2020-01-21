@@ -1,3 +1,12 @@
+/*******************************
+ * @author Sammy Robens-Paradise
+ * @author Mary McPhee
+ * @date Sunday Jan 20, 2020
+ * @IDE: CLion, macOS
+ * @SYDE_223: Lab 1
+ ******************************/
+
+
 #include <iostream>
 #include <cassert>
 #include <vector>
@@ -6,9 +15,13 @@
 #include "lab1_polynomial.h"
 #include <random>
 
+#define ASSERT_TRUE(T) if (!(T)) return false;
+#define ASSERT_FALSE(T) if ((T)) return false;
+
 using namespace std;
 // constants
 const string creatingPolynomialVector = "Creating polynomial vector... \n";
+const string pullingArrayFromFile = "Pulling Array from file... \n";
 // constants / error messages
 
 // sorting helpers
@@ -17,26 +30,27 @@ const string creatingPolynomialVector = "Creating polynomial vector... \n";
  * @param arrToSort
  * @param size
  */
-void insertSortGreatestToLeast(int *arrToSort, int size){
-    int j,k;
+void insertSortLeastToGreatest(int *arrToSort, int size) {
+    int j, k;
     // for each el in array...
-    for(int i = 0; i < size;  i++){
+    for (int i = 0; i < size; i++) {
         // get the value at the i'th el...
-         k = arrToSort[i];
-         // store the i'th -1 index > 0...
-         j= i;
-         /*
-          * while the i'th -1 element is greater then  0
-          * and the i'th -1 element is greater
-          * */
-        while(j > 0 && arrToSort[j+1]> k){
-            arrToSort[j+1] = arrToSort[j];
+        k = arrToSort[i];
+        // store the i'th -1 index > 0...
+        j = i - 1;
+        /*
+         * while the i'th -1 element is greater then  0
+         * and the i'th -1 element is greater then k
+         * */
+        while (j >= 0 && arrToSort[j] > k) {
+            arrToSort[j + 1] = arrToSort[j];
             j--;
         }
-        arrToSort[j+1] = k;
+        arrToSort[j + 1] = k;
     }
 
 }
+
 /**
  * Class Polynomial
  */
@@ -53,8 +67,7 @@ public:
     Polynomial(int input[], int size) {
         data.resize(size);
         cout << creatingPolynomialVector;
-        // TODO add sorting from  greatest to least
-        insertSortGreatestToLeast(input,size);
+        insertSortLeastToGreatest(input, size);
         for (int i = 0; i < size; i++) {
             data.push_back(input[i]);
         }
@@ -96,18 +109,33 @@ public:
         string filePath = "./" + fileName;
         ifstream inFile(fileName);
         if (!inFile) {
-            printf("ERROR: Unable to read from file. Make sure it is in the build directory and is a *.txt file, at line: %d \n",__LINE__);
+            printf("ERROR: Unable to read from file. Make sure it is in the build directory and is a *.txt file, at line: %d \n",
+                   __LINE__);
+            printf("ERROR: Falling back to un parameterized constructor , at line: %d \n", __LINE__);
+            Polynomial fileFallback;
         }
+        cout << pullingArrayFromFile << "\n";
         string lineReading;
         vector<int> valuesFromFile;
+        int noc = -1;
         while (getline(inFile, lineReading)) {
             valuesFromFile.push_back(stoi(lineReading));
+            noc++;
         }
         // store the first element of the vector as size
         int sizeOfPoly = valuesFromFile[0];
         // set array to the rest of the vector, which are the coefficients
         int *ArrOfCoefficients = &valuesFromFile[1];
-        Polynomial readFromFilePoly(ArrOfCoefficients, sizeOfPoly);
+        // check for errors before passing to constructor
+        bool isInvalidSize = noc > sizeOfPoly + 1;
+        bool hasSizeLessThanOrZero = sizeOfPoly <= 0;
+        if (isInvalidSize || hasSizeLessThanOrZero) {
+            printf("ERROR: cannot have more params then your power+1, at line %d \n", __LINE__);
+            printf("ERROR: Falling back to un parameterized constructor , at line: %d \n", __LINE__);
+            Polynomial fallback;
+        } else {
+            Polynomial readFromFilePoly(ArrOfCoefficients, sizeOfPoly);
+        }
     }
 
     /**
@@ -121,10 +149,10 @@ public:
      * @param {Polynomial} target
      * @return bool
      */
-    bool operator==(const Polynomial &target){
+    bool operator==(const Polynomial &target) {
         bool equals = true;
         int i = 0;
-        while(equals == true && i <= target.data.size()) {
+        while (equals == true && i <= target.data.size()) {
             if (target.data[i] == this->data[i]) {
                 i++;
             } else {
@@ -135,9 +163,9 @@ public:
     };
 
     // prints the polynomial
-    void print(){
-        for(int i = 0; i <= data.size(); i++){
-            cout << data[i] << " x ^" << i ;
+    void print() {
+        for (int i = 0; i <= data.size(); i++) {
+            cout << data[i] << " x ^" << i;
         }
     };
 
@@ -147,9 +175,9 @@ public:
      * @param target
      * @return Polynomial of addedPolys
      */
-    Polynomial operator+(const Polynomial &target){
+    Polynomial operator+(const Polynomial &target) {
         int addedPolys[target.data.size()];
-        for(int i = 0; i <= target.data.size(); i++){
+        for (int i = 0; i <= target.data.size(); i++) {
             addedPolys[i] = target.data[i] + this->data[i];
         }
         return Polynomial(addedPolys, target.data.size());
@@ -161,9 +189,9 @@ public:
      * @param target
      * @return Polynomial of subtractedPolys
      */
-    Polynomial operator-(const Polynomial& target){
+    Polynomial operator-(const Polynomial &target) {
         int subtractedPolys[target.data.size()];
-        for(int i = 0; i <= target.data.size(); i++){
+        for (int i = 0; i <= target.data.size(); i++) {
             subtractedPolys[i] = this->data[i] - target.data[i];
         }
         return Polynomial(subtractedPolys, target.data.size());
@@ -175,9 +203,9 @@ public:
      * @param target
      * @return Polynomial of multipliedPolys
      */
-    Polynomial operator*(const Polynomial& target){
+    Polynomial operator*(const Polynomial &target) {
         int multipliedPolys[target.data.size()];
-        for(int i = 0; i <= target.data.size(); i++){
+        for (int i = 0; i <= target.data.size(); i++) {
             multipliedPolys[i] = this->data[i] * target.data[i];
         }
         return Polynomial(multipliedPolys, target.data.size());
@@ -188,40 +216,95 @@ public:
      * computes derivative of poly
      * returns new Polynomial of derivedPoly
      */
-    Polynomial derivative(){
+    Polynomial derivative() {
         int derivedPoly[data.size() - 1];
-        for(int i = 0; i < data.size() - 1; i++){
+        for (int i = 0; i < data.size() - 1; i++) {
             // TODO take another look at this?
-            derivedPoly[i] = data[i+1] * data[i+1];
+            derivedPoly[i] = data[i + 1] * data[i + 1];
         }
         return Polynomial(derivedPoly, data.size() - 1);
     };
 };
 
 class PolynomialTest {
+    friend class Polynomial;
+
 public:
-    bool test_constructors1() {
+
+    void setup() {
+
+    };
+
+    void cleanup() {
+
+    };
+
+    bool testInsertionSort() {
+        // 1
+        const int size = 10;
+        int simpleArray[size] = {1, 6, 7, 9, 4, 7, 5, 1, 8, 4};
+        int simpleArrayControl[size] = {1, 1, 4, 4, 5, 6, 7, 7, 8, 9};
+        insertSortLeastToGreatest(simpleArray, size);
+        bool detector = true;
+        for (int i = 0; i < size; i++) {
+            simpleArray[i] == simpleArrayControl[i] ? detector = true : detector = false;
+        }
+        if (!detector) {
+            printf("❌ FAIL: insertSortLeastToGreatest  with simple array, at line:  %d \n", __LINE__);
+        }
+        ASSERT_TRUE(detector);
+        printf("✅ PASS: insertSortLeastToGreatest  with simple array, at line:  %d \n", __LINE__);
+        // 2
+        int simpleNegativeArray[size] = {1, 6, 7, 9, 4, 7, 5, 1, 8, -4};
+        int simpleNegativeArrayControl[size] = {-4, 1, 1, 4, 5, 6, 7, 7, 8, 9};
+        insertSortLeastToGreatest(simpleNegativeArray, size);
+        bool detector2 = true;
+        for (int i = 0; i < size; i++) {
+            simpleNegativeArray[i] == simpleNegativeArrayControl[i] ? detector2 = true : detector2 = false;
+        }
+        if (!detector2) {
+            printf("❌ FAIL: insertSortLeastToGreatest  with simple array with negative value, at line:  %d \n",
+                   __LINE__);
+        }
+        ASSERT_TRUE(detector2);
+        printf("✅ PASS: insertSortLeastToGreatest  with simple array with negative value, at line:  %d \n", __LINE__);
+        // 3
+        const int zeroSize = 1;
+        int zeroArray[zeroSize] = {0};
+        int zeroArrayControl[zeroSize] = {0};
+        insertSortLeastToGreatest(zeroArray, zeroSize);
+        bool detector3;
+        zeroArray[0] == zeroArrayControl[0] ? detector3 = true : detector3 = false;
+        if (!detector3) {
+            printf("❌ FAIL: insertSortLeastToGreatest 0 array, at line:  %d \n", __LINE__);
+        }
+        ASSERT_TRUE(detector3);
+        printf("✅ PASS: insertSortLeastToGreatest 0 array, at line:  %d \n", __LINE__);
         return true;
     }
 
+    void testPolynomialFileReadIn() {
+        string fileThatExists = "test.txt";
+        string fileThatDoesNotExist = "error.txt";
+        string incorrectFileType = "test.exe";
+
+    }
+
     void run() {
-        if (test_constructors1()) {
-            printf("PASS: Test Constructor1, at line:  %d \n",__LINE__);
-
-        } else {
-            printf("FAIL: Test Constructor1, at line:  %d \n",__LINE__);
-
-        }
+        cout << "Starting Test Runner... \n";
+        setup();
+        testInsertionSort();
+        cleanup();
     }
 };
+
 /**
  * Main function
  * @return int
  */
 int main() {
+    Polynomial test("test.txt");
     PolynomialTest my_test;
     my_test.run();
-    Polynomial test("test.txt");
-
     return 0;
 }
