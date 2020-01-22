@@ -276,7 +276,8 @@ public:
                    __LINE__);
         }
         ASSERT_TRUE(detector2);
-        printf("✅ TEST PASS: insertSortLeastToGreatest  with simple array with negative value, at line:  %d \n", __LINE__);
+        printf("✅ TEST PASS: insertSortLeastToGreatest  with simple array with negative value, at line:  %d \n",
+               __LINE__);
         // 3
         const int zeroSize = 1;
         int zeroArray[zeroSize] = {0};
@@ -295,8 +296,10 @@ public:
     void testPolynomialFileReadIn() {
         string fileThatExists = "test.txt";
         string fileThatDoesNotExist = "error.txt";
+        string invalidFile = "text-invalid.txt";
         bool pass1 = true;
         bool pass2 = true;
+        bool pass3 = true;
         try {
             Polynomial testPolynomial(fileThatExists);
         }
@@ -304,11 +307,9 @@ public:
             cerr << e.what() << endl;
             pass1 = false;
         }
-        if(pass1){
-            printf("✅ TEST PASS: testPolynomialReadIn with expected file, at line:  %d \n", __LINE__);
-        }else{
-            printf("❌ TEST FAIL: testPolynomialReadIn with expected file, at line:  %d \n", __LINE__);
-        }
+        pass1 ? printf("✅ TEST PASS: testPolynomialReadIn with expected file, at line:  %d \n", __LINE__)
+              : printf("❌ TEST FAIL: testPolynomialReadIn with expected file, at line:  %d \n", __LINE__);
+
         try {
             Polynomial testPolynomial2(fileThatDoesNotExist);
         }
@@ -316,11 +317,18 @@ public:
             cerr << e.what() << endl;
             pass2 = false;
         }
-        if(!pass2){
-            printf("✅ TEST PASS: testPolynomialReadIn with unexpected file, at line:  %d \n", __LINE__);
-        }else{
-            printf("❌ TEST FAIL: testPolynomialReadIn with unexpected file, at line:  %d \n", __LINE__);
+        !pass2 ? printf("✅ TEST PASS: testPolynomialReadIn with unexpected file, at line:  %d \n", __LINE__)
+               : printf("❌ TEST FAIL: testPolynomialReadIn with unexpected file, at line:  %d \n", __LINE__);
+
+        try {
+            Polynomial testPolynomial3(invalidFile);
         }
+        catch (invalid_argument &e) {
+            cerr << e.what() << endl;
+            pass3 = false;
+        }
+        !pass3 ? printf("✅ TEST PASS: testPolynomialReadIn with invalid file, at line:  %d \n", __LINE__)
+               : printf("❌ TEST FAIL: testPolynomialReadIn with invalid file, at line:  %d \n", __LINE__);
     }
 
     void run() {
@@ -339,8 +347,8 @@ public:
  * @return int
  */
 int main() {
-    Polynomial test("test.txt");
     PolynomialTest my_test;
     my_test.run();
+    cout << __LINE__ << endl;
     return 0;
 }
