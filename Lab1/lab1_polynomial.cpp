@@ -25,6 +25,8 @@ using namespace std;
 // constants
 const string creatingPolynomialVector = "Creating polynomial vector... \n";
 const string pullingArrayFromFile = "Pulling Array from file... \n";
+//globals
+bool GLOBAL_NEGATIVE_VALUE_ERROR = false;
 // constants / error messages
 
 // sorting helpers
@@ -129,6 +131,7 @@ public:
         if (valuesFromFile[0] < 0) {
             printf("⚠️ WARNING: Your power is less then 0. This is not allowed. The absolute value of the power will be used, at line:  %d \n",
                    __LINE__);
+            GLOBAL_NEGATIVE_VALUE_ERROR = true;
         }
 
         int sizeOfPoly = abs(valuesFromFile[0]);
@@ -142,6 +145,7 @@ public:
             printf("❌ ERROR: cannot have more params then your power+1, at line %d \n", __LINE__);
             printf("⚠️ WARNING: Falling back to un parameterized constructor , at line: %d \n", __LINE__);
             Polynomial fallback;
+            throw invalid_argument("Invalid Polynomial Configuration");
         } else {
             Polynomial readFromFilePoly(ArrOfCoefficients, sizeOfPoly);
         }
