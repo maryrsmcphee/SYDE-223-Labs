@@ -65,8 +65,7 @@ void insertSortLeastToGreatest(int *arrToSort, int size) {
  * @param {int array} input
  * @param {int} size
  */
-Polynomial::Polynomial(int input[], int size) { 
-    insertSortLeastToGreatest(input, size);
+Polynomial::Polynomial(int input[], int size) {
     for (int i = 0; i < size; i++) {
         data.push_back(input[i]);
     }
