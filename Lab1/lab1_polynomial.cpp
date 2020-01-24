@@ -245,6 +245,7 @@ Polynomial Polynomial::operator-(const Polynomial &target) {
  * @return Polynomial of multipliedPolys
  */
 Polynomial Polynomial::operator*(const Polynomial &target) {
+    // TODO check logic of this - math might be wrong?
     Polynomial multipliedPolys;
     if(target.data.size() >= this->data.size()){
         multipliedPolys.data.resize(target.data.size());
@@ -266,12 +267,12 @@ Polynomial Polynomial::operator*(const Polynomial &target) {
  * returns new Polynomial of derivedPoly
  */
 Polynomial Polynomial::derivative() {
-    int derivedPoly[data.size() - 1];
+    Polynomial derivedPoly;
+    derivedPoly.data.resize(data.size() - 1);
     for (int i = 0; i < data.size() - 1; i++) {
-        // TODO take another look at this? -- should be ok, was a syntax error fixed in deleted PR
         derivedPoly[i] = data[i + 1] * (i + 1);
     }
-    return Polynomial(derivedPoly, data.size() - 1);
+    return derivedPoly;
 };
 
 
