@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/Users/sammyrobens-paradise/CLionProjects/SYDE-223-Labs/Lab1/lab1_polynomial.cpp
+/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab1/lab1_polynomial.cpp
 iostream
 -
 cassert
@@ -18,7 +18,7 @@ string
 fstream
 -
 lab1_polynomial.h
-/Users/sammyrobens-paradise/CLionProjects/SYDE-223-Labs/Lab1/lab1_polynomial.h
+/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab1/lab1_polynomial.h
 random
 -
 cmath
@@ -28,5 +28,5 @@ stdexcept
 limits
 -
 
-/Users/sammyrobens-paradise/CLionProjects/SYDE-223-Labs/Lab1/lab1_polynomial.h
+/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab1/lab1_polynomial.h
 
