@@ -301,9 +301,11 @@ public:
         string fileThatExists = "test.txt";
         string fileThatDoesNotExist = "error.txt";
         string invalidFile = "text-invalid.txt";
+        string negativeValFile = "negative-invalid.txt";
         bool pass1 = true;
         bool pass2 = true;
         bool pass3 = true;
+        bool pass4 = true;
         try {
             Polynomial testPolynomial(fileThatExists);
         }
@@ -333,6 +335,12 @@ public:
         }
         !pass3 ? printf("✅ TEST PASS: testPolynomialReadIn with invalid file, at line:  %d \n", __LINE__)
                : printf("❌ TEST FAIL: testPolynomialReadIn with invalid file, at line:  %d \n", __LINE__);
+        Polynomial testPolynomial4(negativeValFile);
+
+        GLOBAL_NEGATIVE_VALUE_ERROR ? printf(
+                "✅ TEST PASS: testPolynomialReadIn with invalid negative value, at line:  %d \n", __LINE__)
+                                    : printf(
+                "❌ TEST FAIL: testPolynomialReadIn with invalid negative value, at line:  %d \n", __LINE__);
     }
 
     void run() {
@@ -353,6 +361,5 @@ public:
 int main() {
     PolynomialTest my_test;
     my_test.run();
-    cout << __LINE__ << endl;
     return 0;
 }
