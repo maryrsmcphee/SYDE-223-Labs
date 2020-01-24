@@ -341,6 +341,7 @@ public:
                 "✅ TEST PASS: testPolynomialReadIn with invalid negative value, at line:  %d \n", __LINE__)
                                     : printf(
                 "❌ TEST FAIL: testPolynomialReadIn with invalid negative value, at line:  %d \n", __LINE__);
+        GLOBAL_NEGATIVE_VALUE_ERROR ? GLOBAL_NEGATIVE_VALUE_ERROR = false : GLOBAL_NEGATIVE_VALUE_ERROR = true;
     }
 
     void run() {
@@ -350,6 +351,7 @@ public:
         testInsertionSort();
         cout << "\n ------------------------------------\n";
         testPolynomialFileReadIn();
+        cout << "\n ------------------------------------\n";
         cleanup();
     }
 };
