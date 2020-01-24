@@ -14,23 +14,22 @@
 #include <fstream>
 #include "lab1_polynomial.h"
 #include <random>
-#include <cmath>
 #include <stdexcept>
-#include <limits>
 
 #define ASSERT_TRUE(T) if (!(T)) return false;
 #define ASSERT_FALSE(T) if ((T)) return false;
 
 using namespace std;
 // constants
-const string creatingPolynomialVector = "Creating polynomial vector... \n";
 const string pullingArrayFromFile = "Pulling Array from file... \n";
 //globals
 bool GLOBAL_NEGATIVE_VALUE_ERROR = false;
+int GLOBAL_COMPARISON_ERROR = 400;
 // constants / error messages
 
 // sorting helpers
 /**
+ * Has Test cases ? {true}
  * void
  * @param arrToSort
  * @param size
@@ -66,12 +65,12 @@ void insertSortLeastToGreatest(int *arrToSort, int size) {
  * @param {int array} input
  * @param {int} size
  */
-Polynomial::Polynomial(int input[], int size) {
-    data.resize(size);
+Polynomial::Polynomial(int input[], int size) { 
     insertSortLeastToGreatest(input, size);
     for (int i = 0; i < size; i++) {
         data.push_back(input[i]);
     }
+    data.resize(size);
 }
 
 /**
@@ -170,6 +169,13 @@ bool Polynomial::operator==(const Polynomial &target) {
     return equals;
 };
 
+vector<int> Polynomial::get_data(){
+    return data;
+}
+    
+    /**
+     * default class destructor
+     */
 // prints the polynomial
 void Polynomial::print() {
     for (int i = 0; i <= data.size(); i++) {
@@ -288,51 +294,80 @@ bool PolynomialTest::testInsertionSort() {
     return true;
 }
 
-void PolynomialTest::testPolynomialFileReadIn() {
-    string fileThatExists = "test.txt";
-    string fileThatDoesNotExist = "error.txt";
-    string invalidFile = "text-invalid.txt";
-    string negativeValFile = "negative-invalid.txt";
-    bool pass1 = true;
-    bool pass2 = true;
-    bool pass3 = true;
-    bool pass4 = true;
-    try {
-        Polynomial testPolynomial(fileThatExists);
-    }
-    catch (invalid_argument &e) {
-        cerr << e.what() << endl;
-        pass1 = false;
-    }
-    pass1 ? printf("✅ TEST PASS: testPolynomialReadIn with expected file, at line:  %d \n", __LINE__)
-            : printf("❌ TEST FAIL: testPolynomialReadIn with expected file, at line:  %d \n", __LINE__);
+bool PolynomialTest::testPolynomialFileReadIn() {
+        string fileThatExists = "test.txt";
+        string fileThatDoesNotExist = "error.txt";
+        string invalidFile = "text-invalid.txt";
+        string negativeValFile = "negative-invalid.txt";
+        bool pass1 = true;
+        bool pass2 = true;
+        bool pass3 = true;
+        bool pass4 = true;
+        try {
+            Polynomial testPolynomial(fileThatExists);
+        }
+        catch (invalid_argument &e) {
+            cerr << e.what() << endl;
+            pass1 = false;
+        }
+        pass1 ? printf("✅ TEST PASS: testPolynomialReadIn with expected file, at line:  %d \n", __LINE__)
+              : printf("❌ TEST FAIL: testPolynomialReadIn with expected file, at line:  %d \n", __LINE__);
 
-    try {
-        Polynomial testPolynomial2(fileThatDoesNotExist);
-    }
-    catch (invalid_argument &e) {
-        cerr << e.what() << endl;
-        pass2 = false;
-    }
-    !pass2 ? printf("✅ TEST PASS: testPolynomialReadIn with unexpected file, at line:  %d \n", __LINE__)
-            : printf("❌ TEST FAIL: testPolynomialReadIn with unexpected file, at line:  %d \n", __LINE__);
+        try {
+            Polynomial testPolynomial2(fileThatDoesNotExist);
+        }
+        catch (invalid_argument &e) {
+            cerr << e.what() << endl;
+            pass2 = false;
+        }
+        !pass2 ? printf("✅ TEST PASS: testPolynomialReadIn with unexpected file, at line:  %d \n", __LINE__)
+               : printf("❌ TEST FAIL: testPolynomialReadIn with unexpected file, at line:  %d \n", __LINE__);
 
-    try {
-        Polynomial testPolynomial3(invalidFile);
-    }
-    catch (invalid_argument &e) {
-        cerr << e.what() << endl;
-        pass3 = false;
-    }
-    !pass3 ? printf("✅ TEST PASS: testPolynomialReadIn with invalid file, at line:  %d \n", __LINE__)
-            : printf("❌ TEST FAIL: testPolynomialReadIn with invalid file, at line:  %d \n", __LINE__);
-    Polynomial testPolynomial4(negativeValFile);
+        try {
+            Polynomial testPolynomial3(invalidFile);
+        }
+        catch (invalid_argument &e) {
+            cerr << e.what() << endl;
+            pass3 = false;
+        }
+        !pass3 ? printf("✅ TEST PASS: testPolynomialReadIn with invalid file, at line:  %d \n", __LINE__)
+               : printf("❌ TEST FAIL: testPolynomialReadIn with invalid file, at line:  %d \n", __LINE__);
+        Polynomial testPolynomial4(negativeValFile);
 
-    GLOBAL_NEGATIVE_VALUE_ERROR ? printf(
-            "✅ TEST PASS: testPolynomialReadIn with invalid negative value, at line:  %d \n", __LINE__)
-                                : printf(
-            "❌ TEST FAIL: testPolynomialReadIn with invalid negative value, at line:  %d \n", __LINE__);
-}
+        GLOBAL_NEGATIVE_VALUE_ERROR ? printf(
+                "✅ TEST PASS: testPolynomialReadIn with invalid negative value, at line:  %d \n", __LINE__)
+                                    : printf(
+                "❌ TEST FAIL: testPolynomialReadIn with invalid negative value, at line:  %d \n", __LINE__);
+        GLOBAL_NEGATIVE_VALUE_ERROR ? GLOBAL_NEGATIVE_VALUE_ERROR = false : GLOBAL_NEGATIVE_VALUE_ERROR = true;
+        return true;
+    }
+    // TODO create polynomial test class for creating polynomial
+    bool PolynomialTest::testPolynomialCreation(){
+        const int size  = 10;
+        bool pass4 = true;
+        int testArr1[size] = {1,2,4,5,6,7,7,8,8,9};
+        vector<int> testVec1 = {1,2,4,5,6,7,7,8,8,9};
+         Polynomial testPolynomialCreation(testArr1,size);
+         vector<int> retrievedData = testPolynomialCreation.get_data();
+         retrievedData.resize(size);
+         testVec1.resize(size);
+         try {
+             for (int i = 0; i < retrievedData.size(); i++) {
+                 if(!(retrievedData[i] == testVec1[i])){
+                    throw bad_function_call();
+                 }
+             }
+         }
+         catch(bad_function_call &e){
+             cerr << e.what() <<endl;
+             pass4 = false;
+         }
+         pass4 ? printf(
+                 "✅ TEST PASS: testPolynomialCreation Polynomial constructor with valid comparison, at line:  %d \n", __LINE__)
+                : printf(
+                 "❌ TEST FAIL: testPolynomialReadIn Polynomial constructor with invalid comparison, at line:  %d \n", __LINE__);
+    }
+
 
 void PolynomialTest::run() {
     cout << "Starting Test Runner... \n";
@@ -341,6 +376,8 @@ void PolynomialTest::run() {
     testInsertionSort();
     cout << "\n ------------------------------------\n";
     testPolynomialFileReadIn();
+    cout << "\n ------------------------------------\n";
+    testPolynomialCreation();
     cleanup();
 }
 

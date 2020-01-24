@@ -20,9 +20,10 @@ public:
     Polynomial();
     Polynomial(string fileName);
     ~Polynomial();
-
+    vector<int> get_data();
     bool operator==(const Polynomial &target);
     void print();
+
     Polynomial operator+(const Polynomial &target);
     Polynomial operator-(const Polynomial &target);
     Polynomial operator*(const Polynomial &target);
@@ -36,6 +37,7 @@ public:
     void setup();
     void cleanup();
     bool testInsertionSort();
-    void testPolynomialFileReadIn();
+    bool testPolynomialFileReadIn();
+    bool testPolynomialCreation();
     void run();
 };
