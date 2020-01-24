@@ -245,12 +245,20 @@ Polynomial Polynomial::operator-(const Polynomial &target) {
  * @return Polynomial of multipliedPolys
  */
 Polynomial Polynomial::operator*(const Polynomial &target) {
-    int multipliedPolys[target.data.size()];
-    for (int i = 0; i <= target.data.size(); i++) {
-        multipliedPolys[i] = this->data[i] * target.data[i];
+    Polynomial multipliedPolys;
+    if(target.data.size() >= this->data.size()){
+        multipliedPolys.data.resize(target.data.size());
+    } else {
+        multipliedPolys.data.resize(this->data.size());
     }
-    return Polynomial(multipliedPolys, target.data.size());
-};
+
+    for(int i = 0; i <= data.size(); i++){
+        for(int j = 0; j <= target.data.size(); j++) {
+            multipliedPolys.data[i + j] = multipliedPolys.data[i + j] + this->data[i]*target.data[i];
+        }
+    }
+    return multipliedPolys;
+}
 
 // computes the derivative d/dx of *this
 /**
