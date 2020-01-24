@@ -14,23 +14,22 @@
 #include <fstream>
 #include "lab1_polynomial.h"
 #include <random>
-#include <cmath>
 #include <stdexcept>
-#include <limits>
 
 #define ASSERT_TRUE(T) if (!(T)) return false;
 #define ASSERT_FALSE(T) if ((T)) return false;
 
 using namespace std;
 // constants
-const string creatingPolynomialVector = "Creating polynomial vector... \n";
 const string pullingArrayFromFile = "Pulling Array from file... \n";
 //globals
 bool GLOBAL_NEGATIVE_VALUE_ERROR = false;
+int GLOBAL_COMPARISON_ERROR = 400;
 // constants / error messages
 
 // sorting helpers
 /**
+ * Has Test cases ? {true}
  * void
  * @param arrToSort
  * @param size
@@ -64,20 +63,21 @@ private:
     vector<int> data;
 public:
     /**
+     * has test cases ? {true}
      * Polynomial class constructor
      * expecting:
      * @param {int array} input
      * @param {int} size
      */
     Polynomial(int input[], int size) {
-        data.resize(size);
         insertSortLeastToGreatest(input, size);
         for (int i = 0; i < size; i++) {
             data.push_back(input[i]);
         }
+        data.resize(size);
     }
-
     /**
+     * TODO generate test cases for this function
      * Generates a random polynomial of a random degree and then passes
      * it to the polynomial constructor
      */
@@ -105,6 +105,7 @@ public:
     }
 
     /**
+     * has test cases? {true}
      * Polynomial class constructor
      * takes filename and extracts text from file.
      * @param {string} fileName
@@ -113,9 +114,9 @@ public:
         string filePath = "./" + fileName;
         ifstream inFile(fileName);
         if (!inFile) {
-            printf("❌ ERROR: Unable to read from file. Make sure it is in the build directory and is a *.txt file, at line: %d \n",
+            printf("      ⚠️ ERROR: Unable to read from file. Make sure it is in the build directory and is a *.txt file, at line: %d \n",
                    __LINE__);
-            printf("⚠️ WARNING: Falling back to un parameterized constructor , at line: %d \n", __LINE__);
+            printf("      ⚠️ WARNING: Falling back to un parameterized constructor , at line: %d \n", __LINE__);
             Polynomial fileFallback;
             throw invalid_argument("Unable to read from file");
         }
@@ -129,7 +130,7 @@ public:
         }
         // store the first element of the vector as size
         if (valuesFromFile[0] < 0) {
-            printf("⚠️ WARNING: Your power is less then 0. This is not allowed. The absolute value of the power will be used, at line:  %d \n",
+            printf("      ⚠️ WARNING: Your power is less then 0. This is not allowed. The absolute value of the power will be used, at line:  %d \n",
                    __LINE__);
             GLOBAL_NEGATIVE_VALUE_ERROR = true;
         }
@@ -142,8 +143,8 @@ public:
         bool isInvalidSize = noc > sizeOfPoly + 1;
         bool hasSizeLessThanOrZero = sizeOfPoly <= 0;
         if (isInvalidSize || hasSizeLessThanOrZero) {
-            printf("❌ ERROR: cannot have more params then your power+1, at line %d \n", __LINE__);
-            printf("⚠️ WARNING: Falling back to un parameterized constructor , at line: %d \n", __LINE__);
+            printf("      ⚠️ ERROR: cannot have more params then your power+1, at line %d \n", __LINE__);
+            printf("      ⚠️ WARNING: Falling back to un parameterized constructor , at line: %d \n", __LINE__);
             Polynomial fallback;
             throw invalid_argument("Invalid Polynomial Configuration");
         } else {
@@ -151,14 +152,17 @@ public:
         }
     }
 
+    vector<int> get_data(){
+        return data;
+    }
     /**
      * default class destructor
      */
     ~Polynomial() {
     }
 
-    // performs *this == target
     /**
+     * performs *this == target
      * @param {Polynomial} target
      * @return bool
      */
@@ -297,7 +301,7 @@ public:
         return true;
     }
 
-    void testPolynomialFileReadIn() {
+    bool testPolynomialFileReadIn() {
         string fileThatExists = "test.txt";
         string fileThatDoesNotExist = "error.txt";
         string invalidFile = "text-invalid.txt";
@@ -342,6 +346,33 @@ public:
                                     : printf(
                 "❌ TEST FAIL: testPolynomialReadIn with invalid negative value, at line:  %d \n", __LINE__);
         GLOBAL_NEGATIVE_VALUE_ERROR ? GLOBAL_NEGATIVE_VALUE_ERROR = false : GLOBAL_NEGATIVE_VALUE_ERROR = true;
+        return true;
+    }
+    // TODO create polynomial test class for creating polynomial
+    bool testPolynomialCreation(){
+        const int size  = 10;
+        bool pass4 = true;
+        int testArr1[size] = {1,2,4,5,6,7,7,8,8,9};
+        vector<int> testVec1 = {1,2,4,5,6,7,7,8,8,9};
+         Polynomial testPolynomialCreation(testArr1,size);
+         vector<int> retrievedData = testPolynomialCreation.get_data();
+         retrievedData.resize(size);
+         testVec1.resize(size);
+         try {
+             for (int i = 0; i < retrievedData.size(); i++) {
+                 if(!(retrievedData[i] == testVec1[i])){
+                    throw bad_function_call();
+                 }
+             }
+         }
+         catch(bad_function_call &e){
+             cerr << e.what() <<endl;
+             pass4 = false;
+         }
+         pass4 ? printf(
+                 "✅ TEST PASS: testPolynomialCreation Polynomial constructor with valid comparison, at line:  %d \n", __LINE__)
+                : printf(
+                 "❌ TEST FAIL: testPolynomialReadIn Polynomial constructor with invalid comparison, at line:  %d \n", __LINE__);
     }
 
     void run() {
@@ -352,6 +383,9 @@ public:
         cout << "\n ------------------------------------\n";
         testPolynomialFileReadIn();
         cout << "\n ------------------------------------\n";
+        testPolynomialCreation();
+        cout << "\n ------------------------------------\n";
+        cout<< "Done  \n";
         cleanup();
     }
 };
