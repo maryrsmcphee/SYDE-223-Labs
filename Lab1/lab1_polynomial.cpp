@@ -118,7 +118,9 @@ Polynomial::Polynomial(string fileName) {
         Polynomial readFromFilePoly(ArrOfCoefficients, sizeOfPoly);
     }
 }
-
+/**
+ * @destructor
+ */
 Polynomial::~Polynomial(){
 
 };
