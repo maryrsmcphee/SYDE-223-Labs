@@ -346,14 +346,14 @@ bool PolynomialTest::testPolynomialRandomOutput(){
 }
 
 bool PolynomialTest::testEquivalence() {
-    cout << "running... \n";
+    cout << "running testEquivalence... \n";
     ASSERT_TRUE(PolynomialInstance1 == PolynomialInstance2);
-    cout << "Passed comparison of equal objects\n";
+    printf("Passed comparison of equal objects\n");
     ASSERT_FALSE(PolynomialInstance1 == PolynomialInstance3);
-    cout << "Passed comparison of unequal objects of the same size\n";
+    printf("Passed comparison of unequal objects of the same size\n");
     ASSERT_FALSE(PolynomialInstance1 == PolynomialInstance5);
-    cout << "Passed comparison of unequal objects of different sizes\n";
-    cout << "TEST PASS: testEquivalence\n";
+    printf("Passed comparison of unequal objects of different sizes\n");
+    printf("✅ TEST PASS: testEquivalence\n");
 }
 
 void PolynomialTest::run() {
