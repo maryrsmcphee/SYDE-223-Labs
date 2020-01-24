@@ -27,33 +27,6 @@ bool GLOBAL_NEGATIVE_VALUE_ERROR = false;
 int GLOBAL_COMPARISON_ERROR = 400;
 // constants / error messages
 
-// sorting helpers
-/**
- * Has Test cases ? {true}
- * void
- * @param arrToSort
- * @param size
- */
-void insertSortLeastToGreatest(int *arrToSort, int size) {
-    int j, k;
-    // for each el in array...
-    for (int i = 0; i < size; i++) {
-        // get the value at the i'th el...
-        k = arrToSort[i];
-        // store the i'th -1 index > 0...
-        j = i - 1;
-        /*
-         * while the i'th -1 element is greater then  0
-         * and the i'th -1 element is greater then k
-         * */
-        while (j >= 0 && arrToSort[j] > k) {
-            arrToSort[j + 1] = arrToSort[j];
-            j--;
-        }
-        arrToSort[j + 1] = k;
-    }
-
-}
 
 /**
  * Class Polynomial
@@ -262,8 +235,8 @@ Polynomial Polynomial::operator*(const Polynomial &target) {
 
 // computes the derivative d/dx of *this
 /**
- * computes derivative of poly
- * returns new Polynomial of derivedPoly
+ * @computes derivative of poly
+ * @return new Polynomial of derivedPoly
  */
 Polynomial Polynomial::derivative() {
     int derivedPoly[data.size() - 1];
@@ -283,50 +256,6 @@ void PolynomialTest::cleanup() {
 
 };
 
-bool PolynomialTest::testInsertionSort() {
-    // 1
-    const int size = 10;
-    int simpleArray[size] = {1, 6, 7, 9, 4, 7, 5, 1, 8, 4};
-    int simpleArrayControl[size] = {1, 1, 4, 4, 5, 6, 7, 7, 8, 9};
-    insertSortLeastToGreatest(simpleArray, size);
-    bool detector = true;
-    for (int i = 0; i < size; i++) {
-        simpleArray[i] == simpleArrayControl[i] ? detector = true : detector = false;
-    }
-    if (!detector) {
-        printf("❌ FAIL: insertSortLeastToGreatest  with simple array, at line:  %d \n", __LINE__);
-    }
-    ASSERT_TRUE(detector);
-    printf("✅ PASS: insertSortLeastToGreatest  with simple array, at line:  %d \n", __LINE__);
-    // 2
-    int simpleNegativeArray[size] = {1, 6, 7, 9, 4, 7, 5, 1, 8, -4};
-    int simpleNegativeArrayControl[size] = {-4, 1, 1, 4, 5, 6, 7, 7, 8, 9};
-    insertSortLeastToGreatest(simpleNegativeArray, size);
-    bool detector2 = true;
-    for (int i = 0; i < size; i++) {
-        simpleNegativeArray[i] == simpleNegativeArrayControl[i] ? detector2 = true : detector2 = false;
-    }
-    if (!detector2) {
-        printf("❌ TEST FAIL: insertSortLeastToGreatest  with simple array with negative value, at line:  %d \n",
-               __LINE__);
-    }
-    ASSERT_TRUE(detector2);
-    printf("✅ TEST PASS: insertSortLeastToGreatest  with simple array with negative value, at line:  %d \n",
-           __LINE__);
-    // 3
-    const int zeroSize = 1;
-    int zeroArray[zeroSize] = {0};
-    int zeroArrayControl[zeroSize] = {0};
-    insertSortLeastToGreatest(zeroArray, zeroSize);
-    bool detector3;
-    zeroArray[0] == zeroArrayControl[0] ? detector3 = true : detector3 = false;
-    if (!detector3) {
-        printf("❌ TEST FAIL: insertSortLeastToGreatest 0 array, at line:  %d \n", __LINE__);
-    }
-    ASSERT_TRUE(detector3);
-    printf("✅ TEST PASS: insertSortLeastToGreatest 0 array, at line:  %d \n", __LINE__);
-    return true;
-}
 
 bool PolynomialTest::testPolynomialFileReadIn() {
     string fileThatExists = "test.txt";
@@ -336,7 +265,6 @@ bool PolynomialTest::testPolynomialFileReadIn() {
     bool pass1 = true;
     bool pass2 = true;
     bool pass3 = true;
-    bool pass4 = true;
     try {
         Polynomial testPolynomial(fileThatExists);
     }
@@ -375,10 +303,11 @@ bool PolynomialTest::testPolynomialFileReadIn() {
     GLOBAL_NEGATIVE_VALUE_ERROR ? GLOBAL_NEGATIVE_VALUE_ERROR = false : GLOBAL_NEGATIVE_VALUE_ERROR = true;
     return true;
 }
-// TODO create polynomial test class for creating polynomial
+
 bool PolynomialTest::testPolynomialCreation(){
     const int size  = 10;
     bool pass4 = true;
+    bool pass5 = true;
     int testArr1[size] = {1,2,4,5,6,7,7,8,8,9};
     vector<int> testVec1 = {1,2,4,5,6,7,7,8,8,9};
      Polynomial testPolynomialCreation(testArr1,size);
@@ -400,14 +329,13 @@ bool PolynomialTest::testPolynomialCreation(){
              "✅ TEST PASS: testPolynomialCreation Polynomial constructor with valid comparison, at line:  %d \n", __LINE__)
             : printf(
              "❌ TEST FAIL: testPolynomialReadIn Polynomial constructor with invalid comparison, at line:  %d \n", __LINE__);
+
 }
 
 
 void PolynomialTest::run() {
     cout << "Starting Test Runner... \n";
     setup();
-    cout << "\n ------------------------------------\n";
-    testInsertionSort();
     cout << "\n ------------------------------------\n";
     testPolynomialFileReadIn();
     cout << "\n ------------------------------------\n";

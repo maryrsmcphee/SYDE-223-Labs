@@ -9,8 +9,6 @@
 
 using namespace std;
 
-void insertSortLeastToGreatest(int *arrToSort, int size);
-
 class Polynomial{
 private:
     vector<int> data;
@@ -36,7 +34,6 @@ public:
 
     void setup();
     void cleanup();
-    bool testInsertionSort();
     bool testPolynomialFileReadIn();
     bool testPolynomialCreation();
     void run();
