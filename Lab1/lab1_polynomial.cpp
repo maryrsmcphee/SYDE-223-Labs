@@ -249,7 +249,16 @@ Polynomial Polynomial::derivative() {
 
 
 void PolynomialTest::setup() {
-
+    int polyArray1[] = {1, 2, 3, 4, 5};
+    PolynomialInstance1 = Polynomial(polyArray1, 5);
+    int polyArray2[] = {1, 2, 3, 4, 5};
+    PolynomialInstance2 = Polynomial(polyArray2, 5);
+    int polyArray3[] = {5, 4, 3, 2, 1};
+    PolynomialInstance3 = Polynomial(polyArray3, 5);
+    int polyArray4[] = {7, 6, 5, 4, 3, 2, 1};
+    PolynomialInstance4 = Polynomial(polyArray4, 7);
+    int polyArray5[] = {1, 2, 3, 4, 5, 6, 7};
+    PolynomialInstance5 = Polynomial(polyArray5, 7);
 };
 
 void PolynomialTest::cleanup() {
