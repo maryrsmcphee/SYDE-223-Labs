@@ -81,7 +81,7 @@ Polynomial::Polynomial(string fileName) {
     string filePath = "./" + fileName;
     ifstream inFile(fileName);
     if (!inFile) {
-        printf("❌ ERROR: Unable to read from file. Make sure it is in the build directory and is a *.txt file, at line: %d \n",
+        printf("⚠️ ERROR: Unable to read from file. Make sure it is in the build directory and is a *.txt file, at line: %d \n",
                __LINE__);
         printf("⚠️ WARNING: Falling back to un parameterized constructor , at line: %d \n", __LINE__);
         Polynomial fileFallback;
@@ -110,7 +110,7 @@ Polynomial::Polynomial(string fileName) {
     bool isInvalidSize = noc > sizeOfPoly + 1;
     bool hasSizeLessThanOrZero = sizeOfPoly <= 0;
     if (isInvalidSize || hasSizeLessThanOrZero) {
-        printf("❌ ERROR: cannot have more params then your power+1, at line %d \n", __LINE__);
+        printf("⚠️ ERROR: cannot have more params then your power+1, at line %d \n", __LINE__);
         printf("⚠️ WARNING: Falling back to un parameterized constructor , at line: %d \n", __LINE__);
         Polynomial fallback;
         throw invalid_argument("Invalid Polynomial Configuration");
@@ -123,8 +123,8 @@ Polynomial::~Polynomial(){
 
 };
 
-// performs *this == target
 /**
+ * @performs *this == target
  * @param {Polynomial} target
  * @return bool
  */
@@ -316,7 +316,6 @@ bool PolynomialTest::testPolynomialFileReadIn() {
 bool PolynomialTest::testPolynomialCreation(){
     const int size  = 10;
     bool pass4 = true;
-    bool pass5 = true;
     int testArr1[size] = {1,2,4,5,6,7,7,8,8,9};
     vector<int> testVec1 = {1,2,4,5,6,7,7,8,8,9};
      Polynomial testPolynomialCreation(testArr1,size);
@@ -341,6 +340,11 @@ bool PolynomialTest::testPolynomialCreation(){
 
 }
 
+bool PolynomialTest::testPolynomialRandomOutput(){
+
+    return true;
+}
+
 
 void PolynomialTest::run() {
     cout << "Starting Test Runner... \n";
@@ -349,6 +353,9 @@ void PolynomialTest::run() {
     testPolynomialFileReadIn();
     cout << "\n ------------------------------------\n";
     testPolynomialCreation();
+    cout << "\n ------------------------------------\n";
+    testPolynomialRandomOutput();
+    cout << "\n ------------------------------------\n";
     cleanup();
 }
 

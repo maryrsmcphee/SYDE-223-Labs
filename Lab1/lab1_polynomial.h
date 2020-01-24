@@ -41,5 +41,6 @@ public:
     void cleanup();
     bool testPolynomialFileReadIn();
     bool testPolynomialCreation();
+    bool testPolynomialRandomOutput();
     void run();
 };
