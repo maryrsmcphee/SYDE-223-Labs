@@ -29,6 +29,11 @@ public:
 };
 
 class PolynomialTest{
+    Polynomial PolynomialInstance1;
+    Polynomial PolynomialInstance2;
+    Polynomial PolynomialInstance3;
+    Polynomial PolynomialInstance4;
+    Polynomial PolynomialInstance5;
 public:
     friend class Polynomial;
 
