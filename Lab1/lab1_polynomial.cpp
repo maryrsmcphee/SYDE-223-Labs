@@ -266,12 +266,11 @@ Polynomial Polynomial::operator*(const Polynomial &target) {
  * returns new Polynomial of derivedPoly
  */
 Polynomial Polynomial::derivative() {
-    Polynomial derivedPoly;
-    derivedPoly.data.resize(data.size() - 1);
+    int derivedPoly[data.size() - 1];
     for (int i = 0; i < data.size() - 1; i++) {
         derivedPoly[i] = data[i + 1] * (i + 1);
     }
-    return derivedPoly;
+    return Polynomial(derivedPoly, data.size() - 1);
 };
 
 
