@@ -345,6 +345,16 @@ bool PolynomialTest::testPolynomialRandomOutput(){
     return true;
 }
 
+bool PolynomialTest::testEquivalence() {
+    cout << "running... \n";
+    ASSERT_TRUE(PolynomialInstance1 == PolynomialInstance2);
+    cout << "Passed comparison of equal objects\n";
+    ASSERT_FALSE(PolynomialInstance1 == PolynomialInstance3);
+    cout << "Passed comparison of unequal objects of the same size\n";
+    ASSERT_FALSE(PolynomialInstance1 == PolynomialInstance5);
+    cout << "Passed comparison of unequal objects of different sizes\n";
+    cout << "TEST PASS: testEquivalence\n";
+}
 
 void PolynomialTest::run() {
     cout << "Starting Test Runner... \n";
@@ -355,6 +365,8 @@ void PolynomialTest::run() {
     testPolynomialCreation();
     cout << "\n ------------------------------------\n";
     testPolynomialRandomOutput();
+    cout << "\n ------------------------------------\n";
+    testEquivalence();
     cout << "\n ------------------------------------\n";
     cleanup();
 }
