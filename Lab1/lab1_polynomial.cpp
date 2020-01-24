@@ -159,15 +159,19 @@ Polynomial::~Polynomial(){
 bool Polynomial::operator==(const Polynomial &target) {
     bool equals = true;
     int i = 0;
-    while (equals && i <= target.data.size()) {
-        if (target.data[i] == this->data[i]) {
-            i++;
-        } else {
-            equals = false;
+    if(target.data.size() != data.size()){
+        equals = false;
+    } else {
+        while (equals && i <= target.data.size()) {
+            if (target.data[i] == this->data[i]) {
+                i++;
+            } else {
+                equals = false;
+            }
         }
     }
     return equals;
-};
+}
 
 vector<int> Polynomial::get_data(){
     return data;
@@ -181,6 +185,7 @@ void Polynomial::print() {
     for (int i = 0; i <= data.size(); i++) {
         cout << data[i] << " x ^" << i;
     }
+    cout << endl;
 };
 
 // performs *this + target
@@ -190,12 +195,23 @@ void Polynomial::print() {
  * @return Polynomial of addedPolys
  */
 Polynomial Polynomial::operator+(const Polynomial &target) {
-    int addedPolys[target.data.size()];
-    for (int i = 0; i <= target.data.size(); i++) {
-        addedPolys[i] = target.data[i] + this->data[i];
+    Polynomial addedPolys;
+    if(target.data.size() >= this->data.size()){
+        addedPolys.data.resize(target.data.size());
+    } else {
+        addedPolys.data.resize(this->data.size());
     }
-    return Polynomial(addedPolys, target.data.size());
-};
+    for (int i = 0; i <= addedPolys.data.size(); i++) {
+        if(i >= target.data.size()){
+            addedPolys.data.push_back(data[i]);
+        } else if(i >= this->data.size()){
+            addedPolys.data.push_back(target.data[i]);
+        } else {
+            addedPolys.data.push_back(data[i] + target.data[i]);
+        }
+    }
+    return addedPolys;
+}
 
 // performs *this - target
 /**
@@ -204,11 +220,22 @@ Polynomial Polynomial::operator+(const Polynomial &target) {
  * @return Polynomial of subtractedPolys
  */
 Polynomial Polynomial::operator-(const Polynomial &target) {
-    int subtractedPolys[target.data.size()];
-    for (int i = 0; i <= target.data.size(); i++) {
-        subtractedPolys[i] = this->data[i] - target.data[i];
+    Polynomial subtractedPolys;
+    if(target.data.size() >= this->data.size()){
+        subtractedPolys.data.resize(target.data.size());
+    } else {
+        subtractedPolys.data.resize(this->data.size());
     }
-    return Polynomial(subtractedPolys, target.data.size());
+    for (int i = 0; i <= subtractedPolys.data.size(); i++) {
+        if(i > target.data.size()) {
+            subtractedPolys.data.push_back(this->data[i]);
+        } else if (i > this->data.size()){
+            subtractedPolys.data.push_back(0 - target.data[i]);
+        } else {
+            subtractedPolys.data.push_back(this->data[i] - target.data[i]);
+        }
+    }
+    return subtractedPolys;
 };
 
 // performs *this * target
@@ -218,12 +245,21 @@ Polynomial Polynomial::operator-(const Polynomial &target) {
  * @return Polynomial of multipliedPolys
  */
 Polynomial Polynomial::operator*(const Polynomial &target) {
-    int multipliedPolys[target.data.size()];
-    for (int i = 0; i <= target.data.size(); i++) {
-        multipliedPolys[i] = this->data[i] * target.data[i];
+    // TODO check logic of this - math might be wrong?
+    Polynomial multipliedPolys;
+    if(target.data.size() >= this->data.size()){
+        multipliedPolys.data.resize(target.data.size());
+    } else {
+        multipliedPolys.data.resize(this->data.size());
     }
-    return Polynomial(multipliedPolys, target.data.size());
-};
+
+    for(int i = 0; i <= data.size(); i++){
+        for(int j = 0; j <= target.data.size(); j++) {
+            multipliedPolys.data[i + j] = multipliedPolys.data[i + j] + this->data[i]*target.data[i];
+        }
+    }
+    return multipliedPolys;
+}
 
 // computes the derivative d/dx of *this
 /**
@@ -231,12 +267,12 @@ Polynomial Polynomial::operator*(const Polynomial &target) {
  * returns new Polynomial of derivedPoly
  */
 Polynomial Polynomial::derivative() {
-    int derivedPoly[data.size() - 1];
+    Polynomial derivedPoly;
+    derivedPoly.data.resize(data.size() - 1);
     for (int i = 0; i < data.size() - 1; i++) {
-        // TODO take another look at this? -- should be ok, was a syntax error fixed in deleted PR
         derivedPoly[i] = data[i + 1] * (i + 1);
     }
-    return Polynomial(derivedPoly, data.size() - 1);
+    return derivedPoly;
 };
 
 
@@ -295,78 +331,78 @@ bool PolynomialTest::testInsertionSort() {
 }
 
 bool PolynomialTest::testPolynomialFileReadIn() {
-        string fileThatExists = "test.txt";
-        string fileThatDoesNotExist = "error.txt";
-        string invalidFile = "text-invalid.txt";
-        string negativeValFile = "negative-invalid.txt";
-        bool pass1 = true;
-        bool pass2 = true;
-        bool pass3 = true;
-        bool pass4 = true;
-        try {
-            Polynomial testPolynomial(fileThatExists);
-        }
-        catch (invalid_argument &e) {
-            cerr << e.what() << endl;
-            pass1 = false;
-        }
-        pass1 ? printf("✅ TEST PASS: testPolynomialReadIn with expected file, at line:  %d \n", __LINE__)
-              : printf("❌ TEST FAIL: testPolynomialReadIn with expected file, at line:  %d \n", __LINE__);
-
-        try {
-            Polynomial testPolynomial2(fileThatDoesNotExist);
-        }
-        catch (invalid_argument &e) {
-            cerr << e.what() << endl;
-            pass2 = false;
-        }
-        !pass2 ? printf("✅ TEST PASS: testPolynomialReadIn with unexpected file, at line:  %d \n", __LINE__)
-               : printf("❌ TEST FAIL: testPolynomialReadIn with unexpected file, at line:  %d \n", __LINE__);
-
-        try {
-            Polynomial testPolynomial3(invalidFile);
-        }
-        catch (invalid_argument &e) {
-            cerr << e.what() << endl;
-            pass3 = false;
-        }
-        !pass3 ? printf("✅ TEST PASS: testPolynomialReadIn with invalid file, at line:  %d \n", __LINE__)
-               : printf("❌ TEST FAIL: testPolynomialReadIn with invalid file, at line:  %d \n", __LINE__);
-        Polynomial testPolynomial4(negativeValFile);
-
-        GLOBAL_NEGATIVE_VALUE_ERROR ? printf(
-                "✅ TEST PASS: testPolynomialReadIn with invalid negative value, at line:  %d \n", __LINE__)
-                                    : printf(
-                "❌ TEST FAIL: testPolynomialReadIn with invalid negative value, at line:  %d \n", __LINE__);
-        GLOBAL_NEGATIVE_VALUE_ERROR ? GLOBAL_NEGATIVE_VALUE_ERROR = false : GLOBAL_NEGATIVE_VALUE_ERROR = true;
-        return true;
+    string fileThatExists = "test.txt";
+    string fileThatDoesNotExist = "error.txt";
+    string invalidFile = "text-invalid.txt";
+    string negativeValFile = "negative-invalid.txt";
+    bool pass1 = true;
+    bool pass2 = true;
+    bool pass3 = true;
+    bool pass4 = true;
+    try {
+        Polynomial testPolynomial(fileThatExists);
     }
-    // TODO create polynomial test class for creating polynomial
-    bool PolynomialTest::testPolynomialCreation(){
-        const int size  = 10;
-        bool pass4 = true;
-        int testArr1[size] = {1,2,4,5,6,7,7,8,8,9};
-        vector<int> testVec1 = {1,2,4,5,6,7,7,8,8,9};
-         Polynomial testPolynomialCreation(testArr1,size);
-         vector<int> retrievedData = testPolynomialCreation.get_data();
-         retrievedData.resize(size);
-         testVec1.resize(size);
-         try {
-             for (int i = 0; i < retrievedData.size(); i++) {
-                 if(!(retrievedData[i] == testVec1[i])){
-                    throw bad_function_call();
-                 }
+    catch (invalid_argument &e) {
+        cerr << e.what() << endl;
+        pass1 = false;
+    }
+    pass1 ? printf("✅ TEST PASS: testPolynomialReadIn with expected file, at line:  %d \n", __LINE__)
+          : printf("❌ TEST FAIL: testPolynomialReadIn with expected file, at line:  %d \n", __LINE__);
+
+    try {
+        Polynomial testPolynomial2(fileThatDoesNotExist);
+    }
+    catch (invalid_argument &e) {
+        cerr << e.what() << endl;
+        pass2 = false;
+    }
+    !pass2 ? printf("✅ TEST PASS: testPolynomialReadIn with unexpected file, at line:  %d \n", __LINE__)
+           : printf("❌ TEST FAIL: testPolynomialReadIn with unexpected file, at line:  %d \n", __LINE__);
+
+    try {
+        Polynomial testPolynomial3(invalidFile);
+    }
+    catch (invalid_argument &e) {
+        cerr << e.what() << endl;
+        pass3 = false;
+    }
+    !pass3 ? printf("✅ TEST PASS: testPolynomialReadIn with invalid file, at line:  %d \n", __LINE__)
+           : printf("❌ TEST FAIL: testPolynomialReadIn with invalid file, at line:  %d \n", __LINE__);
+    Polynomial testPolynomial4(negativeValFile);
+
+    GLOBAL_NEGATIVE_VALUE_ERROR ? printf(
+            "✅ TEST PASS: testPolynomialReadIn with invalid negative value, at line:  %d \n", __LINE__)
+                                : printf(
+            "❌ TEST FAIL: testPolynomialReadIn with invalid negative value, at line:  %d \n", __LINE__);
+    GLOBAL_NEGATIVE_VALUE_ERROR ? GLOBAL_NEGATIVE_VALUE_ERROR = false : GLOBAL_NEGATIVE_VALUE_ERROR = true;
+    return true;
+}
+// TODO create polynomial test class for creating polynomial
+bool PolynomialTest::testPolynomialCreation(){
+    const int size  = 10;
+    bool pass4 = true;
+    int testArr1[size] = {1,2,4,5,6,7,7,8,8,9};
+    vector<int> testVec1 = {1,2,4,5,6,7,7,8,8,9};
+     Polynomial testPolynomialCreation(testArr1,size);
+     vector<int> retrievedData = testPolynomialCreation.get_data();
+     retrievedData.resize(size);
+     testVec1.resize(size);
+     try {
+         for (int i = 0; i < retrievedData.size(); i++) {
+             if(!(retrievedData[i] == testVec1[i])){
+                throw bad_function_call();
              }
          }
-         catch(bad_function_call &e){
-             cerr << e.what() <<endl;
-             pass4 = false;
-         }
-         pass4 ? printf(
-                 "✅ TEST PASS: testPolynomialCreation Polynomial constructor with valid comparison, at line:  %d \n", __LINE__)
-                : printf(
-                 "❌ TEST FAIL: testPolynomialReadIn Polynomial constructor with invalid comparison, at line:  %d \n", __LINE__);
-    }
+     }
+     catch(bad_function_call &e){
+         cerr << e.what() <<endl;
+         pass4 = false;
+     }
+     pass4 ? printf(
+             "✅ TEST PASS: testPolynomialCreation Polynomial constructor with valid comparison, at line:  %d \n", __LINE__)
+            : printf(
+             "❌ TEST FAIL: testPolynomialReadIn Polynomial constructor with invalid comparison, at line:  %d \n", __LINE__);
+}
 
 
 void PolynomialTest::run() {
