@@ -283,6 +283,7 @@ bool PolynomialTest::testPolynomialFileReadIn() {
     bool pass1 = true;
     bool pass2 = true;
     bool pass3 = true;
+    bool pass4 = true;
     try {
         Polynomial testPolynomial(fileThatExists);
     }
@@ -318,9 +319,26 @@ bool PolynomialTest::testPolynomialFileReadIn() {
             "✅ TEST PASS: testPolynomialReadIn with invalid negative value, at line:  %d \n", __LINE__)
                                 : printf(
             "❌ TEST FAIL: testPolynomialReadIn with invalid negative value, at line:  %d \n", __LINE__);
+    // reset error code
     GLOBAL_NEGATIVE_VALUE_ERROR ? GLOBAL_NEGATIVE_VALUE_ERROR = false : GLOBAL_NEGATIVE_VALUE_ERROR = true;
+
+    Polynomial testPolynomial5(fileThatExists);
+    const int arrayFromTestTextSize = 5;
+    const int arrayFromTestText[arrayFromTestTextSize] = {4, 7, 5, 6, 7};
+    testPolynomial5.get_data().size() == arrayFromTestTextSize ? printf(
+            "✅ TEST PASS: testPolynomialReadIn with correct vector size, at line:  %d \n", __LINE__)
+                                                               : printf(
+            "❌ TEST FAIL: testPolynomialReadIn with correct vector size, at line:  %d \n", __LINE__);
+    for (int i = 0; i < testPolynomial5.get_data().size(); i++) {
+        arrayFromTestText[i] != testPolynomial5.get_data()[i] ? pass4 = false : pass4 = true;
+    }
+    pass4 ? printf(
+            "✅ TEST PASS: testPolynomialReadIn with correct vector elements, at line:  %d \n", __LINE__)
+          : printf(
+            "❌ TEST FAIL: testPolynomialReadIn with correct vector elements, at line:  %d \n", __LINE__);
     return true;
 }
+
 /**
  * test function testing the creation of a
  * polynomial object
@@ -354,6 +372,7 @@ bool PolynomialTest::testPolynomialCreation() {
             __LINE__);
     return true;
 }
+
 /**
  * tests the default constructor generation of random output
  * polynomial
@@ -384,6 +403,7 @@ bool PolynomialTest::testPolynomialRandomOutput() {
     cout << endl;
     return true;
 }
+
 /**
  * test the overloaded equivalence operatior
  * @return {bool}
@@ -398,6 +418,7 @@ bool PolynomialTest::testEquivalence() {
     printf("Passed comparison of unequal objects of different sizes\n");
     return true;
 }
+
 /**
  * @driver run
  * @void
