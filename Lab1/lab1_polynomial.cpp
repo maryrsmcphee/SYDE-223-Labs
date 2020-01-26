@@ -8,7 +8,6 @@
 
 
 #include <iostream>
-#include <cassert>
 #include <vector>
 #include <string>
 #include <fstream>
@@ -25,13 +24,6 @@ using namespace std;
 const string pullingArrayFromFile = "Pulling Array from file... \n";
 //globals
 bool GLOBAL_NEGATIVE_VALUE_ERROR = false;
-int GLOBAL_COMPARISON_ERROR = 400;
-// constants / error messages
-
-
-/**
- * Class Polynomial
- */
 
 /**
  * Polynomial class constructor
@@ -85,7 +77,7 @@ Polynomial::Polynomial(string fileName) {
                __LINE__);
         printf("⚠️ WARNING: Falling back to un parameterized constructor , at line: %d \n", __LINE__);
         Polynomial fileFallback;
-        throw invalid_argument("Unable to read from file");
+        throw invalid_argument("Unable to read from file in constructor");
     }
     cout << pullingArrayFromFile << "\n";
     string lineReading;
@@ -113,7 +105,7 @@ Polynomial::Polynomial(string fileName) {
         printf("⚠️ ERROR: cannot have more params then your power+1, at line %d \n", __LINE__);
         printf("⚠️ WARNING: Falling back to un parameterized constructor , at line: %d \n", __LINE__);
         Polynomial fallback;
-        throw invalid_argument("Invalid Polynomial Configuration");
+        throw invalid_argument("Invalid Polynomial Configuration, reading from file");
     } else {
         for (int i = 0; i < sizeOfPoly; i++) {
             data.push_back(ArrOfCoefficients[i]);
@@ -155,13 +147,27 @@ vector<int> Polynomial::get_data() {
     return data;
 }
 
-/**
- * default class destructor
- */
 // prints the polynomial
 void Polynomial::print() {
-    for (int i = 0; i <= data.size(); i++) {
-        cout << data[i] << " x ^" << i;
+    string sign = " ";
+    for (int i = data.size() - 1; i >= 0; i--) {
+        while (data[i] == 0) {
+            i--;
+        }
+        data[i] < 0 ? sign = " " : sign = "+ ";
+        data[i] > 0 && i == data.size() - 1 ? sign = " " : sign = sign;
+        switch (i) {
+            case 0:
+                cout << sign << data[i] << " ";
+                break;
+            case 1:
+                cout << sign << data[i] << "x" << " ";
+                break;
+            default:
+                cout << sign << data[i] << "x^" << i << " ";
+                break;
+
+        }
     }
     cout << endl;
 };
@@ -409,7 +415,7 @@ bool PolynomialTest::testPolynomialRandomOutput() {
  * @return {bool}
  */
 bool PolynomialTest::testEquivalence() {
-    cout << "running testEquivalence... \n";
+    cout << "Running testEquivalence... \n";
     ASSERT_TRUE(PolynomialInstance1 == PolynomialInstance2);
     printf("Passed comparison of equal objects\n");
     ASSERT_FALSE(PolynomialInstance1 == PolynomialInstance3);
@@ -417,6 +423,28 @@ bool PolynomialTest::testEquivalence() {
     ASSERT_FALSE(PolynomialInstance1 == PolynomialInstance5);
     printf("Passed comparison of unequal objects of different sizes\n");
     return true;
+}
+
+bool PolynomialTest::testPrint() {
+    cout << "Running test print... \n";
+    cout
+            << "This section of the test running requires manual inspection. Please complete the following instructions... \n";
+    const string msg = "Does the following output match the expected output? (y/n) \n";
+    const string o = " >>> Expected:  \n";
+    const string r = "\n >>> Received:  \n";
+    const int size1 = 5;
+    int testArr1[size1] = {3, 4, 0, -4, 9};
+    const string expectedOutput1 = " 9x^4  -4x^3 + 4x + 3";
+    Polynomial testPrintPoly1(testArr1, size1);
+    cout << msg;
+    cout << o;
+    cout << expectedOutput1;
+    cout << r;
+    testPrintPoly1.print();
+    string decision;
+    cin >> decision;
+    (decision == "y") ? printf("✅ TEST PASS: correct print output, at line:  %d \n", __LINE__) :
+    printf("❌ TEST FAIL: incorrect print output,  at line:  %d \n", __LINE__);
 }
 
 /**
@@ -437,6 +465,8 @@ void PolynomialTest::run() {
     testEquivalence() ? printf("✅ TEST PASS: testEquivalence, at line:  %d \n", __LINE__) : printf(
             "❌ TEST FAIL: testEquivalence, at line:  %d \n", __LINE__);
     cout << "\n ------------------------------------\n";
+    testPrint();
+    cout << "\n ------------------------------------\n";
     cleanup();
 }
 
@@ -450,5 +480,7 @@ int main() {
     // create test object
     PolynomialTest my_test;
     my_test.run();
+
+
     return 0;
 }

@@ -77,5 +77,6 @@ public:
     bool testPolynomialCreation();
     bool testPolynomialRandomOutput();
     bool testEquivalence();
+    bool testPrint();
     void run();
 };
