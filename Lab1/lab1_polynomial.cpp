@@ -8,7 +8,6 @@
 
 
 #include <iostream>
-#include <cassert>
 #include <vector>
 #include <string>
 #include <fstream>
@@ -25,13 +24,6 @@ using namespace std;
 const string pullingArrayFromFile = "Pulling Array from file... \n";
 //globals
 bool GLOBAL_NEGATIVE_VALUE_ERROR = false;
-int GLOBAL_COMPARISON_ERROR = 400;
-// constants / error messages
-
-
-/**
- * Class Polynomial
- */
 
 /**
  * Polynomial class constructor
@@ -155,13 +147,27 @@ vector<int> Polynomial::get_data() {
     return data;
 }
 
-/**
- * default class destructor
- */
 // prints the polynomial
 void Polynomial::print() {
-    for (int i = 0; i <= data.size(); i++) {
-        cout << data[i] << " x ^" << i;
+    string sign = " ";
+    for (int i = data.size() - 1; i >= 0; i--) {
+        while(data[i] ==  0){
+            i--;
+        }
+            data[i] < 0 ? sign = " " : sign = "+ ";
+        data[i] > 0 && i == data.size() - 1  ? sign = " " : sign = sign;
+            switch (i) {
+                case 0:
+                    cout << sign << data[i] << " ";
+                    break;
+                case 1:
+                    cout << sign << data[i] << "x" << " ";
+                    break;
+                default:
+                    cout << sign << data[i] << "x^" << i << " ";
+                    break;
+
+            }
     }
     cout << endl;
 };
@@ -450,5 +456,10 @@ int main() {
     // create test object
     PolynomialTest my_test;
     my_test.run();
+    int a[5] = {3, 4, 0, -4, 9};
+    Polynomial s(a, 5);
+    cout << endl;
+    s.print();
+
     return 0;
 }
