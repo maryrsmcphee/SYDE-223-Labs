@@ -13,8 +13,9 @@
 #include <string>
 #include <fstream>
 #include "lab1_polynomial.h"
-#include <random>
 #include <stdexcept>
+#include <stdlib.h>
+#include <time.h>
 
 #define ASSERT_TRUE(T) if (!(T)) return false;
 #define ASSERT_FALSE(T) if ((T)) return false;
@@ -50,15 +51,11 @@ Polynomial::Polynomial(int input[], int size) {
  * it to the polynomial constructor
  */
 Polynomial::Polynomial() {
-    default_random_engine generator;
-    uniform_int_distribution<int> distribution(0, 1000);
-    int generatedRandomNumberOfTerms = distribution(generator);
+    int generatedRandomNumberOfTerms = rand() % 1001;
     vector<int> randomGeneratedCoefficients;
     const int numberOfTerms = ++generatedRandomNumberOfTerms;
     for (int i = 0; i < numberOfTerms; i++) {
-        default_random_engine generatorCoefficients;
-        uniform_int_distribution<int> distributionCoefficients(-1000, 1000);
-        int generatedRandomNumberOfCoefficients = distributionCoefficients(generatorCoefficients);
+        int generatedRandomNumberOfCoefficients = (rand() % 1001) - rand() % 1001;
         randomGeneratedCoefficients.push_back(generatedRandomNumberOfCoefficients);
     }
     /*
@@ -378,6 +375,7 @@ void PolynomialTest::run() {
  * @return int
  */
 int main() {
+    srand(time(0));
     PolynomialTest my_test;
     my_test.run();
     return 0;
