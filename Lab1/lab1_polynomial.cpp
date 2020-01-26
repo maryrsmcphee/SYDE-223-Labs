@@ -1,7 +1,7 @@
 /*******************************
  * @author Sammy Robens-Paradise
  * @author Mary McPhee
- * @date Sunday Jan 20, 2020
+ * @date Sunday Jan 26, 2020
  * @IDE: CLion, macOS
  * @SYDE_223: Lab 1
  ******************************/
@@ -384,7 +384,10 @@ bool PolynomialTest::testPolynomialRandomOutput() {
     cout << endl;
     return true;
 }
-
+/**
+ * test the overloaded equivalence operatior
+ * @return {bool}
+ */
 bool PolynomialTest::testEquivalence() {
     cout << "running testEquivalence... \n";
     ASSERT_TRUE(PolynomialInstance1 == PolynomialInstance2);
@@ -395,7 +398,11 @@ bool PolynomialTest::testEquivalence() {
     printf("Passed comparison of unequal objects of different sizes\n");
     return true;
 }
-
+/**
+ * @driver run
+ * @void
+ *
+ */
 void PolynomialTest::run() {
     cout << "Starting Test Runner... \n";
     setup();
@@ -417,7 +424,9 @@ void PolynomialTest::run() {
  * @return int
  */
 int main() {
+    // seed random time...
     srand(time(0));
+    // create test object
     PolynomialTest my_test;
     my_test.run();
     return 0;
