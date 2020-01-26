@@ -34,6 +34,7 @@ class PolynomialTest{
     Polynomial PolynomialInstance3;
     Polynomial PolynomialInstance4;
     Polynomial PolynomialInstance5;
+    Polynomial PolynomialInstance6;
 public:
     friend class Polynomial;
 
