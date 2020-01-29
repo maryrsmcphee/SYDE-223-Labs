@@ -214,10 +214,10 @@ Polynomial Polynomial::operator-(const Polynomial &target) {
     } else {
         subtractedPolys.data.resize(this->data.size());
     }
-    for (int i = 0; i <= subtractedPolys.data.size(); i++) {
-        if (i > target.data.size()) {
+    for (int i = 0; i < subtractedPolys.data.size(); i++) {
+        if (i >= target.data.size()) {
             subtractedPolys.data[i] = data[i];
-        } else if (i > this->data.size()) {
+        } else if (i >= this->data.size()) {
             subtractedPolys.data[i] = (0 - target.data[i]);
         } else {
             subtractedPolys.data[i] = data[i] - target.data[i];
@@ -532,7 +532,6 @@ bool PolynomialTest::testPrint() {
     cin>>decision3;
     (decision3 == "y") ? printf("✅ TEST PASS: correct print output, at line:  %d \n", __LINE__) :
     printf("❌ TEST FAIL: incorrect print output,  at line:  %d \n", __LINE__);
-    // TODO add 2 more test cases to testPrint()
     return true;
 }
 
@@ -571,7 +570,6 @@ bool PolynomialTest::testSubtraction() {
     }
 
     if (PolynomialInstance8 - PolynomialInstance3 == PolynomialInstance4) {
-        // TODO address this -- it is currently failing
         cout << "✅ TEST PASS: testSubtraction subtracts two polynomials of different sizes correctly \n";
     } else {
         cout << "❌ TEST FAIL: testSubtraction subtracts two polynomials of different sizes incorrectly \n";
