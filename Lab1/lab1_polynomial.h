@@ -88,5 +88,6 @@ public:
     bool testAddition();
     bool testSubtraction();
     bool testMultiplication();
+    bool testDerivative();
     void run();
 };
