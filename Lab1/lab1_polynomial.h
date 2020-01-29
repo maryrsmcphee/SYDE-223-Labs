@@ -77,6 +77,7 @@ class PolynomialTest{
     Polynomial PolynomialInstance13;
     Polynomial PolynomialInstance14;
     Polynomial PolynomialInstance15;
+    Polynomial PolynomialInstance16;
 public:
     friend class Polynomial;
 
