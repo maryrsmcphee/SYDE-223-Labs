@@ -288,6 +288,12 @@ void PolynomialTest::setup() {
     PolynomialInstance10 = Polynomial(polyArray10, 3);
     int polyArray11[] = {5, 14, 26, 20, 14, 8, 3};
     PolynomialInstance11 = Polynomial(polyArray11, 7);
+    // derivative of polyArray1
+    int polyArray14[] = {2, 6, 12, 20};
+    PolynomialInstance14 = Polynomial(polyArray14, 4);
+    //derivative of polyArray4
+    int polyArray15[] = {6, 10, 12, 12, 10, 6};
+    PolynomialInstance15 = Polynomial(polyArray15, 6);
 };
 
 void PolynomialTest::cleanup() {
@@ -556,6 +562,27 @@ bool PolynomialTest::testMultiplication() {
     return true;
 }
 
+bool PolynomialTest::testDerivative(){
+    if(PolynomialInstance1.derivative() == PolynomialInstance14){
+        cout << "✅ TEST PASS: testDerivative takes the derivative of a large polynomial correctly \n";
+    } else {
+        cout << "❌ TEST FAIL: testDerivative takes the derivative of a large polynomial incorrectly\n";
+    }
+
+    if(PolynomialInstance1.derivative() == PolynomialInstance9){
+        cout << "❌ TEST FAIL: testDerivative should return false\n";
+    } else {
+        cout << "✅ TEST PASS: testDerivative returns false when false\n";
+    }
+
+    if(PolynomialInstance4.derivative() == PolynomialInstance15){
+        cout << "✅ TEST PASS: testDerivative takes the derivative of a small polynomial correctly \n";
+    } else {
+        cout << "❌ TEST FAIL: testDerivative takes the derivative of a small polynomial incorrectly\n";
+    }
+    return true;
+}
+
 /**
  * @driver run
  * @void
@@ -581,6 +608,8 @@ void PolynomialTest::run() {
     testSubtraction();
     cout << "\n ------------------------------------\n";
     testMultiplication();
+    cout << "\n ------------------------------------\n";
+    testDerivative();
     cout << "\n ------------------------------------\n";
     cleanup();
     cout << "Test Runner Complete ♥️️ \n";

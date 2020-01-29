@@ -75,6 +75,8 @@ class PolynomialTest{
     Polynomial PolynomialInstance11;
     Polynomial PolynomialInstance12;
     Polynomial PolynomialInstance13;
+    Polynomial PolynomialInstance14;
+    Polynomial PolynomialInstance15;
 public:
     friend class Polynomial;
 
@@ -88,5 +90,6 @@ public:
     bool testAddition();
     bool testSubtraction();
     bool testMultiplication();
+    bool testDerivative();
     void run();
 };
