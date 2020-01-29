@@ -32,7 +32,11 @@ bool GLOBAL_NEGATIVE_VALUE_ERROR = false;
  * @param {int} size
  */
 Polynomial::Polynomial(int input[], int size) {
-    // TODO check if size if negative
+    if(size < 0) {
+        printf("⚠️ ERROR: cannot have input of negative length, at line: %d \n",
+               __LINE__);
+        exit(1);
+    }
     for (int i = 0; i < size; i++) {
         data.push_back(input[i]);
     }
@@ -487,17 +491,46 @@ bool PolynomialTest::testPrint() {
     const string o = " >>> Expected:  \n";
     const string r = "\n >>> Received:  \n";
     const int size1 = 5;
+    const int size2 = 10;
+    const int size3 = 0;
     int testArr1[size1] = {3, 4, 0, -4, 9};
+    int testArr2[size2] = {10,-5,6,0,2,6,-4,9,9,3};
+    int testArr3[size3] = {};
     const string expectedOutput1 = " 9x^4  -4x^3 + 4x + 3";
+    const string expectedOutput2 = " 3x^9 + 9x^8 + 9x^7  -4x^6 + 6x^5 + 2x^4 + 6x^2 -5x + 10";
+    const string expectedOutput3 = " ";
     Polynomial testPrintPoly1(testArr1, size1);
+    Polynomial testPrintPoly2(testArr2,size2);
+    Polynomial testPrintPoly3(testArr3,size3);
     cout << msg;
     cout << o;
     cout << expectedOutput1;
     cout << r;
     testPrintPoly1.print();
-    string decision;
-    cin >> decision;
-    (decision == "y") ? printf("✅ TEST PASS: correct print output, at line:  %d \n", __LINE__) :
+    string decision1;
+    cin >> decision1;
+    (decision1 == "y") ? printf("✅ TEST PASS: correct print output, at line:  %d \n", __LINE__) :
+    printf("❌ TEST FAIL: incorrect print output,  at line:  %d \n", __LINE__);
+    cout<<endl;
+    cout<< msg;
+    cout<< o;
+    cout<< expectedOutput2;
+    cout<< r;
+    testPrintPoly2.print();
+    string decision2;
+    cin>>decision2;
+    (decision2 == "y") ? printf("✅ TEST PASS: correct print output, at line:  %d \n", __LINE__) :
+    printf("❌ TEST FAIL: incorrect print output,  at line:  %d \n", __LINE__);
+    cout<<endl;
+    cout<< msg;
+    cout<< "Should print nothing .\n";
+    cout<< o;
+    cout<< expectedOutput3;
+    cout<< r;
+    testPrintPoly3.print();
+    string decision3;
+    cin>>decision3;
+    (decision3 == "y") ? printf("✅ TEST PASS: correct print output, at line:  %d \n", __LINE__) :
     printf("❌ TEST FAIL: incorrect print output,  at line:  %d \n", __LINE__);
     // TODO add 2 more test cases to testPrint()
     return true;
