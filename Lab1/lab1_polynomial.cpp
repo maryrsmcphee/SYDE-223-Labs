@@ -235,17 +235,17 @@ Polynomial Polynomial::operator-(const Polynomial &target) {
  * @return Polynomial of multipliedPolys
  */
 Polynomial Polynomial::operator*(const Polynomial &target) {
-    // TODO check logic of this - math might be wrong?
     Polynomial multipliedPolys;
-    if (target.data.size() >= this->data.size()) {
-        multipliedPolys.data.resize(target.data.size());
-    } else {
-        multipliedPolys.data.resize(this->data.size());
+    multipliedPolys.data.resize(target.data.size() + data.size() - 1);
+
+    // begins by making sure it's a polynomial of all zeros
+    for (int i = 0; i < multipliedPolys.data.size(); i++){
+        multipliedPolys.data[i] = 0;
     }
 
-    for (int i = 0; i <= data.size(); i++) {
-        for (int j = 0; j <= target.data.size(); j++) {
-            multipliedPolys.data[i + j] = multipliedPolys.data[i + j] + this->data[i] * target.data[i];
+    for (int i = 0; i < data.size(); i++) {
+        for (int j = 0; j < target.data.size(); j++) {
+            multipliedPolys.data[i + j] += data[i] * target.data[j];
         }
     }
     return multipliedPolys;
@@ -282,6 +282,12 @@ void PolynomialTest::setup() {
     // Instances 3 and 4 added together
     int polyArray8[] = {12, 10, 8, 6, 4, 2, 1};
     PolynomialInstance8 = Polynomial(polyArray8, 7);
+    int polyArray9[] = {5, 14, 26, 40, 55, 40, 26, 14, 5};
+    PolynomialInstance9 = Polynomial(polyArray9, 9);
+    int polyArray10[] = {1, 2, 3};
+    PolynomialInstance10 = Polynomial(polyArray10, 3);
+    int polyArray11[] = {5, 14, 26, 20, 14, 8, 3};
+    PolynomialInstance11 = Polynomial(polyArray11, 7);
 };
 
 void PolynomialTest::cleanup() {
@@ -500,6 +506,27 @@ bool PolynomialTest::testSubtraction(){
     }
     return true;
 }
+
+bool PolynomialTest::testMultiplication(){
+    if(PolynomialInstance1 * PolynomialInstance3 == PolynomialInstance9){
+        cout << "✅ TEST PASS: testMultiplication multiplies two polynomials of the same size correctly \n";
+    } else {
+        cout << "❌ TEST FAIL: testMultiplication does not multiply two polynomials of the same size correctly\n";
+    }
+
+    if(PolynomialInstance1 * PolynomialInstance2 == PolynomialInstance9){
+        cout << "❌ TEST FAIL: testMultiplication should return false\n";
+    } else {
+        cout << "✅ TEST PASS: testMultiplication returns false when false\n";
+    }
+
+    if(PolynomialInstance10 * PolynomialInstance3 == PolynomialInstance11){
+        cout << "✅ TEST PASS: testMultiplication multiplies two polynomials of different sizes correctly \n";
+    } else {
+        cout << "❌ TEST FAIL: testMultiplication does not multiply two polynomials of different sizes correctly\n";
+    }
+    return true;
+}
 /**
  * @driver run
  * @void
@@ -523,6 +550,8 @@ void PolynomialTest::run() {
     testAddition();
     cout << "\n ------------------------------------\n";
     testSubtraction();
+    cout << "\n ------------------------------------\n";
+    testMultiplication();
     cout << "\n ------------------------------------\n";
     cleanup();
     cout<<"Test Runner Complete ♥️️ \n";
