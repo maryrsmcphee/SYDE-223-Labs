@@ -180,9 +180,9 @@ void Polynomial::print() {
  */
 Polynomial Polynomial::operator+(const Polynomial &target) {
     Polynomial addedPolys;
-    if(data.size() >= target.data.size()){
+    if (data.size() >= target.data.size()) {
         addedPolys.data.resize(this->data.size());
-    }else{
+    } else {
         addedPolys.data.resize(target.data.size());
     }
 
@@ -221,7 +221,7 @@ Polynomial Polynomial::operator-(const Polynomial &target) {
         }
     }
     int i = subtractedPolys.data.size() - 1;
-    while(subtractedPolys.data[i] == 0 && i!= 0){
+    while (subtractedPolys.data[i] == 0 && i != 0) {
         subtractedPolys.data.pop_back();
         i--;
     }
@@ -239,7 +239,7 @@ Polynomial Polynomial::operator*(const Polynomial &target) {
     multipliedPolys.data.resize(target.data.size() + data.size() - 1);
 
     // begins by making sure it's a polynomial of all zeros
-    for (int i = 0; i < multipliedPolys.data.size(); i++){
+    for (int i = 0; i < multipliedPolys.data.size(); i++) {
         multipliedPolys.data[i] = 0;
     }
 
@@ -408,7 +408,12 @@ bool PolynomialTest::testPolynomialRandomOutput() {
     const int MIN_RANGE = -1000;
     bool pass1 = true;
     bool pass2;
+    bool pass3;
+    bool pass4;
+    bool pass5;
     PolynomialInstance6 = Polynomial();
+    PolynomialInstance12 = Polynomial();
+    PolynomialInstance13 = Polynomial();
     PolynomialInstance6.get_data().size() > 0 ? pass2 = true : pass2 = false;
     for (int i = 0; i < PolynomialInstance6.get_data().size(); i++) {
         int el = PolynomialInstance6.get_data()[i];
@@ -424,6 +429,28 @@ bool PolynomialTest::testPolynomialRandomOutput() {
           : printf(
             "❌ TEST FAIL: testPolynomialRandomOutput Polynomial constructor size greater than 0 , at line  %d \n",
             __LINE__);
+    PolynomialInstance12.get_data().size() != PolynomialInstance13.get_data().size() ? pass3 = true : pass3 = false;
+    PolynomialInstance6.get_data().size() != PolynomialInstance12.get_data().size() ? pass4 = true : pass4 = false;
+    PolynomialInstance6.get_data().size() != PolynomialInstance13.get_data().size() ? pass5 = true : pass5 = false;
+    pass3 ? printf(
+            "✅ TEST PASS: testPolynomialRandomOutput Polynomial constructor two instances have different sizes 1, at line:  %d \n",
+            __LINE__)
+          : printf(
+            "❌ TEST FAIL: testPolynomialRandomOutput Polynomial constructor two instances do not have different sizes 1, at line  %d \n",
+            __LINE__);
+    pass4 ? printf(
+            "✅ TEST PASS: testPolynomialRandomOutput Polynomial constructor two instances have different sizes 2, at line:  %d \n",
+            __LINE__)
+          : printf(
+            "❌ TEST FAIL: testPolynomialRandomOutput Polynomial constructor two instances do not have different sizes 2, at line  %d \n",
+            __LINE__);
+    pass5 ? printf(
+            "✅ TEST PASS: testPolynomialRandomOutput Polynomial constructor two instances have different sizes 3, at line:  %d \n",
+            __LINE__)
+          : printf(
+            "❌ TEST FAIL: testPolynomialRandomOutput Polynomial constructor two instances do not have different sizes 3, at line  %d \n",
+            __LINE__);
+
     cout << endl;
     return true;
 }
@@ -466,20 +493,20 @@ bool PolynomialTest::testPrint() {
     return true;
 }
 
-bool PolynomialTest::testAddition(){
-    if(PolynomialInstance2 + PolynomialInstance3 == PolynomialInstance7){
+bool PolynomialTest::testAddition() {
+    if (PolynomialInstance2 + PolynomialInstance3 == PolynomialInstance7) {
         cout << "✅ TEST PASS: testAddition adds two polynomials of the same size correctly \n";
     } else {
         cout << "❌ TEST FAIL: testAddition does not add two polynomials of the same size correctly\n";
     }
 
-    if(PolynomialInstance1 + PolynomialInstance2 == PolynomialInstance3){
+    if (PolynomialInstance1 + PolynomialInstance2 == PolynomialInstance3) {
         cout << "❌ TEST FAIL: testAddition should return false\n";
     } else {
         cout << "✅ TEST PASS: testAddition returns false when false\n";
     }
 
-    if(PolynomialInstance3 + PolynomialInstance4 == PolynomialInstance8){
+    if (PolynomialInstance3 + PolynomialInstance4 == PolynomialInstance8) {
         cout << "✅ TEST PASS: testAddition adds two polynomials of different sizes correctly \n";
     } else {
         cout << "❌ TEST FAIL: testAddition adds two polynomials of different sizes incorrectly \n";
@@ -487,20 +514,20 @@ bool PolynomialTest::testAddition(){
     return true;
 }
 
-bool PolynomialTest::testSubtraction(){
-    if(PolynomialInstance7 - PolynomialInstance3 == PolynomialInstance2){
+bool PolynomialTest::testSubtraction() {
+    if (PolynomialInstance7 - PolynomialInstance3 == PolynomialInstance2) {
         cout << "✅ TEST PASS: testSubtraction subtracts two polynomials of the same size correctly \n";
     } else {
         cout << "❌ TEST FAIL: testSubtraction does not subtract two polynomials of the same size correctly\n";
     }
 
-    if(PolynomialInstance1 - PolynomialInstance2 == PolynomialInstance3){
+    if (PolynomialInstance1 - PolynomialInstance2 == PolynomialInstance3) {
         cout << "❌ TEST FAIL: testSubtraction should return false\n";
     } else {
         cout << "✅ TEST PASS: testSubtraction returns false when false\n";
     }
 
-    if(PolynomialInstance8 - PolynomialInstance4 == PolynomialInstance3){
+    if (PolynomialInstance8 - PolynomialInstance4 == PolynomialInstance3) {
         cout << "✅ TEST PASS: testSubtraction subtracts two polynomials of different sizes correctly \n";
     } else {
         cout << "❌ TEST FAIL: testSubtraction subtracts two polynomials of different sizes incorrectly \n";
@@ -508,26 +535,27 @@ bool PolynomialTest::testSubtraction(){
     return true;
 }
 
-bool PolynomialTest::testMultiplication(){
-    if(PolynomialInstance1 * PolynomialInstance3 == PolynomialInstance9){
+bool PolynomialTest::testMultiplication() {
+    if (PolynomialInstance1 * PolynomialInstance3 == PolynomialInstance9) {
         cout << "✅ TEST PASS: testMultiplication multiplies two polynomials of the same size correctly \n";
     } else {
         cout << "❌ TEST FAIL: testMultiplication does not multiply two polynomials of the same size correctly\n";
     }
 
-    if(PolynomialInstance1 * PolynomialInstance2 == PolynomialInstance9){
+    if (PolynomialInstance1 * PolynomialInstance2 == PolynomialInstance9) {
         cout << "❌ TEST FAIL: testMultiplication should return false\n";
     } else {
         cout << "✅ TEST PASS: testMultiplication returns false when false\n";
     }
 
-    if(PolynomialInstance10 * PolynomialInstance3 == PolynomialInstance11){
+    if (PolynomialInstance10 * PolynomialInstance3 == PolynomialInstance11) {
         cout << "✅ TEST PASS: testMultiplication multiplies two polynomials of different sizes correctly \n";
     } else {
         cout << "❌ TEST FAIL: testMultiplication does not multiply two polynomials of different sizes correctly\n";
     }
     return true;
 }
+
 /**
  * @driver run
  * @void
@@ -555,7 +583,7 @@ void PolynomialTest::run() {
     testMultiplication();
     cout << "\n ------------------------------------\n";
     cleanup();
-    cout<<"Test Runner Complete ♥️️ \n";
+    cout << "Test Runner Complete ♥️️ \n";
 }
 
 /**
