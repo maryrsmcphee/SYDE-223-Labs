@@ -294,6 +294,8 @@ void PolynomialTest::setup() {
     //derivative of polyArray4
     int polyArray15[] = {6, 10, 12, 12, 10, 6};
     PolynomialInstance15 = Polynomial(polyArray15, 6);
+    int polyArray16[] = {};
+    PolynomialInstance16 = Polynomial(polyArray16, 0);
 };
 
 void PolynomialTest::cleanup() {
@@ -468,11 +470,13 @@ bool PolynomialTest::testPolynomialRandomOutput() {
 bool PolynomialTest::testEquivalence() {
     cout << "Running testEquivalence... \n";
     ASSERT_TRUE(PolynomialInstance1 == PolynomialInstance2);
-    printf("Passed comparison of equal objects\n");
+    printf("✅ TEST PASS: comparison of equal objects\n");
     ASSERT_FALSE(PolynomialInstance1 == PolynomialInstance3);
-    printf("Passed comparison of unequal objects of the same size\n");
+    printf("✅ TEST PASS: comparison of unequal objects of the same size\n");
     ASSERT_FALSE(PolynomialInstance1 == PolynomialInstance5);
-    printf("Passed comparison of unequal objects of different sizes\n");
+    printf("✅ TEST PASS: comparison of unequal objects of different sizes\n");
+    ASSERT_FALSE(PolynomialInstance8 == PolynomialInstance16);
+    printf("✅ TEST PASS: comparison of empty and full polynomial\n");
     return true;
 }
 
