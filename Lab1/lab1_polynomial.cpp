@@ -289,11 +289,11 @@ void PolynomialTest::setup() {
     int polyArray11[] = {5, 14, 26, 20, 14, 8, 3};
     PolynomialInstance11 = Polynomial(polyArray11, 7);
     // derivative of polyArray1
-    int polyArray12[] = {2, 6, 12, 20};
-    PolynomialInstance12 = Polynomial(polyArray12, 4);
+    int polyArray14[] = {2, 6, 12, 20};
+    PolynomialInstance14 = Polynomial(polyArray14, 4);
     //derivative of polyArray4
-    int polyArray13[] = {6, 10, 12, 12, 10, 6};
-    PolynomialInstance13 = Polynomial(polyArray13, 6);
+    int polyArray15[] = {6, 10, 12, 12, 10, 6};
+    PolynomialInstance15 = Polynomial(polyArray15, 6);
 };
 
 void PolynomialTest::cleanup() {
@@ -563,7 +563,7 @@ bool PolynomialTest::testMultiplication() {
 }
 
 bool PolynomialTest::testDerivative(){
-    if(PolynomialInstance1.derivative() == PolynomialInstance12){
+    if(PolynomialInstance1.derivative() == PolynomialInstance14){
         cout << "✅ TEST PASS: testDerivative takes the derivative of a large polynomial correctly \n";
     } else {
         cout << "❌ TEST FAIL: testDerivative takes the derivative of a large polynomial incorrectly\n";
@@ -575,7 +575,7 @@ bool PolynomialTest::testDerivative(){
         cout << "✅ TEST PASS: testDerivative returns false when false\n";
     }
 
-    if(PolynomialInstance4.derivative() == PolynomialInstance13){
+    if(PolynomialInstance4.derivative() == PolynomialInstance15){
         cout << "✅ TEST PASS: testDerivative takes the derivative of a small polynomial correctly \n";
     } else {
         cout << "❌ TEST FAIL: testDerivative takes the derivative of a small polynomial incorrectly\n";
