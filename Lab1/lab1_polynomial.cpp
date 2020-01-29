@@ -447,7 +447,7 @@ bool PolynomialTest::testPrint() {
     cout << "Running test print... \n";
     cout
             << "This section of the test running requires manual inspection. Please complete the following instructions... \n";
-    const string msg = "❗ Does the following output match the expected output? (y/n)❗ \n = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =y \n";
+    const string msg = "❗ Does the following output match the expected output? (y/n)❗ \n = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = \n";
     const string o = " >>> Expected:  \n";
     const string r = "\n >>> Received:  \n";
     const int size1 = 5;
@@ -463,6 +463,7 @@ bool PolynomialTest::testPrint() {
     cin >> decision;
     (decision == "y") ? printf("✅ TEST PASS: correct print output, at line:  %d \n", __LINE__) :
     printf("❌ TEST FAIL: incorrect print output,  at line:  %d \n", __LINE__);
+    return true;
 }
 
 bool PolynomialTest::testAddition(){
