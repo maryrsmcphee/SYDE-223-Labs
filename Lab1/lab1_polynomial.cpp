@@ -132,7 +132,7 @@ bool Polynomial::operator==(const Polynomial &target) {
     if (target.data.size() != data.size()) {
         equals = false;
     } else {
-        while (equals && i <= target.data.size()) {
+        while (equals && i < target.data.size()) {
             if (target.data[i] == this->data[i]) {
                 i++;
             } else {
@@ -180,18 +180,19 @@ void Polynomial::print() {
  */
 Polynomial Polynomial::operator+(const Polynomial &target) {
     Polynomial addedPolys;
-    if (target.data.size() >= this->data.size()) {
-        addedPolys.data.resize(target.data.size());
-    } else {
+    if(data.size() >= target.data.size()){
         addedPolys.data.resize(this->data.size());
+    }else{
+        addedPolys.data.resize(target.data.size());
     }
-    for (int i = 0; i <= addedPolys.data.size(); i++) {
+
+    for (int i = 0; i < addedPolys.data.size(); ++i) {
         if (i >= target.data.size()) {
-            addedPolys.data.push_back(data[i]);
-        } else if (i >= this->data.size()) {
-            addedPolys.data.push_back(target.data[i]);
+            addedPolys.data[i] = data[i];
+        } else if (i >= data.size()) {
+            addedPolys.data[i] = target.data[i];
         } else {
-            addedPolys.data.push_back(data[i] + target.data[i]);
+            addedPolys.data[i] = data[i] + target.data[i];
         }
     }
     return addedPolys;
@@ -270,6 +271,12 @@ void PolynomialTest::setup() {
     PolynomialInstance4 = Polynomial(polyArray4, 7);
     int polyArray5[] = {1, 2, 3, 4, 5, 6, 7};
     PolynomialInstance5 = Polynomial(polyArray5, 7);
+    // Instances 2 and 3 added together
+    int polyArray7[] = {6, 6, 6, 6, 6, 6};
+    PolynomialInstance7 = Polynomial(polyArray7, 5);
+    // Instances 3 and 4 added together
+    int polyArray8[] = {12, 10, 8, 6, 4, 2, 1};
+    PolynomialInstance8 = Polynomial(polyArray8, 7);
 };
 
 void PolynomialTest::cleanup() {
@@ -447,6 +454,27 @@ bool PolynomialTest::testPrint() {
     printf("❌ TEST FAIL: incorrect print output,  at line:  %d \n", __LINE__);
 }
 
+bool PolynomialTest::testAddition(){
+    if(PolynomialInstance2 + PolynomialInstance3 == PolynomialInstance7){
+        cout << "✅ TEST PASS: testAddition adds two polynomials of the same size correctly \n";
+    } else {
+        cout << "❌ TEST FAIL: testAddition does not add two polynomials of the same size correctly\n";
+    }
+
+    if(PolynomialInstance1 + PolynomialInstance2 == PolynomialInstance3){
+        cout << "TEST FAIL: testAddition should return false\n";
+    } else {
+        cout << "✅ TEST PASS: testAddition returns false when false\n";
+    }
+
+    if(PolynomialInstance3 + PolynomialInstance4 == PolynomialInstance8){
+        cout << "✅ TEST PASS: testAddition adds two polynomials of different sizes correctly \n";
+    } else {
+        cout << "❌ TEST FAIL: testAddition adds two polynomials of different sizes incorrectly \n";
+    }
+    return true;
+}
+
 /**
  * @driver run
  * @void
@@ -466,6 +494,8 @@ void PolynomialTest::run() {
             "❌ TEST FAIL: testEquivalence, at line:  %d \n", __LINE__);
     cout << "\n ------------------------------------\n";
     testPrint();
+    cout << "\n ------------------------------------\n";
+    testAddition();
     cout << "\n ------------------------------------\n";
     cleanup();
     cout<<"Test Runner Complete ♥️️ \n";
