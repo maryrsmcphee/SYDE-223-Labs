@@ -32,6 +32,7 @@ bool GLOBAL_NEGATIVE_VALUE_ERROR = false;
  * @param {int} size
  */
 Polynomial::Polynomial(int input[], int size) {
+    // TODO check if size if negative
     for (int i = 0; i < size; i++) {
         data.push_back(input[i]);
     }
@@ -103,8 +104,6 @@ Polynomial::Polynomial(string fileName) {
     bool hasSizeLessThanOrZero = sizeOfPoly <= 0;
     if (isInvalidSize || hasSizeLessThanOrZero) {
         printf("⚠️ ERROR: cannot have more params then your power+1, at line %d \n", __LINE__);
-        printf("⚠️ WARNING: Falling back to un parameterized constructor , at line: %d \n", __LINE__);
-        Polynomial fallback;
         throw invalid_argument("Invalid Polynomial Configuration, reading from file");
     } else {
         for (int i = 0; i < sizeOfPoly; i++) {
@@ -118,7 +117,7 @@ Polynomial::Polynomial(string fileName) {
  * @destructor
  */
 Polynomial::~Polynomial() {
-
+// no cleanup
 };
 
 /**
@@ -277,7 +276,7 @@ void PolynomialTest::setup() {
     int polyArray5[] = {1, 2, 3, 4, 5, 6, 7};
     PolynomialInstance5 = Polynomial(polyArray5, 7);
     // Instances 2 and 3 added together
-    int polyArray7[] = {6, 6, 6, 6, 6, 6};
+    int polyArray7[] = {6, 6, 6, 6, 6};
     PolynomialInstance7 = Polynomial(polyArray7, 5);
     // Instances 3 and 4 added together
     int polyArray8[] = {12, 10, 8, 6, 4, 2, 1};
@@ -500,6 +499,7 @@ bool PolynomialTest::testPrint() {
     cin >> decision;
     (decision == "y") ? printf("✅ TEST PASS: correct print output, at line:  %d \n", __LINE__) :
     printf("❌ TEST FAIL: incorrect print output,  at line:  %d \n", __LINE__);
+    // TODO add 2 more test cases to testPrint()
     return true;
 }
 
@@ -537,7 +537,8 @@ bool PolynomialTest::testSubtraction() {
         cout << "✅ TEST PASS: testSubtraction returns false when false\n";
     }
 
-    if (PolynomialInstance8 - PolynomialInstance4 == PolynomialInstance3) {
+    if (PolynomialInstance8 - PolynomialInstance3 == PolynomialInstance4) {
+        // TODO address this -- it is currently failing
         cout << "✅ TEST PASS: testSubtraction subtracts two polynomials of different sizes correctly \n";
     } else {
         cout << "❌ TEST FAIL: testSubtraction subtracts two polynomials of different sizes incorrectly \n";
@@ -568,9 +569,9 @@ bool PolynomialTest::testMultiplication() {
 
 bool PolynomialTest::testDerivative(){
     if(PolynomialInstance1.derivative() == PolynomialInstance14){
-        cout << "✅ TEST PASS: testDerivative takes the derivative of a large polynomial correctly \n";
+        cout << "✅ TEST PASS: testDerivative takes the derivative of a small polynomial correctly \n";
     } else {
-        cout << "❌ TEST FAIL: testDerivative takes the derivative of a large polynomial incorrectly\n";
+        cout << "❌ TEST FAIL: testDerivative takes the derivative of a small polynomial incorrectly\n";
     }
 
     if(PolynomialInstance1.derivative() == PolynomialInstance9){
@@ -580,9 +581,9 @@ bool PolynomialTest::testDerivative(){
     }
 
     if(PolynomialInstance4.derivative() == PolynomialInstance15){
-        cout << "✅ TEST PASS: testDerivative takes the derivative of a small polynomial correctly \n";
+        cout << "✅ TEST PASS: testDerivative takes the derivative of a large polynomial correctly \n";
     } else {
-        cout << "❌ TEST FAIL: testDerivative takes the derivative of a small polynomial incorrectly\n";
+        cout << "❌ TEST FAIL: testDerivative takes the derivative of a large polynomial incorrectly\n";
     }
     return true;
 }
