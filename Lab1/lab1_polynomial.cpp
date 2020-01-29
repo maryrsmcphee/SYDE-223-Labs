@@ -213,12 +213,17 @@ Polynomial Polynomial::operator-(const Polynomial &target) {
     }
     for (int i = 0; i <= subtractedPolys.data.size(); i++) {
         if (i > target.data.size()) {
-            subtractedPolys.data.push_back(this->data[i]);
+            subtractedPolys.data[i] = data[i];
         } else if (i > this->data.size()) {
-            subtractedPolys.data.push_back(0 - target.data[i]);
+            subtractedPolys.data[i] = (0 - target.data[i]);
         } else {
-            subtractedPolys.data.push_back(this->data[i] - target.data[i]);
+            subtractedPolys.data[i] = data[i] - target.data[i];
         }
+    }
+    int i = subtractedPolys.data.size() - 1;
+    while(subtractedPolys.data[i] == 0 && i!= 0){
+        subtractedPolys.data.pop_back();
+        i--;
     }
     return subtractedPolys;
 };
@@ -462,7 +467,7 @@ bool PolynomialTest::testAddition(){
     }
 
     if(PolynomialInstance1 + PolynomialInstance2 == PolynomialInstance3){
-        cout << "TEST FAIL: testAddition should return false\n";
+        cout << "❌ TEST FAIL: testAddition should return false\n";
     } else {
         cout << "✅ TEST PASS: testAddition returns false when false\n";
     }
@@ -475,6 +480,26 @@ bool PolynomialTest::testAddition(){
     return true;
 }
 
+bool PolynomialTest::testSubtraction(){
+    if(PolynomialInstance7 - PolynomialInstance3 == PolynomialInstance2){
+        cout << "✅ TEST PASS: testSubtraction subtracts two polynomials of the same size correctly \n";
+    } else {
+        cout << "❌ TEST FAIL: testSubtraction does not subtract two polynomials of the same size correctly\n";
+    }
+
+    if(PolynomialInstance1 - PolynomialInstance2 == PolynomialInstance3){
+        cout << "❌ TEST FAIL: testSubtraction should return false\n";
+    } else {
+        cout << "✅ TEST PASS: testSubtraction returns false when false\n";
+    }
+
+    if(PolynomialInstance8 - PolynomialInstance4 == PolynomialInstance3){
+        cout << "✅ TEST PASS: testSubtraction subtracts two polynomials of different sizes correctly \n";
+    } else {
+        cout << "❌ TEST FAIL: testSubtraction subtracts two polynomials of different sizes incorrectly \n";
+    }
+    return true;
+}
 /**
  * @driver run
  * @void
@@ -496,6 +521,8 @@ void PolynomialTest::run() {
     testPrint();
     cout << "\n ------------------------------------\n";
     testAddition();
+    cout << "\n ------------------------------------\n";
+    testSubtraction();
     cout << "\n ------------------------------------\n";
     cleanup();
     cout<<"Test Runner Complete ♥️️ \n";

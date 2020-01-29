@@ -81,5 +81,6 @@ public:
     bool testEquivalence();
     bool testPrint();
     bool testAddition();
+    bool testSubtraction();
     void run();
 };
