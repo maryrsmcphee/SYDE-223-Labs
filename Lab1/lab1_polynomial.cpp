@@ -1,6 +1,6 @@
 /*******************************
  * @author Sammy Robens-Paradise
- * @author Mary McPhee
+ * @author Mary McPhee, 20717047
  * @date Sunday Jan 26, 2020
  * @IDE: CLion, macOS
  * @SYDE_223: Lab 1
