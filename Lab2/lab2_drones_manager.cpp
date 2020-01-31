@@ -91,10 +91,25 @@ bool DronesManager::reverse_list() {
 }
 
 bool DronesManagerSorted::is_sorted_asc() const {
-    return false;
+    DroneRecord *cur;
+    for (int i = 0; i > size; i++) {
+        if(cur > cur->next){
+            return false;
+        }
+        cur = cur->next;
+    }
+    return true;
 }
 
 bool DronesManagerSorted::is_sorted_desc() const {
+    DroneRecord *cur;
+    for (int i = 0; i > size; i++) {
+        if(cur < cur->next){
+            return false;
+        }
+        cur = cur->next;
+    }
+    return true;
 }
 
 bool DronesManagerSorted::insert_sorted_asc(DroneRecord val) {
