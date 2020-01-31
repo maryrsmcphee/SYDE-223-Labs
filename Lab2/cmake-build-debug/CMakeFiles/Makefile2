@@ -44,10 +44,10 @@ RM = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab2
+CMAKE_SOURCE_DIR = /Users/sammyrobens-paradise/CLionProjects/SYDE-223-Labs/Lab2
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab2/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/sammyrobens-paradise/CLionProjects/SYDE-223-Labs/Lab2/cmake-build-debug
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -74,14 +74,14 @@ preinstall:
 CMakeFiles/Lab2.dir/all:
 	$(MAKE) -f CMakeFiles/Lab2.dir/build.make CMakeFiles/Lab2.dir/depend
 	$(MAKE) -f CMakeFiles/Lab2.dir/build.make CMakeFiles/Lab2.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab2/cmake-build-debug/CMakeFiles --progress-num=1,2,3 "Built target Lab2"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/sammyrobens-paradise/CLionProjects/SYDE-223-Labs/Lab2/cmake-build-debug/CMakeFiles --progress-num=1,2,3 "Built target Lab2"
 .PHONY : CMakeFiles/Lab2.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Lab2.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab2/cmake-build-debug/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sammyrobens-paradise/CLionProjects/SYDE-223-Labs/Lab2/cmake-build-debug/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/Lab2.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab2/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sammyrobens-paradise/CLionProjects/SYDE-223-Labs/Lab2/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/Lab2.dir/rule
 
 # Convenience name for target.

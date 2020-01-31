@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab2/lab2_drones_manager.cpp" "/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab2/cmake-build-debug/CMakeFiles/Lab2.dir/lab2_drones_manager.cpp.o"
-  "/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab2/main.cpp" "/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab2/cmake-build-debug/CMakeFiles/Lab2.dir/main.cpp.o"
+  "/Users/sammyrobens-paradise/CLionProjects/SYDE-223-Labs/Lab2/lab2_drones_manager.cpp" "/Users/sammyrobens-paradise/CLionProjects/SYDE-223-Labs/Lab2/cmake-build-debug/CMakeFiles/Lab2.dir/lab2_drones_manager.cpp.o"
+  "/Users/sammyrobens-paradise/CLionProjects/SYDE-223-Labs/Lab2/main.cpp" "/Users/sammyrobens-paradise/CLionProjects/SYDE-223-Labs/Lab2/cmake-build-debug/CMakeFiles/Lab2.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
 
