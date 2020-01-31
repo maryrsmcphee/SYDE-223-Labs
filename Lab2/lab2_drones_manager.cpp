@@ -27,7 +27,13 @@ bool DronesManager::empty() const {
 }
 
 DronesManager::DroneRecord DronesManager::select(unsigned int index) const {
-    return DroneRecord();
+    if(index > size || index < 0){
+        return size;
+    } else if (empty()){
+        return 0;
+    } else {
+        return DroneRecord(index);
+    }
 }
 
 unsigned int DronesManager::search(DroneRecord value) const {
