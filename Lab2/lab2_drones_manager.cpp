@@ -14,7 +14,7 @@ DronesManager::~DronesManager() {
 }
 
 bool operator==(const DronesManager::DroneRecord& lhs, const DronesManager::DroneRecord& rhs) {
-//    TA says we only need to compare the ID but I'm skeptical
+//  TA says we only need to compare the ID but I'm skeptical
     return (lhs.droneID == rhs.droneID);
 }
 
@@ -37,10 +37,25 @@ DronesManager::DroneRecord DronesManager::select(unsigned int index) const {
 }
 
 unsigned int DronesManager::search(DroneRecord value) const {
-    return 0;
+    for(int i = 0; i < size; i++){
+        if (DroneRecord(i) == value) {
+            return i;
+        } else if (empty()) {
+            return 0;
+        } else if (i < 0 || i > size){
+            return size;
+        }
+    }
 }
 
 void DronesManager::print() const {
+    DroneRecord cur = *first;
+    for(int i = 0; i < size; i++){
+        cout << "Drone ID = " << cur.droneID << endl;
+        cout << "Year bought = " << cur.yearBought << endl;
+        cout << "Range = " << cur.range << endl;
+        // TODO: implement a way of iterating to *next
+    }
 }
 
 bool DronesManager::insert(DroneRecord value, unsigned int index) {
