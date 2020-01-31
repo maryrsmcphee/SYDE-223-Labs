@@ -6,15 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab2/lab2_drones_manager_test.h
-lab2_drones_manager.hpp
-/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab2/lab2_drones_manager.hpp
+/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab2/lab2_drones_manager.cpp
+lab2_drones_manager.h
+/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab2/lab2_drones_manager.h
 
-/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab2/main.cpp
-iostream
--
+/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab2/lab2_drones_manager.h
 string
 -
-lab2_drones_manager_test.h
-/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab2/lab2_drones_manager_test.h
 

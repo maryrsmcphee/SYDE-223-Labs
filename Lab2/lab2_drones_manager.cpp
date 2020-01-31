@@ -1,23 +1,29 @@
-#include "lab2_drones_manager.hpp"
+#include "lab2_drones_manager.h"
 
 // TODO: Implement all of the listed functions below
 
+// creates new empty DronesManager
 DronesManager::DronesManager() {
+    first = nullptr;
+    last = nullptr;
+    size = 0;
 }
 
+// Destroys instance and frees up dynamically allocated memory
 DronesManager::~DronesManager() {
 }
 
 bool operator==(const DronesManager::DroneRecord& lhs, const DronesManager::DroneRecord& rhs) {
-    return false;
+//    TA says we only need to compare the ID but I'm skeptical
+    return (lhs.droneID == rhs.droneID);
 }
 
 unsigned int DronesManager::get_size() const {
-    return 0;
+    return size;
 }
 
 bool DronesManager::empty() const {
-    return false;
+    return (first == nullptr && last == nullptr && size == 0);
 }
 
 DronesManager::DroneRecord DronesManager::select(unsigned int index) const {

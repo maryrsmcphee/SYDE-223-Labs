@@ -1,7 +1,7 @@
 #ifndef DRONES_MANAGER_TEST
 #define DRONES_MANAGER_TEST
 
-#include "lab2_drones_manager.hpp"
+#include "lab2_drones_manager.h"
 
 #define ASSERT_TRUE(T) if (!(T)) return false;
 #define ASSERT_FALSE(T) if ((T)) return false;
