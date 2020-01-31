@@ -49,12 +49,12 @@ unsigned int DronesManager::search(DroneRecord value) const {
 }
 
 void DronesManager::print() const {
-    DroneRecord cur = *first;
+    DroneRecord* cur = first;
     for(int i = 0; i < size; i++){
-        cout << "Drone ID = " << cur.droneID << endl;
-        cout << "Year bought = " << cur.yearBought << endl;
-        cout << "Range = " << cur.range << endl;
-        // TODO: implement a way of iterating to *next
+        cout << "Drone ID = " << cur->droneID << endl;
+        cout << "Year bought = " << cur->yearBought << endl;
+        cout << "Range = " << cur->range << endl;
+        cur = cur->next;
     }
 }
 
