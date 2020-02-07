@@ -83,28 +83,33 @@ bool DronesManager::insert(DroneRecord value, unsigned int index) {
 
 // TODO create insert_front
 bool DronesManager::insert_front(DroneRecord value) {
-    DroneRecord *current = this->first;
-    DroneRecord *recordToInsert = new DroneRecord(value);
-    if (current->next == NULL || !current->next) {
-        current->next = recordToInsert;
+    if (empty()) {
+        first = &value;
+        size++;
         return true;
     } else {
-        recordToInsert->next = current;
-        current->prev = recordToInsert;
-        this->first = recordToInsert;
+        DroneRecord* temp = first->next;
+        value.next = temp;
+        temp->prev = &value;
+        first = &value;
+        size++;
         return true;
     }
+
 }
 
 bool DronesManager::insert_back(DroneRecord value) {
-    DroneRecord *current = this->first;
-    DroneRecord *recordToInsert = new DroneRecord(value);
-    while (current->next) {
-        current = current->next;
+    if(empty()){
+        return DronesManager::insert_front(value);
+    }else {
+        DroneRecord *current = first;
+        while (current->next) {
+            current = current->next;
+        }
+        current->next = &value;
+        value.prev = current;
+        return current->next == &value ? true : false;
     }
-    current->next = recordToInsert;
-    recordToInsert->prev = current;
-    return current->next == recordToInsert ? true : false;
 }
 
 // TODO Sammy

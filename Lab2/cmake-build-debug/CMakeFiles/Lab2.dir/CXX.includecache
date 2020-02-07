@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/sammyrobens-paradise/CLionProjects/SYDE-223-Labs/Lab2/lab2_drones_manager.cpp
+lab2_drones_manager.h
+/Users/sammyrobens-paradise/CLionProjects/SYDE-223-Labs/Lab2/lab2_drones_manager.h
+
+/Users/sammyrobens-paradise/CLionProjects/SYDE-223-Labs/Lab2/lab2_drones_manager.h
+string
+-
+iostream
+-
+
