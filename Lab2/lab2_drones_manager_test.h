@@ -41,6 +41,7 @@ public:
     }
 
     // PURPOSE: remove_front() and remove_back() on one-element list
+    // TODO Sammy
     bool test4() {
         return false;
     }
