@@ -51,36 +51,42 @@ public:
     }
 
     // PURPOSE: insert_front() keeps moving elements forward
+    // TODO Sammy
     bool test6() {
         return false;
     }
 
     // PURPOSE: inserting at different positions in the list
+    // TODO Sammy
     bool test7() {
         return false;
     }
-
+    // TODO Sammy
     // PURPOSE: try to remove too many elements, then add a few elements
     bool test8() {
         return false;
     }
 
     // PURPOSE: lots of inserts and deletes, some of them invalid
+    // TODO Sammy
     bool test9() {
         return false;
     }
 
     // PURPOSE: inserts into an unsorted list, then sort the list
+    // TODO Mary
     bool test10() {
         return false;
     }
 
     // PURPOSE: insert and remove into sorted manager in ascending order
+    // TODO Mary
     bool test11() {
         return false;
     }
 
     // PURPOSE: insert and remove into sorted manager in descending order
+    // TODO Mary
     bool test12() {
         return false;
     }
