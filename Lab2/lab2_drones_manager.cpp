@@ -85,6 +85,9 @@ bool DronesManager::insert(DroneRecord value, unsigned int index) {
 bool DronesManager::insert_front(DroneRecord value) {
     if (empty()) {
         first = &value;
+        last = &value;
+        first->prev = NULL;
+        last->next = NULL;
         size++;
         return true;
     } else {
@@ -92,6 +95,8 @@ bool DronesManager::insert_front(DroneRecord value) {
         value.next = temp;
         temp->prev = &value;
         first = &value;
+        first->prev = NULL;
+        last->next = NULL;
         size++;
         return true;
     }
@@ -107,7 +112,10 @@ bool DronesManager::insert_back(DroneRecord value) {
             current = current->next;
         }
         current->next = &value;
-        value.prev = current;
+        last = &value;
+        last->prev = current;
+        last->next = NULL;
+        size++;
         return current->next == &value ? true : false;
     }
 }
