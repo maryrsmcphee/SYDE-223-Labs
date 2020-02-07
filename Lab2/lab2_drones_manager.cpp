@@ -106,7 +106,7 @@ bool DronesManager::insert_back(DroneRecord value) {
     recordToInsert->prev = current;
     return current->next == recordToInsert ? true : false;
 }
-
+// TODO Sammy
 bool DronesManager::remove(unsigned int index) {
     DroneRecord *current = this->first;
     int ittVerifySize = 0;
@@ -128,23 +128,23 @@ bool DronesManager::remove(unsigned int index) {
         return true;
     }
 }
-
+// TODO Sammy
 bool DronesManager::remove_front() {
     return false;
 }
-
+// TODO Sammy
 bool DronesManager::remove_back() {
     return false;
 }
-
+// TODO Mary
 bool DronesManager::replace(unsigned int index, DroneRecord value) {
     return false;
 }
-
+// TODO Mary
 bool DronesManager::reverse_list() {
     return false;
 }
-
+// TODO Sammy
 bool DronesManagerSorted::is_sorted_asc() const {
     DroneRecord *cur;
     for (int i = 0; i > size; i++) {
@@ -155,7 +155,7 @@ bool DronesManagerSorted::is_sorted_asc() const {
     }
     return true;
 }
-
+ // TODO Mary
 bool DronesManagerSorted::is_sorted_desc() const {
     DroneRecord *cur;
     for (int i = 0; i > size; i++) {
@@ -166,17 +166,17 @@ bool DronesManagerSorted::is_sorted_desc() const {
     }
     return true;
 }
-
+// TODO Sammy
 bool DronesManagerSorted::insert_sorted_asc(DroneRecord val) {
     return false;
 }
-
+// TODO Mary
 bool DronesManagerSorted::insert_sorted_desc(DroneRecord val) {
     return false;
 }
-
+ // TODO Mary
 void DronesManagerSorted::sort_asc() {
 }
-
+// TODO Sammy
 void DronesManagerSorted::sort_desc() {
 }
