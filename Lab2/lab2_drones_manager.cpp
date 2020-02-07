@@ -58,19 +58,18 @@ void DronesManager::print() const {
     }
 }
 
-// TODO Sammy to Implement Mutators
+// TODO Sammy to Implement Matadors
 bool DronesManager::insert(DroneRecord value, unsigned int index) {
-    DroneRecord *pre = new DroneRecord;
-    DroneRecord *cur = new DroneRecord;
-    DroneRecord temp = value;
-    cur = first;
-    for (int i = 0; i < index; i++) {
-        pre = cur;
-        cur = cur->next;
-    };
-    pre->next=&temp;
-    temp.next=cur;
+    int itt = 0;
+    DroneRecord *current = this->first;
+    while (itt < index) {
+        current = current->next;
+        itt++;
+    }
 
+    DroneRecord *recordToInsert = new DroneRecord(value);
+    recordToInsert->next = current;
+    current->prev->next = recordToInsert;
     return true;
 }
 
