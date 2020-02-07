@@ -108,7 +108,25 @@ bool DronesManager::insert_back(DroneRecord value) {
 }
 
 bool DronesManager::remove(unsigned int index) {
-    return false;
+    DroneRecord *current = this->first;
+    int ittVerifySize = 0;
+    while (current->next) {
+        current = current->next;
+        ittVerifySize++;
+    }
+    if (index > ittVerifySize) {
+        return false;
+    } else {
+        int itt = 0;
+        while (itt < index) {
+            current = current->next;
+            itt++;
+        }
+        current->prev = current->next;
+        current = NULL;
+        delete (current);
+        return true;
+    }
 }
 
 bool DronesManager::remove_front() {
