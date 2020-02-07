@@ -60,17 +60,25 @@ void DronesManager::print() const {
 
 // TODO Sammy to Implement Matadors
 bool DronesManager::insert(DroneRecord value, unsigned int index) {
-    int itt = 0;
     DroneRecord *current = this->first;
-    while (itt < index) {
+    int ittVerifySize = 0;
+    while (current->next) {
         current = current->next;
-        itt++;
+        ittVerifySize++;
     }
-
-    DroneRecord *recordToInsert = new DroneRecord(value);
-    recordToInsert->next = current;
-    current->prev->next = recordToInsert;
-    return true;
+    if (index > ittVerifySize) {
+        return false;
+    } else {
+        int itt = 0;
+        while (itt < index) {
+            current = current->next;
+            itt++;
+        }
+        DroneRecord *recordToInsert = new DroneRecord(value);
+        recordToInsert->next = current;
+        current->prev->next = recordToInsert;
+        return true;
+    }
 }
 
 bool DronesManager::insert_front(DroneRecord value) {
