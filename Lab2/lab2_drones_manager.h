@@ -50,7 +50,7 @@ protected:
     // copy constructor; not to be used for this assignment
     DronesManager(const DronesManager& rhs) {}
     // assignment operator; not to be used for this assignment
-    DronesManager& operator=(const DronesManager& rhs) {}
+    // DronesManager& operator=(const DronesManager& rhs) {}
 
 public:
     // EXPLICIT CONSTRUCTOR AND DESTRUCTOR
