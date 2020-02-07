@@ -58,20 +58,75 @@ void DronesManager::print() const {
     }
 }
 
+// TODO Sammy to Test Matadors Insert
 bool DronesManager::insert(DroneRecord value, unsigned int index) {
-    return false;
+    DroneRecord *current = this->first;
+    int ittVerifySize = 0;
+    while (current->next) {
+        current = current->next;
+        ittVerifySize++;
+    }
+    if (index > ittVerifySize) {
+        return false;
+    } else {
+        int itt = 0;
+        while (itt < index) {
+            current = current->next;
+            itt++;
+        }
+        DroneRecord *recordToInsert = new DroneRecord(value);
+        recordToInsert->next = current;
+        current->prev->next = recordToInsert;
+        return true;
+    }
 }
 
+// TODO create insert_front
 bool DronesManager::insert_front(DroneRecord value) {
-    return false;
+    DroneRecord *current = this->first;
+    DroneRecord *recordToInsert = new DroneRecord(value);
+    if (current->next == NULL || !current->next) {
+        current->next = recordToInsert;
+        return true;
+    } else {
+        recordToInsert->next = current;
+        current->prev = recordToInsert;
+        this->first = recordToInsert;
+        return true;
+    }
 }
 
 bool DronesManager::insert_back(DroneRecord value) {
-    return false;
+    DroneRecord *current = this->first;
+    DroneRecord *recordToInsert = new DroneRecord(value);
+    while (current->next) {
+        current = current->next;
+    }
+    current->next = recordToInsert;
+    recordToInsert->prev = current;
+    return current->next == recordToInsert ? true : false;
 }
 
 bool DronesManager::remove(unsigned int index) {
-    return false;
+    DroneRecord *current = this->first;
+    int ittVerifySize = 0;
+    while (current->next) {
+        current = current->next;
+        ittVerifySize++;
+    }
+    if (index > ittVerifySize) {
+        return false;
+    } else {
+        int itt = 0;
+        while (itt < index) {
+            current = current->next;
+            itt++;
+        }
+        current->prev = current->next;
+        current = NULL;
+        delete (current);
+        return true;
+    }
 }
 
 bool DronesManager::remove_front() {

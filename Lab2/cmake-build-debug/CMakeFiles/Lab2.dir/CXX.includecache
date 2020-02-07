@@ -6,13 +6,23 @@
 
 #IncludeRegexTransform: 
 
+<<<<<<< HEAD
 /Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab2/lab2_drones_manager.cpp
+=======
+/Users/sammyrobens-paradise/CLionProjects/SYDE-223-Labs/Lab2/lab2_drones_manager.cpp
+>>>>>>> created insert node
 lab2_drones_manager.h
 /Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab2/lab2_drones_manager.h
 
+<<<<<<< HEAD
 /Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab2/lab2_drones_manager.h
 string
 -
 iostream
 -
+=======
+/Users/sammyrobens-paradise/CLionProjects/SYDE-223-Labs/Lab2/lab2_drones_manager.h
+string
+-
+>>>>>>> created insert node
 

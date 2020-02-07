@@ -57,7 +57,6 @@ public:
 
     // PURPOSE: inserting at different positions in the list
     bool test7() {
-        return false;
     }
 
     // PURPOSE: try to remove too many elements, then add a few elements
