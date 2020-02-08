@@ -6,7 +6,7 @@
 using namespace std;
 
 string get_status_str(bool status) {
-    return status ? "TEST PASSED" : "TEST FAILED";
+    return status ? " ✅ TEST PASSED" : " ❌ TEST FAILED";
 }
 
 int main() {

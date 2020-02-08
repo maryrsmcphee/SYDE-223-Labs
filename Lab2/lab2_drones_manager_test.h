@@ -25,7 +25,7 @@ public:
         manager2.insert_back(DronesManager::DroneRecord(100));
 
         ASSERT_TRUE(manager1.get_size() == manager2.get_size() && manager1.get_size() == 1)
-        ASSERT_TRUE(manager1.first != NULL && manager1.first == manager1.last)
+        ASSERT_TRUE(manager1.first != NULL && manager1.first == manager1.last )
         ASSERT_TRUE(manager2.first != NULL && manager2.first == manager2.last)
         ASSERT_TRUE(manager1.first->prev == NULL && manager1.last->next == NULL)
         ASSERT_TRUE(manager2.first->prev == NULL && manager2.last->next == NULL)
