@@ -87,6 +87,13 @@ public:
     bool test9() {
         DronesManager manager;
         ASSERT_TRUE(manager.insert(DronesManager::DroneRecord(100), 0))
+        ASSERT_TRUE(manager.insert(DronesManager::DroneRecord(102), 0))
+        ASSERT_TRUE(manager.insert(DronesManager::DroneRecord(101), 1))
+
+        //insertion out of bounds
+        ASSERT_FALSE(manager.insert(DronesManager::DroneRecord(100), 8))
+        manager.print();
+
         return true;
     }
 

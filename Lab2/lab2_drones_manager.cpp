@@ -73,7 +73,7 @@ void DronesManager::print() const {
 bool DronesManager::insert(DroneRecord value, unsigned int index) {
     if (empty()){
         if(index == 0){
-            cout << "got to inserting at index == 0";
+            cout << "got to inserting at index == 0 for empty() instance" << endl;
             DroneRecord *recordToInsert = new DroneRecord();
             recordToInsert->droneID =  value.droneID;
             recordToInsert->yearBought = value.yearBought;
@@ -82,6 +82,7 @@ bool DronesManager::insert(DroneRecord value, unsigned int index) {
             last = recordToInsert;
             recordToInsert->prev = nullptr;
             recordToInsert->next = nullptr;
+            size++;
             return true;
         }else{
             cout << "Insertion rejected - index out of bounds." << endl;
@@ -96,11 +97,15 @@ bool DronesManager::insert(DroneRecord value, unsigned int index) {
         recordToInsert->yearBought = value.yearBought;
         recordToInsert->range = value.range;
         if (index == 0) {
+            cout << "got to inserting at index == 0 for !empty() instance." << endl;
             first = recordToInsert;
             recordToInsert->prev = nullptr;
             recordToInsert->next = current;
             current->prev = first;
+            size++;
             return true;
+        }else if (index >= size) {
+            cout << "Insertion rejected - index out of bounds." << endl;
         } else {
             int ittVerifySize = 0;
             while (current->next != nullptr && ittVerifySize != index) {
@@ -112,6 +117,7 @@ bool DronesManager::insert(DroneRecord value, unsigned int index) {
             recordToInsert->next = current;
             current->prev = recordToInsert;
             recordToInsert->prev = prev;
+            size++;
             return true;
         }
     }
