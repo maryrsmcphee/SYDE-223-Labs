@@ -101,6 +101,7 @@ bool DronesManager::insert(DroneRecord value, unsigned int index) {
 }
 
 bool DronesManager::insert_front(DroneRecord value) {
+     DroneRecord *DroneRecordPtr = &value;
     if (empty()) {
         first = &value;
         last = &value;
@@ -109,12 +110,12 @@ bool DronesManager::insert_front(DroneRecord value) {
         size++;
         return true;
     } else {
-        value.next = (first);
-        value.prev = NULL;
+        DroneRecordPtr->next = (first);
+        DroneRecordPtr->prev = NULL;
         //previous of head is new node
         if ((first) != NULL)
-            first->prev = &value;
-        (first) = &value;
+            first->prev = DroneRecordPtr;
+        (first) = DroneRecordPtr;
         size++;
         return true;
     }
