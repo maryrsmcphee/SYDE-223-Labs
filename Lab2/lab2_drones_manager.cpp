@@ -141,6 +141,7 @@ bool DronesManager::insert_front(DroneRecord value) {
     }
 
 }
+
 // TODO Sammy
 bool DronesManager::insert_back(DroneRecord value) {
     if (empty()) {
@@ -167,23 +168,19 @@ bool DronesManager::insert_back(DroneRecord value) {
 
 // TODO Sammy
 bool DronesManager::remove(unsigned int index) {
-    DroneRecord *current = this->first;
-    int ittVerifySize = 0;
-    while (current->next) {
-        current = current->next;
-        ittVerifySize++;
-    }
-    if (index > ittVerifySize) {
+    if (index > size || index < 0 || empty()) {
         return false;
+    } else if ((index == size && size == 1 && first->next == NULL) || index == 0) {
+        first->prev = NULL;
+        first = NULL;
+        last = NULL;
+        size--;
     } else {
-        int itt = 0;
-        while (itt < index) {
-            current = current->next;
-            itt++;
-        }
-        current->prev = current->next;
-        current = NULL;
-        delete current;
+        DroneRecord prevNode = select(index-1); // get nth-1 node
+        DroneRecord temp = select(index); // get nth node
+        prevNode.next = temp.next;  // assign nth-1 ptr node to nth+1 ptr
+        temp.next->prev = &prevNode; // assign nth +1 prev ptr to nth-1 node
+        free(&temp); // free temp;
         size--;
         return true;
     }
@@ -192,7 +189,7 @@ bool DronesManager::remove(unsigned int index) {
 bool DronesManager::remove_front() {
     if (first == NULL) {
         return false;
-    } else if(size == 1 && first->next == NULL){
+    } else if (size == 1 && first->next == NULL) {
         first->prev = NULL;
         first = NULL;
         last = NULL;
@@ -209,12 +206,12 @@ bool DronesManager::remove_front() {
 bool DronesManager::remove_back() {
     if (first == NULL) {
         return false;
-    } else if(size == 1 && first->next == NULL){
+    } else if (size == 1 && first->next == NULL) {
         first->prev = NULL;
         first = NULL;
         last = NULL;
-        size --;
-    }else{
+        size--;
+    } else {
         DroneRecord *current = first;
         while (current->next->next) {
             current = current->next;

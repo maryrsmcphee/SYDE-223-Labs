@@ -228,15 +228,22 @@ public:
     // PURPOSE: lots of inserts and deletes, some of them invalid
     // TODO Sammy
     bool test9() {
-        DronesManager manager;
+        DronesManager manager,manager1;
         ASSERT_TRUE(manager.insert(DronesManager::DroneRecord(100), 0))
         ASSERT_TRUE(manager.insert(DronesManager::DroneRecord(102), 0))
         ASSERT_TRUE(manager.insert(DronesManager::DroneRecord(101), 1))
-
         //insertion out of bounds
         ASSERT_FALSE(manager.insert(DronesManager::DroneRecord(100), 8))
         manager.print();
-
+        const int initialListSize = 100;
+        for (int i = 1; i <= initialListSize; i++) {
+            manager1.insert_front(DronesManager::DroneRecord(i));
+            // check to make sure size is correctly indexed
+            ASSERT_TRUE(manager1.size == i);
+        }
+        cout<<manager1.select(5).droneID<<endl;
+     //   manager1.remove(5);
+        cout<<manager1.select(5).droneID<<endl;
         return true;
     }
 
