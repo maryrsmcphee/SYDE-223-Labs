@@ -49,4 +49,5 @@ int main() {
         cout << test_descriptions[index] << endl << get_status_str(test_results[index]) << endl;
     }
     system("pause");
+    return 0;
 }
