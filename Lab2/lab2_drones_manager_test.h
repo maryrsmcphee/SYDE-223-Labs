@@ -33,8 +33,7 @@ public:
         return true;
     }
 
-    // TODO: Implement all of the test cases below
-
+    // TODO: Mary
     // PURPOSE: select() and search() work properly
     bool test3() {
         return false;
@@ -43,10 +42,25 @@ public:
     // PURPOSE: remove_front() and remove_back() on one-element list
     // TODO Sammy
     bool test4() {
-        return false;
+        DronesManager manager3, manager4;
+        // Populate List ADT
+        const int initialListSize = 30;
+        for(int i = 1; i <= initialListSize; i ++){
+            manager3.insert_front(DronesManager::DroneRecord(i));
+            manager4.insert_front(DronesManager::DroneRecord(i));
+            // check to make sure all values are correctly populated
+            ASSERT_TRUE(manager3.size  == i);
+            ASSERT_TRUE(manager4.size == i);
+        }
+    //    cout<<manager3.select(1).droneID<<endl;
+     //   manager3.remove_front();
+      //  manager4.remove_front();
+    //    ASSERT_TRUE(manager3.select(0). == 1);
+        return true;
     }
 
     // PURPOSE: replace() and reverse_list() work properly
+    // TODO: Mary
     bool test5() {
         return false;
     }
