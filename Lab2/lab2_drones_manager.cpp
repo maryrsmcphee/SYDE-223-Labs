@@ -71,11 +71,11 @@ void DronesManager::print() const {
 
 // TODO Sammy to Test Matadors Insert
 bool DronesManager::insert(DroneRecord value, unsigned int index) {
-    if (empty()){
-        if(index == 0){
+    if (empty()) {
+        if (index == 0) {
             cout << "got to inserting at index == 0 for empty() instance" << endl;
             DroneRecord *recordToInsert = new DroneRecord();
-            recordToInsert->droneID =  value.droneID;
+            recordToInsert->droneID = value.droneID;
             recordToInsert->yearBought = value.yearBought;
             recordToInsert->range = value.range;
             first = recordToInsert;
@@ -84,7 +84,7 @@ bool DronesManager::insert(DroneRecord value, unsigned int index) {
             recordToInsert->next = nullptr;
             size++;
             return true;
-        }else{
+        } else {
             cout << "Insertion rejected - index out of bounds." << endl;
             return false;
         }
@@ -104,7 +104,7 @@ bool DronesManager::insert(DroneRecord value, unsigned int index) {
             current->prev = first;
             size++;
             return true;
-        }else if (index >= size) {
+        } else if (index >= size) {
             cout << "Insertion rejected - index out of bounds." << endl;
         } else {
             int ittVerifySize = 0;
@@ -124,22 +124,23 @@ bool DronesManager::insert(DroneRecord value, unsigned int index) {
 }
 
 bool DronesManager::insert_front(DroneRecord value) {
-     DroneRecord *DroneRecordPtr = &value;
+    DroneRecord *recordToInsert = new DroneRecord();
+    recordToInsert->droneID = value.droneID;
+    recordToInsert->yearBought = value.yearBought;
+    recordToInsert->range = value.range;
     if (empty()) {
-        first = DroneRecordPtr;
-        last = DroneRecordPtr;
-        DroneRecordPtr->prev = NULL;
-        DroneRecordPtr->next = NULL;
+        first = recordToInsert;
+        last = recordToInsert;
+        recordToInsert->prev = NULL;
+        recordToInsert->next = NULL;
         size++;
         return true;
     } else {
-        DroneRecordPtr->next = (first);
-        DroneRecordPtr->prev = NULL;
-        //previous of first is new node
-        if ((first) != NULL)
-            first->prev = DroneRecordPtr;
-        (first) = DroneRecordPtr;
-        cout<<last->droneID<<endl;
+
+        first = recordToInsert;
+        recordToInsert->prev = nullptr;
+        recordToInsert->next = nullptr;
+
         size++;
         return true;
     }
