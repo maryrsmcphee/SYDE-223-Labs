@@ -28,7 +28,7 @@ bool DronesManager::empty() const {
 
 DronesManager::DroneRecord DronesManager::select(unsigned int index) const {
     DroneRecord *searchNode = first;
-    if (index > size || index < 0) {
+    if (index > size) {
         while (searchNode->next != NULL) {
             searchNode = searchNode->next;
         }
@@ -109,13 +109,12 @@ bool DronesManager::insert_front(DroneRecord value) {
         size++;
         return true;
     } else {
-        value.next = first->next;
-        first = &value;
-        if (value.next != NULL) {
-            value.next->prev = &value;
-        }
-        first->prev = NULL;
-        last->next = NULL;
+        value.next = (first);
+        value.prev = NULL;
+        //previous of head is new node
+        if ((first) != NULL)
+            first->prev = &value;
+        (first) = &value;
         size++;
         return true;
     }
