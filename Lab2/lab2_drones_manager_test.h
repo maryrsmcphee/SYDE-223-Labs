@@ -187,8 +187,7 @@ public:
         return true;
     }
 
-    // TODO Sammy
-    // PURPOSE: try to remove too many elements, then add a few elements
+    /** PURPOSE: try to remove too many elements, then add a few elements */
     bool test8() {
         DronesManager manager13, manager14;
         // Populate List ADT
