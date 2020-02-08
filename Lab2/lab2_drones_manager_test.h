@@ -91,9 +91,31 @@ public:
             ASSERT_TRUE(manager7.size == i);
             ASSERT_TRUE(manager8.size == i);
         }
-        cout<<manager7.last->droneID<<endl;
         manager7.remove_back();
-        cout<<manager7.last->droneID<<endl;
+        manager8.remove_back();
+        ASSERT_TRUE(manager7.last->droneID == 2);
+        ASSERT_TRUE(manager8.last->droneID == 2);
+        manager7.remove_back();
+        manager8.remove_back();
+        ASSERT_TRUE(manager7.last->droneID == 3);
+        ASSERT_TRUE(manager8.last->droneID == 3);
+        manager7.remove_back();
+        manager8.remove_back();
+        ASSERT_TRUE(manager7.last->droneID == 4);
+        ASSERT_TRUE(manager8.last->droneID == 4);
+
+        /** ----- Test remove_front() on Single Element List----- */
+        DronesManager manager9, manager10;
+        manager5.insert_front(DronesManager::DroneRecord(10));
+        manager6.insert_front(DronesManager::DroneRecord(10));
+        manager5.remove_back();
+        manager6.remove_back();
+        // assert that the size has be decremented
+        ASSERT_TRUE(manager9.size == 0);
+        ASSERT_TRUE(manager10.size == 0);
+        ASSERT_TRUE(manager9.first == NULL && manager5.last == NULL && manager9.size == 0);
+        ASSERT_TRUE(manager10.first == NULL && manager6.last == NULL && manager10.size == 0);
+
         return true;
     }
 
