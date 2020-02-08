@@ -126,8 +126,7 @@ public:
         return false;
     }
 
-    // PURPOSE: insert_front() keeps moving elements forward
-    // TODO Sammy
+    /** PURPOSE: insert_front() keeps moving elements forward */
     bool test6() {
         DronesManager manager3, manager4;
         // Populate List ADT
