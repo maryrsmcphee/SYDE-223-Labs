@@ -25,7 +25,7 @@ public:
         manager2.insert_back(DronesManager::DroneRecord(100));
 
         ASSERT_TRUE(manager1.get_size() == manager2.get_size() && manager1.get_size() == 1)
-        ASSERT_TRUE(manager1.first != NULL && manager1.first == manager1.last )
+        ASSERT_TRUE(manager1.first != NULL && manager1.first == manager1.last)
         ASSERT_TRUE(manager2.first != NULL && manager2.first == manager2.last)
         ASSERT_TRUE(manager1.first->prev == NULL && manager1.last->next == NULL)
         ASSERT_TRUE(manager2.first->prev == NULL && manager2.last->next == NULL)
@@ -42,24 +42,58 @@ public:
         return true;
     }
 
-    // PURPOSE: remove_front() and remove_back() on one-element list
-    // TODO Sammy
+    /** PURPOSE: remove_front() and remove_back() on one-element list  */
     bool test4() {
+        /** ----- Test  remove_front() on Multi Element List----- */
         DronesManager manager3, manager4;
         // Populate List ADT
         const int initialListSize = 30;
-        for(int i = 1; i <= initialListSize; i ++){
+        for (int i = 1; i <= initialListSize; i++) {
             manager3.insert_front(DronesManager::DroneRecord(i));
             manager4.insert_front(DronesManager::DroneRecord(i));
             // check to make sure size is correctly indexed
-            ASSERT_TRUE(manager3.size  == i);
+            ASSERT_TRUE(manager3.size == i);
             ASSERT_TRUE(manager4.size == i);
         }
-        cout<<manager3.select(20).droneID<<endl;
+        manager3.remove_front();
+        manager4.remove_front();
+        ASSERT_TRUE(manager3.select(0) == initialListSize - 1);
+        ASSERT_TRUE(manager4.select(0) == initialListSize - 1);
+        manager3.remove_front();
+        manager4.remove_front();
+        ASSERT_TRUE(manager3.select(0) == initialListSize - 2);
+        ASSERT_TRUE(manager4.select(0) == initialListSize - 2);
+        manager3.remove_front();
+        manager4.remove_front();
+        ASSERT_TRUE(manager3.select(0) == initialListSize - 3);
+        ASSERT_TRUE(manager4.select(0) == initialListSize - 3);
 
+        /** ----- Test remove_front() on Single Element List----- */
+        DronesManager manager5, manager6;
+        manager5.insert_front(DronesManager::DroneRecord(10));
+        manager6.insert_front(DronesManager::DroneRecord(10));
+        manager5.remove_front();
+        manager6.remove_front();
+        // assert that the size has be decremented
+        ASSERT_TRUE(manager5.size == 0);
+        ASSERT_TRUE(manager6.size == 0);
+        ASSERT_TRUE(manager5.first == NULL && manager5.last == NULL);
+        ASSERT_TRUE(manager6.first == NULL && manager6.last == NULL);
 
-        //  manager4.remove_front();
-    //    ASSERT_TRUE(manager3.select(0) == 1);
+        /** Test  remove_front() on Multi Element List----- */
+        DronesManager manager7, manager8;
+        // Populate List ADT
+        const int initialListSize2 = 30;
+        for (int i = 1; i <= initialListSize2; i++) {
+            manager7.insert_front(DronesManager::DroneRecord(i));
+            manager8.insert_front(DronesManager::DroneRecord(i));
+            // check to make sure size is correctly indexed
+            ASSERT_TRUE(manager7.size == i);
+            ASSERT_TRUE(manager8.size == i);
+        }
+        cout<<manager7.last->droneID<<endl;
+        manager7.remove_back();
+        cout<<manager7.last->droneID<<endl;
         return true;
     }
 
@@ -80,6 +114,7 @@ public:
     bool test7() {
         return false;
     }
+
     // TODO Sammy
     // PURPOSE: try to remove too many elements, then add a few elements
     bool test8() {
