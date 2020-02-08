@@ -27,23 +27,18 @@ bool DronesManager::empty() const {
 }
 
 DronesManager::DroneRecord DronesManager::select(unsigned int index) const {
-    DroneRecord *searchNode = first;
-    if (index > size) {
-        while (searchNode->next != NULL) {
-            searchNode = searchNode->next;
-        }
-        return *searchNode;
+    if (index > size || index > 0) {
+        cout << "Unable to select: Index is outside of bounds" << endl;
     } else if (empty()) {
         DroneRecord(0);
     } else {
         int count = 0;
         DroneRecord *current = first;
-        while (current != NULL) {
-            if (count == index)
-                return (*current);
-            count++;
+        while (count < index && current != nullptr) {
             current = current->next;
+            count++;
         }
+        return *current;
     }
 }
 

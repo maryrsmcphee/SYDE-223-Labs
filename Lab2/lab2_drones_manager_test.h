@@ -36,7 +36,10 @@ public:
     // TODO: Mary
     // PURPOSE: select() and search() work properly
     bool test3() {
-        return false;
+        DronesManager manager1, manager2;
+        manager1.insert(1, 0);
+        ASSERT_TRUE(manager1.select(0) == DronesManager::DroneRecord(1));
+        return true;
     }
 
     // PURPOSE: remove_front() and remove_back() on one-element list
