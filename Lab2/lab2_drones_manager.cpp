@@ -136,11 +136,10 @@ bool DronesManager::insert_front(DroneRecord value) {
         size++;
         return true;
     } else {
-
+        DroneRecord *temp = first;
         first = recordToInsert;
         recordToInsert->prev = nullptr;
-        recordToInsert->next = nullptr;
-
+        recordToInsert->next = temp;
         size++;
         return true;
     }
@@ -199,9 +198,9 @@ bool DronesManager::remove_front() {
     if (first == NULL) {
         return false;
     } else {
-        DroneRecord *temp = first;
         first = first->next;
-        delete temp;
+        delete first->prev;
+        first->prev = NULL;
         size--;
         return true;
     }

@@ -52,9 +52,10 @@ public:
             ASSERT_TRUE(manager3.size  == i);
             ASSERT_TRUE(manager4.size == i);
         }
-        cout<<manager3.select(1).droneID<<endl;
-        //   manager3.remove_front();
-      //  manager4.remove_front();
+        cout<<manager3.select(0).droneID<<endl;
+
+
+        //  manager4.remove_front();
     //    ASSERT_TRUE(manager3.select(0) == 1);
         return true;
     }
