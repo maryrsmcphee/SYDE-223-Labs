@@ -146,9 +146,9 @@ public:
          * then nth-1 element. If this is the case, then it means that
          * the elements are being added to the beginning of the list.
          * */
-        for(int i = 0; i < initialListSize-1; i++){
-            ASSERT_TRUE(manager3.select(i).droneID > manager3.select(i+1).droneID);
-            ASSERT_TRUE(manager4.select(i).droneID > manager4.select(i+1).droneID)
+        for (int i = 0; i < initialListSize - 1; i++) {
+            ASSERT_TRUE(manager3.select(i).droneID > manager3.select(i + 1).droneID);
+            ASSERT_TRUE(manager4.select(i).droneID > manager4.select(i + 1).droneID)
         }
         return true;
     }
@@ -166,22 +166,22 @@ public:
             ASSERT_TRUE(manager12.size == i);
         }
         /** Insert at random position */
-        int pos1 = rand()% 100 +1;
-        int pos2 = rand()% 100 +1;
-        manager11.insert(DronesManager::DroneRecord(500),pos1);
-        manager12.insert(DronesManager::DroneRecord(500),pos2);
+        int pos1 = rand() % 100 + 1;
+        int pos2 = rand() % 100 + 1;
+        manager11.insert(DronesManager::DroneRecord(500), pos1);
+        manager12.insert(DronesManager::DroneRecord(500), pos2);
         ASSERT_TRUE(manager11.select(pos1).droneID == 500);
         ASSERT_TRUE(manager12.select(pos2).droneID == 500);
 
         /** insert at beginning */
-        manager11.insert(DronesManager::DroneRecord(500),0);
-        manager12.insert(DronesManager::DroneRecord(500),0);
+        manager11.insert(DronesManager::DroneRecord(500), 0);
+        manager12.insert(DronesManager::DroneRecord(500), 0);
         ASSERT_TRUE(manager11.select(0).droneID == 500);
         ASSERT_TRUE(manager12.select(0).droneID == 500);
 
         /** insert at end */
-        manager11.insert(DronesManager::DroneRecord(500),100);
-        manager12.insert(DronesManager::DroneRecord(500),100);
+        manager11.insert(DronesManager::DroneRecord(500), 100);
+        manager12.insert(DronesManager::DroneRecord(500), 100);
         ASSERT_TRUE(manager11.select(100).droneID == 500);
         ASSERT_TRUE(manager12.select(100).droneID == 500);
         return true;
@@ -190,7 +190,40 @@ public:
     // TODO Sammy
     // PURPOSE: try to remove too many elements, then add a few elements
     bool test8() {
-        return false;
+        DronesManager manager13, manager14;
+        // Populate List ADT
+        const int initialListSize = 2;
+        const int secondaryListSize = 20;
+        for (int i = 1; i <= initialListSize; i++) {
+            manager13.insert_front(DronesManager::DroneRecord(i));
+            manager14.insert_front(DronesManager::DroneRecord(i));
+            // check to make sure size is correctly indexed
+            ASSERT_TRUE(manager13.size == i);
+            ASSERT_TRUE(manager14.size == i);
+        }
+
+        manager13.remove_back();
+        manager13.remove_back();
+        manager14.remove_back();
+        manager14.remove_back();
+
+        /** Attempt to remove element when first is NULL */
+        ASSERT_FALSE(manager13.remove_back());
+        ASSERT_FALSE(manager14.remove_back());
+
+        /** Add elements */
+        for (int i = 1; i <= secondaryListSize; i++) {
+            manager13.insert_front(DronesManager::DroneRecord(i));
+            manager14.insert_front(DronesManager::DroneRecord(i));
+            // check to make sure size is correctly indexed
+            ASSERT_TRUE(manager13.size == i);
+            ASSERT_TRUE(manager14.size == i);
+
+            /** Assert that the first node is always the last node added and that the last doesnt change */
+            ASSERT_TRUE(manager13.last->droneID == 1 && manager13.first->droneID == i);
+            ASSERT_TRUE(manager14.last->droneID == 1 && manager14.first->droneID == i)
+        }
+        return true;
     }
 
     // PURPOSE: lots of inserts and deletes, some of them invalid
