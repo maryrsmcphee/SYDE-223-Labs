@@ -153,10 +153,38 @@ public:
         return true;
     }
 
-    // PURPOSE: inserting at different positions in the list
-    // TODO Sammy
+    /** PURPOSE: inserting at different positions in the list */
     bool test7() {
-        return false;
+        DronesManager manager11, manager12;
+        // Populate List ADT
+        const int initialListSize = 100;
+        for (int i = 1; i <= initialListSize; i++) {
+            manager11.insert_front(DronesManager::DroneRecord(i));
+            manager12.insert_front(DronesManager::DroneRecord(i));
+            // check to make sure size is correctly indexed
+            ASSERT_TRUE(manager11.size == i);
+            ASSERT_TRUE(manager12.size == i);
+        }
+        /** Insert at random position */
+        int pos1 = rand()% 100 +1;
+        int pos2 = rand()% 100 +1;
+        manager11.insert(DronesManager::DroneRecord(500),pos1);
+        manager12.insert(DronesManager::DroneRecord(500),pos2);
+        ASSERT_TRUE(manager11.select(pos1).droneID == 500);
+        ASSERT_TRUE(manager12.select(pos2).droneID == 500);
+
+        /** insert at beginning */
+        manager11.insert(DronesManager::DroneRecord(500),0);
+        manager12.insert(DronesManager::DroneRecord(500),0);
+        ASSERT_TRUE(manager11.select(0).droneID == 500);
+        ASSERT_TRUE(manager12.select(0).droneID == 500);
+
+        /** insert at end */
+        manager11.insert(DronesManager::DroneRecord(500),100);
+        manager12.insert(DronesManager::DroneRecord(500),100);
+        ASSERT_TRUE(manager11.select(100).droneID == 500);
+        ASSERT_TRUE(manager12.select(100).droneID == 500);
+        return true;
     }
 
     // TODO Sammy
