@@ -27,7 +27,7 @@ bool DronesManager::empty() const {
 }
 
 DronesManager::DroneRecord DronesManager::select(unsigned int index) const {
-    if (index > size || index > 0) {
+    if (index > size || index < 0) {
         cout << "Unable to select: Index is outside of bounds" << endl;
     } else if (empty()) {
         DroneRecord(0);
