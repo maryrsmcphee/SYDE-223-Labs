@@ -193,12 +193,38 @@ bool DronesManager::remove_back() {
 
 // TODO Mary
 bool DronesManager::replace(unsigned int index, DroneRecord value) {
-    return false;
+    DroneRecord *current = this->first;
+    DroneRecord *val = new DroneRecord(value);
+    if (index < 0 || index < size - 1) {
+        return false;
+    } else {
+        int i = 0;
+        while (current->next != nullptr && i != index) {
+            current = current->next;
+            i++;
+        }
+        val->next = current->next;
+        val->prev = current->prev;
+        current->next->prev = val;
+        current->prev->next = val;
+        return true;
+    }
 }
 
 // TODO Mary
 bool DronesManager::reverse_list() {
-    return false;
+    DroneRecord *reversed = this->first;
+    DroneRecord *current = this->last;
+    if (empty()) {
+        return false;
+    } else {
+        for (int i = 0; i < size; i++) {
+            reversed->prev->next = last->prev->next;
+            reversed = reversed->next;
+            current = current->prev;
+        }
+        return true;
+    }
 }
 
 // TODO Sammy
