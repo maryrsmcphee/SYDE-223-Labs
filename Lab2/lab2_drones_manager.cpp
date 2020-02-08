@@ -141,7 +141,7 @@ bool DronesManager::insert_front(DroneRecord value) {
     }
 
 }
-
+// TODO Sammy
 bool DronesManager::insert_back(DroneRecord value) {
     if (empty()) {
         first = &value;
@@ -189,7 +189,6 @@ bool DronesManager::remove(unsigned int index) {
     }
 }
 
-// TODO Sammy
 bool DronesManager::remove_front() {
     if (first == NULL) {
         return false;
@@ -207,7 +206,6 @@ bool DronesManager::remove_front() {
     }
 }
 
-// TODO Sammy
 bool DronesManager::remove_back() {
     if (first == NULL) {
         return false;
