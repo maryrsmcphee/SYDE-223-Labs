@@ -72,22 +72,30 @@ void DronesManager::print() const {
 // TODO Sammy to Test Matadors Insert
 bool DronesManager::insert(DroneRecord value, unsigned int index) {
     DroneRecord *current = this->first;
+    DroneRecord *prev = nullptr;
+    DroneRecord *recordToInsert = new DroneRecord();
+    // sets the new drone equal to value
+    recordToInsert->droneID = value.droneID;
+    recordToInsert->yearBought = value.yearBought;
+    recordToInsert->range = value.range;
+
     int ittVerifySize = 0;
-    while (current->next) {
-        current = current->next;
-        ittVerifySize++;
-    }
-    if (index > ittVerifySize) {
-        return false;
+    if (index == 0) {
+        first = recordToInsert;
+        first->prev = nullptr;
+        first->next = current;
+        current->prev = first;
+        return true;
     } else {
-        int itt = 0;
-        while (itt < index) {
+        while (current->next != nullptr && ittVerifySize != index) {
+            prev = current;
             current = current->next;
-            itt++;
+            ittVerifySize++;
         }
-        DroneRecord *recordToInsert = new DroneRecord(value);
+        prev->next = recordToInsert;
         recordToInsert->next = current;
-        current->prev->next = recordToInsert;
+        current->prev = recordToInsert;
+        recordToInsert->prev = prev;
         return true;
     }
 }
