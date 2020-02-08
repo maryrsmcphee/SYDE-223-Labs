@@ -153,8 +153,7 @@ public:
         return true;
     }
 
-    // PURPOSE: inserting at different positions in the list
-    // TODO Sammy
+    /** PURPOSE: inserting at different positions in the list */
     bool test7() {
         DronesManager manager11, manager12;
         // Populate List ADT
