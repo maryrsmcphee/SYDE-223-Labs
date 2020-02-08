@@ -2,13 +2,14 @@
 #define DRONES_MANAGER_TEST
 
 #include "lab2_drones_manager.h"
-
+//Define Assertions
 #define ASSERT_TRUE(T) if (!(T)) return false;
 #define ASSERT_FALSE(T) if ((T)) return false;
 
 class DronesManagerTest {
+
 public:
-    // PURPOSE: New empty list is valid
+    /** PURPOSE: New empty list is valid */
     bool test1() {
         DronesManager manager;
         ASSERT_TRUE(manager.get_size() == 0)
@@ -18,7 +19,7 @@ public:
         return true;
     }
 
-    // PURPOSE: insert_front() and insert_back() on zero-element list
+    /** PURPOSE: insert_front() and insert_back() on zero-element list */
     bool test2() {
         DronesManager manager1, manager2;
         manager1.insert_front(DronesManager::DroneRecord(100));
@@ -125,10 +126,31 @@ public:
         return false;
     }
 
-    // PURPOSE: insert_front() keeps moving elements forward
-    // TODO Sammy
+    /** PURPOSE: insert_front() keeps moving elements forward */
     bool test6() {
-        return false;
+        DronesManager manager3, manager4;
+        // Populate List ADT
+        const int initialListSize = 3000;
+        for (int i = 1; i <= initialListSize; i++) {
+            manager3.insert_front(DronesManager::DroneRecord(i));
+            manager4.insert_front(DronesManager::DroneRecord(i));
+            // check to make sure size is correctly indexed
+            ASSERT_TRUE(manager3.size == i);
+            ASSERT_TRUE(manager4.size == i);
+        }
+        /*
+         * Above we have created a list ADT where the last node's droneID is
+         * going to be the greatest. To ensure that the list is
+         * always pushing elements forward we can iterate through
+         * the linked list and assert that the nth element is always less
+         * then nth-1 element. If this is the case, then it means that
+         * the elements are being added to the beginning of the list.
+         * */
+        for(int i = 0; i < initialListSize-1; i++){
+            ASSERT_TRUE(manager3.select(i).droneID > manager3.select(i+1).droneID);
+            ASSERT_TRUE(manager4.select(i).droneID > manager4.select(i+1).droneID)
+        }
+        return true;
     }
 
     // PURPOSE: inserting at different positions in the list
