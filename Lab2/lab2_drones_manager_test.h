@@ -48,14 +48,14 @@ public:
         for(int i = 1; i <= initialListSize; i ++){
             manager3.insert_front(DronesManager::DroneRecord(i));
             manager4.insert_front(DronesManager::DroneRecord(i));
-            cout<<manager3.select(0).droneID<<endl;
             // check to make sure size is correctly indexed
             ASSERT_TRUE(manager3.size  == i);
             ASSERT_TRUE(manager4.size == i);
         }
-     //   manager3.remove_front();
+            cout<<manager3.select(3).droneID<<endl;
+        //   manager3.remove_front();
       //  manager4.remove_front();
-    //    ASSERT_TRUE(manager3.select(0). == 1);
+    //    ASSERT_TRUE(manager3.select(0) == 1);
         return true;
     }
 
