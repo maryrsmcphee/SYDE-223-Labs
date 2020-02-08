@@ -23,16 +23,25 @@ unsigned int DronesManager::get_size() const {
 }
 
 bool DronesManager::empty() const {
-    return (first == nullptr && last == nullptr && size == 0);
+    return (first == NULL && last == NULL && size == 0);
 }
-
+// TODO Mary, this is failing tests...
 DronesManager::DroneRecord DronesManager::select(unsigned int index) const {
+    DroneRecord* searchNode = first;
     if (index > size || index < 0) {
-        return size;
+        while(searchNode->next){
+            searchNode = searchNode->next;
+        }
+        return *searchNode;
     } else if (empty()) {
-        return 0;
+        DroneRecord(0);
     } else {
-        return DroneRecord(index);
+        int iterator = 0;
+        while(iterator < index){
+            searchNode = searchNode->next;
+            iterator++;
+        }
+        return *searchNode;
     }
 }
 
@@ -105,7 +114,12 @@ bool DronesManager::insert_front(DroneRecord value) {
 
 bool DronesManager::insert_back(DroneRecord value) {
     if(empty()){
-        return DronesManager::insert_front(value);
+        first = &value;
+        last = &value;
+        first->prev = NULL;
+        last->next = NULL;
+        size++;
+        return true;
     }else {
         DroneRecord *current = first;
         while (current->next) {
@@ -115,6 +129,7 @@ bool DronesManager::insert_back(DroneRecord value) {
         last = &value;
         last->prev = current;
         last->next = NULL;
+        first->prev = NULL;
         size++;
         return current->next == &value ? true : false;
     }

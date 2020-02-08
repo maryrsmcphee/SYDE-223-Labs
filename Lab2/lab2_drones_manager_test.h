@@ -28,8 +28,8 @@ public:
         ASSERT_TRUE(manager1.first != NULL && manager1.first == manager1.last )
         ASSERT_TRUE(manager2.first != NULL && manager2.first == manager2.last)
         ASSERT_TRUE(manager1.first->prev == NULL && manager1.last->next == NULL)
-       // ASSERT_TRUE(manager2.first->prev == NULL && manager2.last->next == NULL)
-    //    ASSERT_TRUE(manager1.select(0) == manager2.select(0) && manager1.select(0) == DronesManager::DroneRecord(100))
+        ASSERT_TRUE(manager2.first->prev == NULL && manager2.last->next == NULL)
+        ASSERT_TRUE(manager1.select(0) == manager2.select(0) && manager1.select(0) == DronesManager::DroneRecord(100))
         return true;
     }
 
