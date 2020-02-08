@@ -85,7 +85,9 @@ public:
     // PURPOSE: lots of inserts and deletes, some of them invalid
     // TODO Sammy
     bool test9() {
-        return false;
+        DronesManager manager;
+        ASSERT_TRUE(manager.insert(DronesManager::DroneRecord(100), 0))
+        return true;
     }
 
     // PURPOSE: inserts into an unsorted list, then sort the list

@@ -71,32 +71,49 @@ void DronesManager::print() const {
 
 // TODO Sammy to Test Matadors Insert
 bool DronesManager::insert(DroneRecord value, unsigned int index) {
-    DroneRecord *current = this->first;
-    DroneRecord *prev = nullptr;
-    DroneRecord *recordToInsert = new DroneRecord();
-    // sets the new drone equal to value
-    recordToInsert->droneID = value.droneID;
-    recordToInsert->yearBought = value.yearBought;
-    recordToInsert->range = value.range;
-
-    int ittVerifySize = 0;
-    if (index == 0) {
-        first = recordToInsert;
-        first->prev = nullptr;
-        first->next = current;
-        current->prev = first;
-        return true;
-    } else {
-        while (current->next != nullptr && ittVerifySize != index) {
-            prev = current;
-            current = current->next;
-            ittVerifySize++;
+    if (empty()){
+        if(index == 0){
+            cout << "got to inserting at index == 0";
+            DroneRecord *recordToInsert = new DroneRecord();
+            recordToInsert->droneID =  value.droneID;
+            recordToInsert->yearBought = value.yearBought;
+            recordToInsert->range = value.range;
+            first = recordToInsert;
+            last = recordToInsert;
+            recordToInsert->prev = nullptr;
+            recordToInsert->next = nullptr;
+            return true;
+        }else{
+            cout << "Insertion rejected - index out of bounds." << endl;
+            return false;
         }
-        prev->next = recordToInsert;
-        recordToInsert->next = current;
-        current->prev = recordToInsert;
-        recordToInsert->prev = prev;
-        return true;
+    } else {
+        DroneRecord *current = this->first;
+        DroneRecord *prev = nullptr;
+        DroneRecord *recordToInsert = new DroneRecord();
+        // sets the new drone equal to value
+        recordToInsert->droneID = value.droneID;
+        recordToInsert->yearBought = value.yearBought;
+        recordToInsert->range = value.range;
+        if (index == 0) {
+            first = recordToInsert;
+            recordToInsert->prev = nullptr;
+            recordToInsert->next = current;
+            current->prev = first;
+            return true;
+        } else {
+            int ittVerifySize = 0;
+            while (current->next != nullptr && ittVerifySize != index) {
+                prev = current;
+                current = current->next;
+                ittVerifySize++;
+            }
+            prev->next = recordToInsert;
+            recordToInsert->next = current;
+            current->prev = recordToInsert;
+            recordToInsert->prev = prev;
+            return true;
+        }
     }
 }
 
