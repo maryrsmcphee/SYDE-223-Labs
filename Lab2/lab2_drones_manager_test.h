@@ -284,7 +284,19 @@ public:
     // PURPOSE: insert and remove into sorted manager in descending order
     // TODO Mary
     bool test12() {
-return false;
+        DronesManagerSorted DMS;
+        const int initialListSize = 10;
+        for (int i = 1; i <= initialListSize; i++) {
+            DMS.insert_front(DronesManager::DroneRecord(rand()% 50+1));
+            // check to make sure size is correctly indexed
+            ASSERT_TRUE(DMS.size == i);
+        }
+        cout<<"------------------------------------------------------------"<<endl;
+        DMS.print();
+        DMS.sort_desc();
+        cout<<"------------------------------------------------------------"<<endl;
+        DMS.print();
+        return false;
     }
 };
 
