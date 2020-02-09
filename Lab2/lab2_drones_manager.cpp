@@ -327,7 +327,7 @@ bool DronesManagerSorted::is_sorted_asc() const {
 bool DronesManagerSorted::is_sorted_desc() const {
     DroneRecord *current = first;
     while (current->next) {
-        if (current < current->next) {
+        if (current->droneID < current->next->droneID) {
             return false;
         }
         current = current->next;
