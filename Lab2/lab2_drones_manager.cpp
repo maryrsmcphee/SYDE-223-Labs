@@ -356,12 +356,12 @@ bool DronesManagerSorted::is_sorted_asc() const {
  * @return
  */
 bool DronesManagerSorted::is_sorted_desc() const {
-    DroneRecord *cur;
-    for (int i = 0; i > size; i++) {
-        if (cur->droneID < cur->next->droneID) {
+    DroneRecord *current = first;
+    while (current->next) {
+        if (current->droneID < current->next->droneID) {
             return false;
         }
-        cur = cur->next;
+        current = current->next;
     }
     return true;
 }
