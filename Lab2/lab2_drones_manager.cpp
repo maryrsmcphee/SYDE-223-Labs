@@ -141,6 +141,7 @@ bool DronesManager::insert_front(DroneRecord value) {
     }
 
 }
+
 // TODO Sammy
 bool DronesManager::insert_back(DroneRecord value) {
     if (empty()) {
@@ -167,32 +168,48 @@ bool DronesManager::insert_back(DroneRecord value) {
 
 // TODO Sammy
 bool DronesManager::remove(unsigned int index) {
-    DroneRecord *current = this->first;
-    int ittVerifySize = 0;
-    while (current->next) {
-        current = current->next;
-        ittVerifySize++;
-    }
-    if (index > ittVerifySize) {
+    if (index > size || index < 0 || empty()) {
         return false;
-    } else {
-        int itt = 0;
-        while (itt < index) {
-            current = current->next;
-            itt++;
-        }
-        current->prev = current->next;
-        current = NULL;
-        delete current;
+    } else if (index == size && size == 1 && first->next == NULL ) {
+        first->prev = NULL;
+        first = NULL;
+        last = NULL;
+        size--;
+    } else if(index == 0){
+        first = first->next;
+        delete first->prev;
+        first->prev = NULL;
         size--;
         return true;
+    }
+    else {
+        int count = 0;
+        DroneRecord *nodeToRemove = first;
+        while (count < index && nodeToRemove != nullptr) {
+            nodeToRemove = nodeToRemove->next;
+            count++;
+        }
+        if (nodeToRemove == last) {
+            last = last->prev;
+            delete last->next;
+            last->next = NULL;
+            size--;
+            return true;
+        } else {
+            nodeToRemove->prev->next = nodeToRemove->next;
+            nodeToRemove->next->prev = nodeToRemove->prev;
+            nodeToRemove = NULL;
+            delete nodeToRemove;
+            size--;
+            return true;
+        }
     }
 }
 
 bool DronesManager::remove_front() {
     if (first == NULL) {
         return false;
-    } else if(size == 1 && first->next == NULL){
+    } else if (size == 1 && first->next == NULL) {
         first->prev = NULL;
         first = NULL;
         last = NULL;
@@ -209,12 +226,12 @@ bool DronesManager::remove_front() {
 bool DronesManager::remove_back() {
     if (first == NULL) {
         return false;
-    } else if(size == 1 && first->next == NULL){
+    } else if (size == 1 && first->next == NULL) {
         first->prev = NULL;
         first = NULL;
         last = NULL;
-        size --;
-    }else{
+        size--;
+    } else {
         DroneRecord *current = first;
         while (current->next->next) {
             current = current->next;
