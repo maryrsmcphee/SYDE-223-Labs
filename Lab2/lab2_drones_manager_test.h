@@ -313,6 +313,17 @@ public:
         ASSERT_FALSE(manager2.is_sorted_desc())
         ASSERT_FALSE(manager2.is_sorted_asc())
 
+        // checks functionality for a list with all the same value
+        DronesManagerSorted manager3;
+        for (int i = 1; i <= initialListSize; i++) {
+            manager3.insert_front(DronesManager::DroneRecord(10));
+            // check to make sure size is correctly indexed
+            ASSERT_TRUE(manager3.size == i);
+        }
+        manager3.sort_desc();
+        ASSERT_TRUE(manager3.is_sorted_desc())
+        manager3.sort_asc();
+        ASSERT_TRUE(manager3.is_sorted_asc())
         return true;
     }
 
