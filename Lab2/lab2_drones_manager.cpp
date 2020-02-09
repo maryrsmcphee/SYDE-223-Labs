@@ -40,8 +40,10 @@ bool DronesManager::empty() const {
 DronesManager::DroneRecord DronesManager::select(unsigned int index) const {
     if (index >= size || index < 0) {
         cout << "Unable to select: Index is outside of bounds" << endl;
+        return NULL;
     } else if (empty()) {
         cout << "Unable to select: List is empty" << endl;
+        return NULL;
     } else {
         int count = 0;
         DroneRecord *current = first;
@@ -320,6 +322,8 @@ bool DronesManager::reverse_list() {
     DroneRecord *current = this->last;
     if (empty()) {
         return false;
+    } else if (this->size == 1) {
+        return true;
     } else {
         for (int i = 0; i < size; i++) {
             reversed->prev->next = last->prev->next;
