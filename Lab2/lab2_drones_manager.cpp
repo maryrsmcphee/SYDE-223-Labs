@@ -287,7 +287,6 @@ bool DronesManager::remove_back() {
     }
 }
 
-// TODO Mary
 /**
  * replaces the node at a given index
  * @param index
@@ -312,7 +311,6 @@ bool DronesManager::replace(unsigned int index, DroneRecord value) {
     }
 }
 
-// TODO Mary
 /**
  * reverses the list in place
  * @return bool
@@ -393,12 +391,31 @@ bool DronesManagerSorted::insert_sorted_asc(DroneRecord val) {
     }
 }
 
-// TODO Mary
+/**
+ * Inserts a value so that the list remains sorted in descending order
+ * if the list is not sorted in appropriate order, insertion is rejected
+ * @param val
+ * @return
+ */
 bool DronesManagerSorted::insert_sorted_desc(DroneRecord val) {
-    return false;
+    DroneRecord *recordToInsert = new DroneRecord();
+    recordToInsert->droneID = val.droneID;
+    recordToInsert->yearBought = val.yearBought;
+    recordToInsert->range = val.range;
+    if(!is_sorted_desc()){
+        return false;
+    } else {
+        int index = 0;
+        DroneRecord *current = first;
+        while(recordToInsert->droneID < current->droneID){
+            current = current->next;
+            index++;
+        }
+        insert(val,index);
+        return true;
+    }
 }
 
-// TODO Mary
 void DronesManagerSorted::sort_asc() {
     DroneRecord *h = last;
     _sort_asc(first, h);
