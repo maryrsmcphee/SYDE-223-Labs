@@ -372,4 +372,5 @@ void DronesManagerSorted::sort_asc() {
 
 // TODO Sammy
 void DronesManagerSorted::sort_desc() {
+
 }
