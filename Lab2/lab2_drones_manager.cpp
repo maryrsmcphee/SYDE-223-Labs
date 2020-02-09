@@ -370,12 +370,10 @@ bool DronesManagerSorted::insert_sorted_desc(DroneRecord val) {
 void DronesManagerSorted::sort_asc() {
 }
 
-// TODO Sammy
 void DronesManagerSorted::sort_desc() {
     DroneRecord *h = first;
     _sort_desc(first, h);
 }
-// TODO Sammy
 
 DronesManager::DroneRecord* DronesManagerSorted::partition(DroneRecord *a,DroneRecord*b){
     // set pivot as h element
@@ -393,7 +391,7 @@ DronesManager::DroneRecord* DronesManagerSorted::partition(DroneRecord *a,DroneR
     swap_nodes(i, b);
     return i;
 }
-// TODO Sammy
+
 void DronesManagerSorted::_sort_desc(DroneRecord *l,DroneRecord *h){
     if (h != NULL && l != h && l != h->next)
     {
