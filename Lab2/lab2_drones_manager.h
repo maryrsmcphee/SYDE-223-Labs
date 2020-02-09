@@ -135,8 +135,10 @@ public:
     // PURPOSE: Sorts the list into descending (non-ascending) order
     void sort_desc();
 
-    DroneRecord partition(DroneRecord *a,DroneRecord*b);
+    DroneRecord* partition(DroneRecord *a,DroneRecord*b);
 
     void _sort_desc(DroneRecord *l,DroneRecord *h);
+
+    void swap_nodes(DroneRecord *l,DroneRecord *h);
 };
 #endif

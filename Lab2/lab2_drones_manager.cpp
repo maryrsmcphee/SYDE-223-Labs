@@ -376,11 +376,33 @@ void DronesManagerSorted::sort_desc() {
 }
 // TODO Sammy
 
-DronesManager::DroneRecord DronesManagerSorted::partition(DroneRecord *a,DroneRecord*b){
+DronesManager::DroneRecord* DronesManagerSorted::partition(DroneRecord *a,DroneRecord*b){
+    // set pivot as h element
+    int x = b->droneID;
 
+    // similar to i = l-1 for array implementation
+    DroneRecord *i = a->prev;
+
+    // Similar to "for (int j = l; j <= h- 1; j++)"
+    for (DroneRecord *j = a; j != b; j = j->next)
+    {
+        if (j->droneID <= x)
+        {
+            // Similar to i++ for array
+            i = (i == NULL)? a : i->next;
+
+            swap_nodes((i), (j));
+        }
+    }
+    i = (i == NULL)? a : i->next; // Similar to i++
+    swap_nodes(i, b);
+    return i;
 }
 // TODO Sammy
-
 void DronesManagerSorted::_sort_desc(DroneRecord *l,DroneRecord *h){
 
 };
+
+void DronesManagerSorted::swap_nodes(DroneRecord *l,DroneRecord *h){
+
+}
