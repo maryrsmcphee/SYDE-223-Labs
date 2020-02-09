@@ -225,8 +225,7 @@ public:
         return true;
     }
 
-    // PURPOSE: lots of inserts and deletes, some of them invalid
-    // TODO Sammy
+    /** PURPOSE: lots of inserts and deletes, some of them invalid */
     bool test9() {
         DronesManager manager, manager1;
         ASSERT_TRUE(manager.insert(DronesManager::DroneRecord(100), 0))
@@ -266,6 +265,7 @@ public:
         unsigned int postID4 = manager1.select(0).droneID - 1;
         manager1.remove(0);
         ASSERT_TRUE(manager1.select(0).droneID == postID4);
+
         return true;
     }
 
