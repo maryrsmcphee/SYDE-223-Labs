@@ -284,7 +284,7 @@ public:
     // PURPOSE: insert and remove into sorted manager in descending order
     // TODO Mary
     bool test12() {
-        return false;
+return false;
     }
 };
 
