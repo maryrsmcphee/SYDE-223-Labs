@@ -38,10 +38,12 @@ bool DronesManager::empty() const {
  * @return DroneRecord
  */
 DronesManager::DroneRecord DronesManager::select(unsigned int index) const {
-    if (index > size || index < 0) {
+    if (index >= size || index < 0) {
         cout << "Unable to select: Index is outside of bounds" << endl;
+        return NULL;
     } else if (empty()) {
-        DroneRecord(0);
+        cout << "Unable to select: List is empty" << endl;
+        return NULL;
     } else {
         int count = 0;
         DroneRecord *current = first;
@@ -293,7 +295,21 @@ bool DronesManager::remove_back() {
  * @return bool
  */
 bool DronesManager::replace(unsigned int index, DroneRecord value) {
-    return false;
+    DroneRecord *current = this->first;
+    if (index < 0 || index >= this->size) {
+        cout << "Replace rejected: index out of bounds" << endl;
+        return false;
+    } else {
+        int i = 0;
+        while (i != index) {
+            current = current->next;
+            i++;
+        }
+        current->droneID = value.droneID;
+        current->yearBought = value.yearBought;
+        current->droneType = value.yearBought;
+        return true;
+    }
 }
 
 // TODO Mary
@@ -302,7 +318,24 @@ bool DronesManager::replace(unsigned int index, DroneRecord value) {
  * @return bool
  */
 bool DronesManager::reverse_list() {
-    return false;
+    DroneRecord *current = first;
+    DroneRecord *prev = nullptr;
+    DroneRecord *next = nullptr;
+
+    if (empty()) {
+        return false;
+    } else if (this->size == 1) {
+        return true;
+    } else {
+        while (current != nullptr) {
+            next = current->next;
+            current->next = prev;
+            prev = current;
+            current = next;
+        }
+        first = prev;
+        return true;
+    }
 }
 
 /**
