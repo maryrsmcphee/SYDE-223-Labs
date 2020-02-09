@@ -318,18 +318,22 @@ bool DronesManager::replace(unsigned int index, DroneRecord value) {
  * @return bool
  */
 bool DronesManager::reverse_list() {
-    DroneRecord *reversed = this->first;
-    DroneRecord *current = this->last;
+    DroneRecord *current = first;
+    DroneRecord *prev = nullptr;
+    DroneRecord *next = nullptr;
+
     if (empty()) {
         return false;
     } else if (this->size == 1) {
         return true;
     } else {
-        for (int i = 0; i < size; i++) {
-            reversed->prev->next = last->prev->next;
-            reversed = reversed->next;
-            current = current->prev;
+        while (current != nullptr) {
+            next = current->next;
+            current->next = prev;
+            prev = current;
+            current = next;
         }
+        first = prev;
         return true;
     }
 }

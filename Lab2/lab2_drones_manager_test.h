@@ -124,10 +124,17 @@ public:
     // TODO: Mary
     bool test5() {
         DronesManager manager;
-        manager.insert_front(0);
+        manager.insert_front(3);
+        manager.insert_front(2);
         manager.insert_front(0);
         ASSERT_TRUE(manager.replace(0, DronesManager::DroneRecord(1)))
         ASSERT_TRUE(manager.select(0) == DronesManager::DroneRecord(1))
+        DronesManager manager1;
+        manager1.insert_front(1);
+        manager1.insert_front(2);
+        manager1.insert_front(3);
+        manager.reverse_list();
+        ASSERT_TRUE(manager1.select(0) == manager.select(0))
         return true;
     }
 
