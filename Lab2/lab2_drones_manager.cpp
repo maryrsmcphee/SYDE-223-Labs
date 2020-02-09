@@ -391,6 +391,12 @@ bool DronesManagerSorted::insert_sorted_asc(DroneRecord val) {
     }
 }
 
+/**
+ * Inserts a value so that the list remains sorted in descending order
+ * if the list is not sorted in appropriate order, insertion is rejected
+ * @param val
+ * @return
+ */
 bool DronesManagerSorted::insert_sorted_desc(DroneRecord val) {
     DroneRecord *recordToInsert = new DroneRecord();
     recordToInsert->droneID = val.droneID;
