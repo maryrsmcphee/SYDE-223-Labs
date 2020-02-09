@@ -371,7 +371,7 @@ void DronesManagerSorted::sort_asc() {
 }
 
 void DronesManagerSorted::sort_desc() {
-    DroneRecord *h = first;
+    DroneRecord *h = last;
     _sort_desc(first, h);
 }
 
@@ -381,7 +381,7 @@ DronesManager::DroneRecord* DronesManagerSorted::partition(DroneRecord *a,DroneR
     DroneRecord *i = a->prev;
     for (DroneRecord *j = a; j != b; j = j->next)
     {
-        if (j->droneID <= x)
+        if (j->droneID >= x)
         {
             i = (i == NULL)? a : i->next;
             swap_nodes(i,j);
@@ -393,7 +393,7 @@ DronesManager::DroneRecord* DronesManagerSorted::partition(DroneRecord *a,DroneR
 }
 
 void DronesManagerSorted::_sort_desc(DroneRecord *l,DroneRecord *h){
-    if (h != NULL && l != h && l != h->next)
+    if (h != NULL && l != h->next)
     {
         DroneRecord *p = partition(l, h);
         _sort_desc(l, p->prev);
@@ -402,6 +402,7 @@ void DronesManagerSorted::_sort_desc(DroneRecord *l,DroneRecord *h){
 };
 
 void DronesManagerSorted::swap_nodes(DroneRecord *l,DroneRecord *h){
+
     DroneRecord *temp = new DroneRecord();
     temp->droneID = l->droneID;
     temp->yearBought = l->yearBought;
