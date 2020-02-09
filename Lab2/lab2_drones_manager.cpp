@@ -374,3 +374,13 @@ void DronesManagerSorted::sort_asc() {
 void DronesManagerSorted::sort_desc() {
 
 }
+// TODO Sammy
+
+DronesManager::DroneRecord DronesManagerSorted::partition(DroneRecord *a,DroneRecord*b){
+
+}
+// TODO Sammy
+
+void DronesManagerSorted::_sort_desc(DroneRecord *l,DroneRecord *h){
+
+};
