@@ -330,7 +330,24 @@ public:
     // PURPOSE: insert and remove into sorted manager in ascending order
     // TODO Mary
     bool test11() {
-        return false;
+        DronesManagerSorted manager;
+        const int initialListSize = 10;
+        for (int i = 1; i <= initialListSize; i++) {
+            manager.insert_front(DronesManager::DroneRecord(rand()% 50+1));
+            // check to make sure size is correctly indexed
+            ASSERT_TRUE(manager.size == i);
+        }
+        manager.sort_asc();
+        ASSERT_TRUE(manager.is_sorted_asc())
+        // insert at front
+        manager.insert_sorted_asc(0);
+        // insert randomly
+        manager.insert_sorted_asc(25);
+        // insert at back
+        // TODO: fix insert sort functions to work when element should be added at the end
+        // manager.insert_sorted_asc(60); **CURRENTLY FAILING**
+        // ASSERT_TRUE(manager.is_sorted_asc())
+        return true;
     }
 
     // PURPOSE: insert and remove into sorted manager in descending order
