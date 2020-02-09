@@ -282,9 +282,38 @@ public:
     }
 
     // PURPOSE: inserts into an unsorted list, then sort the list
-    // TODO Mary
     bool test10() {
-        return false;
+        DronesManagerSorted manager;
+        const int initialListSize = 10;
+        for (int i = 1; i <= initialListSize; i++) {
+            manager.insert_front(DronesManager::DroneRecord(rand()% 50+1));
+            // check to make sure size is correctly indexed
+            ASSERT_TRUE(manager.size == i)
+        }
+        manager.sort_desc();
+        ASSERT_TRUE(manager.is_sorted_desc())
+        ASSERT_FALSE(manager.is_sorted_asc())
+        manager.sort_asc();
+        ASSERT_TRUE(manager.is_sorted_asc())
+        ASSERT_FALSE(manager.is_sorted_desc())
+
+        // to test when size = 1
+        DronesManagerSorted manager1;
+        manager1.insert_front(3);
+
+        // with size = 1, list is always sorted
+        // makes sure it returns true and doesn't fail
+        manager1.sort_desc();
+        ASSERT_TRUE(manager1.is_sorted_desc())
+        manager1.sort_asc();
+        ASSERT_TRUE(manager1.is_sorted_asc())
+
+        // check return on empty function
+        DronesManagerSorted manager2;
+        ASSERT_FALSE(manager2.is_sorted_desc())
+        ASSERT_FALSE(manager2.is_sorted_asc())
+
+        return true;
     }
 
     // PURPOSE: insert and remove into sorted manager in ascending order
