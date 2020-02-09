@@ -401,6 +401,8 @@ bool DronesManagerSorted::insert_sorted_desc(DroneRecord val) {
 
 // TODO Mary
 void DronesManagerSorted::sort_asc() {
+    DroneRecord *h = last;
+    _sort_asc(first, h);
 }
 
 void DronesManagerSorted::sort_desc() {
@@ -408,7 +410,7 @@ void DronesManagerSorted::sort_desc() {
     _sort_desc(first, h);
 }
 
-DronesManager::DroneRecord* DronesManagerSorted::partition(DroneRecord *a,DroneRecord*b){
+DronesManager::DroneRecord* DronesManagerSorted::partition_desc(DroneRecord *a,DroneRecord*b){
     // set pivot as h element
     int x = b->droneID;
     DroneRecord *i = a->prev;
@@ -425,12 +427,38 @@ DronesManager::DroneRecord* DronesManagerSorted::partition(DroneRecord *a,DroneR
     return i;
 }
 
+DronesManager::DroneRecord* DronesManagerSorted::partition_asc(DroneRecord *a,DroneRecord*b){
+    // set pivot as h element
+    int x = b->droneID;
+    DroneRecord *i = a->prev;
+    for (DroneRecord *j = a; j != b; j = j->next)
+    {
+        if (j->droneID <= x)
+        {
+            i = (i == NULL)? a : i->next;
+            swap_nodes(i,j);
+        }
+    }
+    i = (i == NULL)? a : i->next; // Similar to i++
+    swap_nodes(i, b);
+    return i;
+}
+
 void DronesManagerSorted::_sort_desc(DroneRecord *l,DroneRecord *h){
     if (h != NULL && l != h->next)
     {
-        DroneRecord *p = partition(l, h);
+        DroneRecord *p = partition_desc(l, h);
         _sort_desc(l, p->prev);
         _sort_desc(p->next, h);
+    }
+};
+
+void DronesManagerSorted::_sort_asc(DroneRecord *l,DroneRecord *h){
+    if (h != NULL && l != h->next)
+    {
+        DroneRecord *p = partition_asc(l, h);
+        _sort_asc(l, p->prev);
+        _sort_asc(p->next, h);
     }
 };
 
