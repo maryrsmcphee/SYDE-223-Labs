@@ -242,7 +242,7 @@ public:
             ASSERT_TRUE(manager1.size == i);
         }
         cout<<manager1.select(5).droneID<<endl;
-     //   manager1.remove(5);
+        manager1.remove(5);
         cout<<manager1.select(5).droneID<<endl;
         return true;
     }

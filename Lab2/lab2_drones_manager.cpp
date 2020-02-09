@@ -176,11 +176,16 @@ bool DronesManager::remove(unsigned int index) {
         last = NULL;
         size--;
     } else {
-        DroneRecord prevNode = select(index-1); // get nth-1 node
-        DroneRecord temp = select(index); // get nth node
-        prevNode.next = temp.next;  // assign nth-1 ptr node to nth+1 ptr
-        temp.next->prev = &prevNode; // assign nth +1 prev ptr to nth-1 node
-        free(&temp); // free temp;
+        int count = 0;
+        DroneRecord *nodeToRemove = first;
+        while (count < index && nodeToRemove != nullptr) {
+            nodeToRemove = nodeToRemove->next;
+            count++;
+        }
+        nodeToRemove->prev->next = nodeToRemove->next;
+        nodeToRemove->next->prev = nodeToRemove->prev;
+        nodeToRemove = NULL;
+        delete nodeToRemove;
         size--;
         return true;
     }
