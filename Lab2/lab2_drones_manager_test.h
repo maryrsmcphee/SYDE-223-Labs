@@ -123,7 +123,15 @@ public:
     // PURPOSE: replace() and reverse_list() work properly
     // TODO: Mary
     bool test5() {
-        return false;
+        cout << "start of test" << endl;
+        DronesManager manager;
+        manager.insert_front(0);
+        manager.insert_front(0);
+        ASSERT_TRUE(manager.replace(0, DronesManager::DroneRecord(1)))
+        cout << "before select" << endl;
+        ASSERT_TRUE(manager.select(0) == 1)
+        cout << "passed";
+        return true;
     }
 
     /** PURPOSE: insert_front() keeps moving elements forward */

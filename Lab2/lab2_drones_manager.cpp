@@ -295,18 +295,25 @@ bool DronesManager::remove_back() {
 bool DronesManager::replace(unsigned int index, DroneRecord value) {
     DroneRecord *current = this->first;
     DroneRecord *val = new DroneRecord(value);
-    if (index < 0 || index < size - 1) {
+    if (index < 0 || index >= this->size) {
+        cout << "Replace rejected, index out of bounds" << endl;
         return false;
     } else {
         int i = 0;
-        while (current->next != nullptr && i != index) {
+        while (i != index) {
             current = current->next;
             i++;
         }
         val->next = current->next;
         val->prev = current->prev;
-        current->next->prev = val;
-        current->prev->next = val;
+        if(current->prev != nullptr){
+            current->prev->next = val;
+
+        }
+        if (current->next != nullptr) {
+            current->next->prev = val;
+
+        }
         return true;
     }
 }
