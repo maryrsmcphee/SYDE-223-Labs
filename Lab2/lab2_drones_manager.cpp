@@ -372,26 +372,21 @@ void DronesManagerSorted::sort_asc() {
 
 // TODO Sammy
 void DronesManagerSorted::sort_desc() {
-
+    DroneRecord *h = first;
+    _sort_desc(first, h);
 }
 // TODO Sammy
 
 DronesManager::DroneRecord* DronesManagerSorted::partition(DroneRecord *a,DroneRecord*b){
     // set pivot as h element
     int x = b->droneID;
-
-    // similar to i = l-1 for array implementation
     DroneRecord *i = a->prev;
-
-    // Similar to "for (int j = l; j <= h- 1; j++)"
     for (DroneRecord *j = a; j != b; j = j->next)
     {
         if (j->droneID <= x)
         {
-            // Similar to i++ for array
             i = (i == NULL)? a : i->next;
-
-            swap_nodes((i), (j));
+            swap_nodes(i,j);
         }
     }
     i = (i == NULL)? a : i->next; // Similar to i++
@@ -400,9 +395,25 @@ DronesManager::DroneRecord* DronesManagerSorted::partition(DroneRecord *a,DroneR
 }
 // TODO Sammy
 void DronesManagerSorted::_sort_desc(DroneRecord *l,DroneRecord *h){
-
+    if (h != NULL && l != h && l != h->next)
+    {
+        DroneRecord *p = partition(l, h);
+        _sort_desc(l, p->prev);
+        _sort_desc(p->next, h);
+    }
 };
 
 void DronesManagerSorted::swap_nodes(DroneRecord *l,DroneRecord *h){
+    DroneRecord *temp = new DroneRecord();
+    temp->droneID = l->droneID;
+    temp->yearBought = l->yearBought;
+    temp->range = l->range;
 
+    l->droneID = h->droneID;
+    l->yearBought = h->yearBought;
+    l->range = h->yearBought;
+
+    h->droneID = temp->droneID;
+    h->yearBought = temp->yearBought;
+    h->range = temp->range;
 }
