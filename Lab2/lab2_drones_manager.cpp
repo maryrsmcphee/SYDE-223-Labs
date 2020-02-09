@@ -170,24 +170,39 @@ bool DronesManager::insert_back(DroneRecord value) {
 bool DronesManager::remove(unsigned int index) {
     if (index > size || index < 0 || empty()) {
         return false;
-    } else if ((index == size && size == 1 && first->next == NULL) || index == 0) {
+    } else if (index == size && size == 1 && first->next == NULL ) {
         first->prev = NULL;
         first = NULL;
         last = NULL;
         size--;
-    } else {
+    } else if(index == 0){
+        first = first->next;
+        delete first->prev;
+        first->prev = NULL;
+        size--;
+        return true;
+    }
+    else {
         int count = 0;
         DroneRecord *nodeToRemove = first;
         while (count < index && nodeToRemove != nullptr) {
             nodeToRemove = nodeToRemove->next;
             count++;
         }
-        nodeToRemove->prev->next = nodeToRemove->next;
-        nodeToRemove->next->prev = nodeToRemove->prev;
-        nodeToRemove = NULL;
-        delete nodeToRemove;
-        size--;
-        return true;
+        if (nodeToRemove == last) {
+            last = last->prev;
+            delete last->next;
+            last->next = NULL;
+            size--;
+            return true;
+        } else {
+            nodeToRemove->prev->next = nodeToRemove->next;
+            nodeToRemove->next->prev = nodeToRemove->prev;
+            nodeToRemove = NULL;
+            delete nodeToRemove;
+            size--;
+            return true;
+        }
     }
 }
 

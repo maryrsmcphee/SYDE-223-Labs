@@ -245,12 +245,27 @@ public:
             ASSERT_TRUE(manager1.size == i);
         }
         // decrement testing by 1 since our array in in decreasing order
+        /** test 1 */
         unsigned int postID1 = manager1.select(5).droneID - 1;
         manager1.remove(5);
         ASSERT_TRUE(manager1.select(5).droneID == postID1);
+        /** test  2 */
         unsigned int postID2 = manager1.select(30).droneID - 1;
-        ASSERT_FALSE(manager1.remove(-4));
+        manager1.remove(30);
+        ASSERT_TRUE(manager1.select(30).droneID == postID2);
 
+        /** invalid index[s] */
+        ASSERT_FALSE(manager1.remove(-4)); // invalid
+        ASSERT_FALSE(manager1.remove(initialListSize + 1)) // out of bounds
+
+        /** remove last node */
+        unsigned int postID3 = manager1.select(manager1.size - 1).droneID + 1;
+        manager1.remove(manager1.size - 1);
+        ASSERT_TRUE(manager1.select(manager1.size - 1).droneID == postID3);
+        /** remove first node */
+        unsigned int postID4 = manager1.select(0).droneID - 1;
+        manager1.remove(0);
+        ASSERT_TRUE(manager1.select(0).droneID == postID4);
         return true;
     }
 
