@@ -353,22 +353,24 @@ public:
     // PURPOSE: insert and remove into sorted manager in descending order
     // TODO Mary
     bool test12() {
-        DronesManagerSorted DMS;
+        DronesManagerSorted manager;
         const int initialListSize = 10;
         for (int i = 1; i <= initialListSize; i++) {
-            DMS.insert_front(DronesManager::DroneRecord(rand()% 50+1));
+            manager.insert_front(DronesManager::DroneRecord(rand()% 50+1));
             // check to make sure size is correctly indexed
-            ASSERT_TRUE(DMS.size == i);
+            ASSERT_TRUE(manager.size == i);
         }
-        cout<<"------------------------------------------------------------"<<endl;
-        DMS.print();
-        DMS.sort_desc();
-        cout<<"------------------------------------------------------------"<<endl;
-        DMS.print();
-        cout<<"------------------------------------------------------------"<<endl;
-        DMS.sort_asc();
-        DMS.print();
-        return false;
+        manager.sort_desc();
+        ASSERT_TRUE(manager.is_sorted_desc())
+        // insert at front
+        // TODO: fix insert sort functions to work when element should be added at the end
+        // manager.insert_sorted_desc(0); **CURRENTLY FAILING**
+        // insert randomly
+         manager.insert_sorted_desc(25);
+        // insert at back
+         manager.insert_sorted_asc(60);
+         ASSERT_TRUE(manager.is_sorted_desc())
+        return true;
     }
 };
 
