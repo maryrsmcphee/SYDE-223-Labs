@@ -141,8 +141,9 @@ public:
         return true;
     }
 
-    // PURPOSE: replace() and reverse_list() work properly
+    /** PURPOSE: replace() and reverse_list() work properly */
     bool test5() {
+        /** ---test multi element list--- */
         DronesManager manager;
         manager.insert_front(0);
         manager.insert_front(2);
@@ -155,16 +156,17 @@ public:
         manager1.insert_front(2);
         manager1.insert_front(3);
         manager.reverse_list();
+        // TODO Mary use equiv operator instead of select
         ASSERT_TRUE(manager1.select(0) == manager.select(0))
 
-        /** test functionality for list of size 1 */
+        /** ---test functionality for list of size 1---- */
         DronesManager manager2;
         manager2.insert_front(0);
         ASSERT_TRUE(manager2.replace(0, DronesManager::DroneRecord(1)))
         manager2.reverse_list();
         ASSERT_TRUE(manager2.select(0) == DronesManager::DroneRecord(1))
 
-        /** test appropriate functionality for empty list */
+        /** ---test appropriate functionality for empty list--- */
         DronesManager manager3;
         ASSERT_FALSE(manager3.replace(0, 0))
         ASSERT_FALSE(manager3.reverse_list())
@@ -174,7 +176,7 @@ public:
     /** PURPOSE: insert_front() keeps moving elements forward */
     bool test6() {
         DronesManager manager3, manager4;
-        // Populate List ADT
+        /** large Populate List ADT */
         const int initialListSize = 3000;
         for (int i = 1; i <= initialListSize; i++) {
             manager3.insert_front(DronesManager::DroneRecord(i));
@@ -310,11 +312,12 @@ public:
         unsigned int postID4 = manager1.select(0).droneID - 1;
         manager1.remove(0);
         ASSERT_TRUE(manager1.select(0).droneID == postID4);
-
+        // TODO Sammy Insert first node
+        // TODO Sammy Insert last node
         return true;
     }
 
-    // PURPOSE: inserts into an unsorted list, then sort the list
+    /** PURPOSE: inserts into an unsorted list, then sort the list */
     bool test10() {
         DronesManagerSorted manager;
         const int initialListSize = 10;
@@ -359,7 +362,7 @@ public:
         return true;
     }
 
-    // PURPOSE: insert and remove into sorted manager in ascending order
+    /** PURPOSE: insert and remove into sorted manager in ascending order */
     bool test11() {
         DronesManagerSorted manager;
         const int initialListSize = 10;
@@ -375,7 +378,7 @@ public:
         /** insert randomly */
         manager.insert_sorted_asc(25);
         /** insert at back */
-        // TODO: fix insert sort functions to work when element should be added at the end
+        // TODO: Mary fix insert sort functions to work when element should be added at the end
         // manager.insert_sorted_asc(60); **CURRENTLY FAILING**
         ASSERT_TRUE(manager.is_sorted_asc())
         manager.remove(4);
@@ -408,7 +411,7 @@ public:
         ASSERT_TRUE(manager.is_sorted_desc())
         /** insert at front */
         // TODO: fix insert sort functions to work when element should be added at the end
-        // manager.insert_sorted_desc(0); **CURRENTLY FAILING**
+       //  manager.insert_sorted_desc(0); //**CURRENTLY FAILING**
         /** insert randomly */
          manager.insert_sorted_desc(25);
         /** insert at back */
