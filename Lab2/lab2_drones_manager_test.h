@@ -124,10 +124,11 @@ public:
     // TODO: Mary
     bool test5() {
         DronesManager manager;
-        manager.insert_front(3);
+        manager.insert_front(0);
         manager.insert_front(2);
         manager.insert_front(0);
         ASSERT_TRUE(manager.replace(0, DronesManager::DroneRecord(1)))
+        ASSERT_TRUE(manager.replace(2, DronesManager::DroneRecord(3)))
         ASSERT_TRUE(manager.select(0) == DronesManager::DroneRecord(1))
         DronesManager manager1;
         manager1.insert_front(1);
@@ -135,6 +136,18 @@ public:
         manager1.insert_front(3);
         manager.reverse_list();
         ASSERT_TRUE(manager1.select(0) == manager.select(0))
+
+        /** test functionality for list of size 1 */
+        DronesManager manager2;
+        manager2.insert_front(0);
+        ASSERT_TRUE(manager2.replace(0, DronesManager::DroneRecord(1)))
+        manager2.reverse_list();
+        ASSERT_TRUE(manager2.select(0) == DronesManager::DroneRecord(1))
+
+        /** test appropriate functionality for empty list */
+        DronesManager manager3;
+        ASSERT_FALSE(manager3.replace(0, 0))
+        ASSERT_FALSE(manager3.reverse_list())
         return true;
     }
 
@@ -297,23 +310,22 @@ public:
         ASSERT_TRUE(manager.is_sorted_asc())
         ASSERT_FALSE(manager.is_sorted_desc())
 
-        // to test when size = 1
+        /** test functionality when size = 1 */
         DronesManagerSorted manager1;
         manager1.insert_front(3);
 
-        // with size = 1, list is always sorted
-        // makes sure it returns true and doesn't fail
+        /** with size = 1, list sort should always return true */
         manager1.sort_desc();
         ASSERT_TRUE(manager1.is_sorted_desc())
         manager1.sort_asc();
         ASSERT_TRUE(manager1.is_sorted_asc())
 
-        // check return on empty function
+        /** check return on empty function */
         DronesManagerSorted manager2;
         ASSERT_FALSE(manager2.is_sorted_desc())
         ASSERT_FALSE(manager2.is_sorted_asc())
 
-        // checks functionality for a list with all the same value
+        /** checks functionality for a list with all the same value */
         DronesManagerSorted manager3;
         for (int i = 1; i <= initialListSize; i++) {
             manager3.insert_front(DronesManager::DroneRecord(10));
@@ -328,7 +340,6 @@ public:
     }
 
     // PURPOSE: insert and remove into sorted manager in ascending order
-    // TODO Mary
     bool test11() {
         DronesManagerSorted manager;
         const int initialListSize = 10;
