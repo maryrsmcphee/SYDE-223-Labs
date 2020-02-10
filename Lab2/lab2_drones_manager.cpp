@@ -60,14 +60,17 @@ DronesManager::DroneRecord DronesManager::select(unsigned int index) const {
  * @return
  */
 unsigned int DronesManager::search(DroneRecord value) const {
-    for (int i = 0; i < size; i++) {
-        if (DroneRecord(i) == value) {
-            return i;
-        } else if (empty()) {
-            return 0;
-        } else if (i < 0 || i > size) {
-            return size;
+    if( empty() ){
+        return 0;
+    } else {
+        DroneRecord* current = first;
+        for(int i = 0; i < size; ++i){
+            if(*current == value ){
+                return i;
+            }
+            current = current->next;
         }
+        return size;
     }
 }
 /**

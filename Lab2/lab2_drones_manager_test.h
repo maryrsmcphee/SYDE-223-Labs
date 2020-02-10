@@ -34,12 +34,33 @@ public:
         return true;
     }
 
-    // TODO: Mary
     // PURPOSE: select() and search() work properly
     bool test3() {
-        DronesManager manager1, manager2;
-        manager1.insert(1, 0);
-        ASSERT_TRUE(manager1.select(0) == DronesManager::DroneRecord(1));
+        DronesManagerSorted manager;
+        const int initialListSize = 10;
+        for (int i = 1; i <= initialListSize; i++) {
+            manager.insert_front(DronesManager::DroneRecord(i));
+            // check to make sure size is correctly indexed
+            ASSERT_TRUE(manager.size == i);
+        }
+        /** check functionality of select at first node*/
+        ASSERT_TRUE(manager.select(0) == DronesManager::DroneRecord(10))
+        ASSERT_TRUE(manager.search(10) == 0)
+        /** check functionality of select at middle node*/
+        ASSERT_TRUE(manager.select(5) == DronesManager::DroneRecord(5))
+        ASSERT_TRUE(manager.search(5) == 5)
+        /** check functionality of select at last node*/
+        ASSERT_TRUE(manager.select(9) == DronesManager::DroneRecord(1))
+        ASSERT_TRUE(manager.search(0) == 10)
+        /** check functionality at out of bounds index */
+        ASSERT_TRUE(manager.select(-1) == NULL)
+        ASSERT_TRUE(manager.search(31) == manager.size)
+
+        /** check functionality of empty list*/
+        DronesManagerSorted manager1;
+        ASSERT_TRUE(manager1.select(3) == NULL)
+        ASSERT_TRUE(manager1.search(3) == DronesManager::DroneRecord(0))
+
         return true;
     }
 
