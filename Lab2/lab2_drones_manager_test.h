@@ -121,7 +121,6 @@ public:
     }
 
     // PURPOSE: replace() and reverse_list() work properly
-    // TODO: Mary
     bool test5() {
         DronesManager manager;
         manager.insert_front(0);
@@ -350,11 +349,11 @@ public:
         }
         manager.sort_asc();
         ASSERT_TRUE(manager.is_sorted_asc())
-        // insert at front
+        /** insert at front */
         manager.insert_sorted_asc(0);
-        // insert randomly
+        /** insert randomly */
         manager.insert_sorted_asc(25);
-        // insert at back
+        /** insert at back */
         // TODO: fix insert sort functions to work when element should be added at the end
         // manager.insert_sorted_asc(60); **CURRENTLY FAILING**
         ASSERT_TRUE(manager.is_sorted_asc())
@@ -376,7 +375,6 @@ public:
     }
 
     // PURPOSE: insert and remove into sorted manager in descending order
-    // TODO Mary
     bool test12() {
         DronesManagerSorted manager;
         const int initialListSize = 10;
@@ -387,12 +385,12 @@ public:
         }
         manager.sort_desc();
         ASSERT_TRUE(manager.is_sorted_desc())
-        // insert at front
+        /** insert at front */
         // TODO: fix insert sort functions to work when element should be added at the end
         // manager.insert_sorted_desc(0); **CURRENTLY FAILING**
-        // insert randomly
+        /** insert randomly */
          manager.insert_sorted_desc(25);
-        // insert at back
+        /** insert at back */
          manager.insert_sorted_asc(60);
          ASSERT_TRUE(manager.is_sorted_desc())
          DronesManagerSorted manager1;
