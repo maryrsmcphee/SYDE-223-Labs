@@ -100,6 +100,7 @@ void DronesManager::print() const {
  * @param index
  * @return bool
  */
+
 bool DronesManager::insert(DroneRecord value, unsigned int index) {
     if (empty()) {
         if (index == 0) {
@@ -134,7 +135,19 @@ bool DronesManager::insert(DroneRecord value, unsigned int index) {
             return true;
         } else if (index >= size) { // since unsigned int, no need to check neg case
             cout << "Insertion rejected - index out of bounds." << endl;
-        } else {
+        } else if(index == size-1){
+            DroneRecord *current = first;
+            while (current->next) {
+                current = current->next;
+            }
+            current->next = &value;
+            last = &value;
+            last->prev = current;
+            last->next = NULL;
+            first->prev = NULL;
+            size++;
+            return current->next == &value ? true : false;
+        }else {
             int ittVerifySize = 0;
             while (current->next != nullptr && ittVerifySize != index) {
                 prev = current;

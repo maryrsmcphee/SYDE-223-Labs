@@ -312,8 +312,15 @@ public:
         unsigned int postID4 = manager1.select(0).droneID - 1;
         manager1.remove(0);
         ASSERT_TRUE(manager1.select(0).droneID == postID4);
-        // TODO Sammy Insert first node
-        // TODO Sammy Insert last node
+        /** insert first node */
+        int testVal = 1000;
+        manager1.insert(DronesManager::DroneRecord(testVal),0);
+        ASSERT_TRUE(manager1.select(0).droneID == testVal);
+        /**  insert last node */
+        int testValueEnd = 30;
+        manager1.insert(DronesManager::DroneRecord(testValueEnd),manager1.size-1);
+        ASSERT_TRUE(manager1.select(manager1.size-1).droneID == testValueEnd);
+
         return true;
     }
 
