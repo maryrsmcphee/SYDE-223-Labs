@@ -1,6 +1,7 @@
 #ifndef DRONES_MANAGER_HPP
 #define DRONES_MANAGER_HPP
 #include <string>
+#include <iostream>
 using namespace std;
 
 // PURPOSE: Models a container that stores individual drone records
@@ -49,7 +50,7 @@ protected:
     // copy constructor; not to be used for this assignment
     DronesManager(const DronesManager& rhs) {}
     // assignment operator; not to be used for this assignment
-    DronesManager& operator=(const DronesManager& rhs) {}
+    // DronesManager& operator=(const DronesManager& rhs) {}
 
 public:
     // EXPLICIT CONSTRUCTOR AND DESTRUCTOR
@@ -133,5 +134,15 @@ public:
 
     // PURPOSE: Sorts the list into descending (non-ascending) order
     void sort_desc();
+
+    DroneRecord *partition_desc(DroneRecord *a, DroneRecord *b);
+
+    DroneRecord *partition_asc(DroneRecord *a, DroneRecord *b);
+
+    void _sort_desc(DroneRecord *l,DroneRecord *h);
+
+    void swap_nodes(DroneRecord *l,DroneRecord *h);
+
+    void _sort_asc(DroneRecord *l, DroneRecord *h);
 };
 #endif

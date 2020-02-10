@@ -1,15 +1,17 @@
 #include <iostream>
 #include <string>
-
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>
 #include "lab2_drones_manager_test.h"
 
 using namespace std;
 
 string get_status_str(bool status) {
-    return status ? "TEST PASSED" : "TEST FAILED";
+    return status ? " ✅ TEST PASSED" : " ❌ TEST FAILED";
 }
 
 int main() {
+    srand (time(NULL));
     DronesManagerTest drones_manager_test;
 
     string test_descriptions[12] = {
@@ -47,4 +49,5 @@ int main() {
         cout << test_descriptions[index] << endl << get_status_str(test_results[index]) << endl;
     }
     system("pause");
+    return 0;
 }
