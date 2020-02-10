@@ -92,7 +92,6 @@ void DronesManager::print() const {
 bool DronesManager::insert(DroneRecord value, unsigned int index) {
     if (empty()) {
         if (index == 0) {
-            cout << "got to inserting at index == 0 for empty() instance" << endl;
             DroneRecord *recordToInsert = new DroneRecord();
             recordToInsert->droneID = value.droneID;
             recordToInsert->yearBought = value.yearBought;
@@ -116,7 +115,6 @@ bool DronesManager::insert(DroneRecord value, unsigned int index) {
         recordToInsert->yearBought = value.yearBought;
         recordToInsert->range = value.range;
         if (index == 0) {
-            cout << "got to inserting at index == 0 for !empty() instance." << endl;
             first = recordToInsert;
             recordToInsert->prev = nullptr;
             recordToInsert->next = current;
@@ -341,9 +339,12 @@ bool DronesManager::reverse_list() {
  * @return
  */
 bool DronesManagerSorted::is_sorted_asc() const {
+    if (empty()) {
+        return false;
+    }
     DroneRecord *current = first;
     while (current->next) {
-        if (current > current->next) {
+        if (current->droneID > current->next->droneID) {
             return false;
         }
         current = current->next;
@@ -356,6 +357,9 @@ bool DronesManagerSorted::is_sorted_asc() const {
  * @return
  */
 bool DronesManagerSorted::is_sorted_desc() const {
+    if (empty()){
+        return false;
+    }
     DroneRecord *current = first;
     while (current->next) {
         if (current->droneID < current->next->droneID) {
@@ -417,11 +421,19 @@ bool DronesManagerSorted::insert_sorted_desc(DroneRecord val) {
 }
 
 void DronesManagerSorted::sort_asc() {
+    if (empty()) {
+        cout << "Sort ascending rejected, list empty" << endl;
+        return;
+    }
     DroneRecord *h = last;
     _sort_asc(first, h);
 }
 
 void DronesManagerSorted::sort_desc() {
+    if (empty()) {
+        cout << "Sort descending rejected, list empty" << endl;
+        return;
+    }
     DroneRecord *h = last;
     _sort_desc(first, h);
 }

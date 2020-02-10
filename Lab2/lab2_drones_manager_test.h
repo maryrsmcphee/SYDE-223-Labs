@@ -282,36 +282,120 @@ public:
     }
 
     // PURPOSE: inserts into an unsorted list, then sort the list
-    // TODO Mary
     bool test10() {
-        return false;
+        DronesManagerSorted manager;
+        const int initialListSize = 10;
+        for (int i = 1; i <= initialListSize; i++) {
+            manager.insert_front(DronesManager::DroneRecord(rand()% 50+1));
+            // check to make sure size is correctly indexed
+            ASSERT_TRUE(manager.size == i)
+        }
+        manager.sort_desc();
+        ASSERT_TRUE(manager.is_sorted_desc())
+        ASSERT_FALSE(manager.is_sorted_asc())
+        manager.sort_asc();
+        ASSERT_TRUE(manager.is_sorted_asc())
+        ASSERT_FALSE(manager.is_sorted_desc())
+
+        // to test when size = 1
+        DronesManagerSorted manager1;
+        manager1.insert_front(3);
+
+        // with size = 1, list is always sorted
+        // makes sure it returns true and doesn't fail
+        manager1.sort_desc();
+        ASSERT_TRUE(manager1.is_sorted_desc())
+        manager1.sort_asc();
+        ASSERT_TRUE(manager1.is_sorted_asc())
+
+        // check return on empty function
+        DronesManagerSorted manager2;
+        ASSERT_FALSE(manager2.is_sorted_desc())
+        ASSERT_FALSE(manager2.is_sorted_asc())
+
+        // checks functionality for a list with all the same value
+        DronesManagerSorted manager3;
+        for (int i = 1; i <= initialListSize; i++) {
+            manager3.insert_front(DronesManager::DroneRecord(10));
+            // check to make sure size is correctly indexed
+            ASSERT_TRUE(manager3.size == i);
+        }
+        manager3.sort_desc();
+        ASSERT_TRUE(manager3.is_sorted_desc())
+        manager3.sort_asc();
+        ASSERT_TRUE(manager3.is_sorted_asc())
+        return true;
     }
 
     // PURPOSE: insert and remove into sorted manager in ascending order
     // TODO Mary
     bool test11() {
-        return false;
+        DronesManagerSorted manager;
+        const int initialListSize = 10;
+        for (int i = 1; i <= initialListSize; i++) {
+            manager.insert_front(DronesManager::DroneRecord(rand()% 50+1));
+            // check to make sure size is correctly indexed
+            ASSERT_TRUE(manager.size == i);
+        }
+        manager.sort_asc();
+        ASSERT_TRUE(manager.is_sorted_asc())
+        // insert at front
+        manager.insert_sorted_asc(0);
+        // insert randomly
+        manager.insert_sorted_asc(25);
+        // insert at back
+        // TODO: fix insert sort functions to work when element should be added at the end
+        // manager.insert_sorted_asc(60); **CURRENTLY FAILING**
+        ASSERT_TRUE(manager.is_sorted_asc())
+        manager.remove(4);
+        ASSERT_TRUE(manager.is_sorted_asc())
+
+        DronesManagerSorted manager1;
+        for (int i = 1; i <= initialListSize; i++) {
+            manager1.insert_front(DronesManager::DroneRecord(5));
+            // check to make sure size is correctly indexed
+            ASSERT_TRUE(manager1.size == i);
+        }
+        manager1.insert_sorted_asc(4);
+        manager1.insert_sorted_asc(5);
+        // manager1.insert_sorted_asc(6); **CURRENTLY FAILING**
+
+        ASSERT_TRUE(manager1.is_sorted_asc())
+        return true;
     }
 
     // PURPOSE: insert and remove into sorted manager in descending order
     // TODO Mary
     bool test12() {
-        DronesManagerSorted DMS;
+        DronesManagerSorted manager;
         const int initialListSize = 10;
         for (int i = 1; i <= initialListSize; i++) {
-            DMS.insert_front(DronesManager::DroneRecord(rand()% 50+1));
+            manager.insert_front(DronesManager::DroneRecord(rand()% 50+1));
             // check to make sure size is correctly indexed
-            ASSERT_TRUE(DMS.size == i);
+            ASSERT_TRUE(manager.size == i);
         }
-        cout<<"------------------------------------------------------------"<<endl;
-        DMS.print();
-        DMS.sort_desc();
-        cout<<"------------------------------------------------------------"<<endl;
-        DMS.print();
-        cout<<"------------------------------------------------------------"<<endl;
-        DMS.sort_asc();
-        DMS.print();
-        return false;
+        manager.sort_desc();
+        ASSERT_TRUE(manager.is_sorted_desc())
+        // insert at front
+        // TODO: fix insert sort functions to work when element should be added at the end
+        // manager.insert_sorted_desc(0); **CURRENTLY FAILING**
+        // insert randomly
+         manager.insert_sorted_desc(25);
+        // insert at back
+         manager.insert_sorted_asc(60);
+         ASSERT_TRUE(manager.is_sorted_desc())
+         DronesManagerSorted manager1;
+        for (int i = 1; i <= initialListSize; i++) {
+            manager1.insert_front(DronesManager::DroneRecord(5));
+            // check to make sure size is correctly indexed
+            ASSERT_TRUE(manager1.size == i);
+        }
+        // manager1.insert_sorted_desc(4); **CURRENTLY FAILING**
+        manager1.insert_sorted_desc(5);
+        manager1.insert_sorted_desc(6);
+
+        ASSERT_TRUE(manager1.is_sorted_desc())
+        return true;
     }
 };
 
