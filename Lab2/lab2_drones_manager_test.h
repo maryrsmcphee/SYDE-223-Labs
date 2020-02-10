@@ -346,7 +346,21 @@ public:
         // insert at back
         // TODO: fix insert sort functions to work when element should be added at the end
         // manager.insert_sorted_asc(60); **CURRENTLY FAILING**
-        // ASSERT_TRUE(manager.is_sorted_asc())
+        ASSERT_TRUE(manager.is_sorted_asc())
+        manager.remove(4);
+        ASSERT_TRUE(manager.is_sorted_asc())
+
+        DronesManagerSorted manager1;
+        for (int i = 1; i <= initialListSize; i++) {
+            manager1.insert_front(DronesManager::DroneRecord(5));
+            // check to make sure size is correctly indexed
+            ASSERT_TRUE(manager1.size == i);
+        }
+        manager1.insert_sorted_asc(4);
+        manager1.insert_sorted_asc(5);
+        // manager1.insert_sorted_asc(6); **CURRENTLY FAILING**
+
+        ASSERT_TRUE(manager1.is_sorted_asc())
         return true;
     }
 
@@ -370,6 +384,17 @@ public:
         // insert at back
          manager.insert_sorted_asc(60);
          ASSERT_TRUE(manager.is_sorted_desc())
+         DronesManagerSorted manager1;
+        for (int i = 1; i <= initialListSize; i++) {
+            manager1.insert_front(DronesManager::DroneRecord(5));
+            // check to make sure size is correctly indexed
+            ASSERT_TRUE(manager1.size == i);
+        }
+        // manager1.insert_sorted_desc(4); **CURRENTLY FAILING**
+        manager1.insert_sorted_desc(5);
+        manager1.insert_sorted_desc(6);
+
+        ASSERT_TRUE(manager1.is_sorted_desc())
         return true;
     }
 };
