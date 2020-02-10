@@ -34,12 +34,33 @@ public:
         return true;
     }
 
-    // TODO: Mary
     // PURPOSE: select() and search() work properly
     bool test3() {
-        DronesManager manager1, manager2;
-        manager1.insert(1, 0);
-        ASSERT_TRUE(manager1.select(0) == DronesManager::DroneRecord(1));
+        DronesManagerSorted manager;
+        const int initialListSize = 10;
+        for (int i = 1; i <= initialListSize; i++) {
+            manager.insert_front(DronesManager::DroneRecord(i));
+            // check to make sure size is correctly indexed
+            ASSERT_TRUE(manager.size == i);
+        }
+        /** check functionality of select at first node*/
+        ASSERT_TRUE(manager.select(0) == DronesManager::DroneRecord(10))
+        ASSERT_TRUE(manager.search(10) == 0)
+        /** check functionality of select at middle node*/
+        ASSERT_TRUE(manager.select(5) == DronesManager::DroneRecord(5))
+        ASSERT_TRUE(manager.search(5) == 5)
+        /** check functionality of select at last node*/
+        ASSERT_TRUE(manager.select(9) == DronesManager::DroneRecord(1))
+        ASSERT_TRUE(manager.search(0) == 10)
+        /** check functionality at out of bounds index */
+        ASSERT_TRUE(manager.select(-1) == NULL)
+        ASSERT_TRUE(manager.search(31) == manager.size)
+
+        /** check functionality of empty list*/
+        DronesManagerSorted manager1;
+        ASSERT_TRUE(manager1.select(3) == NULL)
+        ASSERT_TRUE(manager1.search(3) == DronesManager::DroneRecord(0))
+
         return true;
     }
 
@@ -121,13 +142,13 @@ public:
     }
 
     // PURPOSE: replace() and reverse_list() work properly
-    // TODO: Mary
     bool test5() {
         DronesManager manager;
-        manager.insert_front(3);
+        manager.insert_front(0);
         manager.insert_front(2);
         manager.insert_front(0);
         ASSERT_TRUE(manager.replace(0, DronesManager::DroneRecord(1)))
+        ASSERT_TRUE(manager.replace(2, DronesManager::DroneRecord(3)))
         ASSERT_TRUE(manager.select(0) == DronesManager::DroneRecord(1))
         DronesManager manager1;
         manager1.insert_front(1);
@@ -135,6 +156,18 @@ public:
         manager1.insert_front(3);
         manager.reverse_list();
         ASSERT_TRUE(manager1.select(0) == manager.select(0))
+
+        /** test functionality for list of size 1 */
+        DronesManager manager2;
+        manager2.insert_front(0);
+        ASSERT_TRUE(manager2.replace(0, DronesManager::DroneRecord(1)))
+        manager2.reverse_list();
+        ASSERT_TRUE(manager2.select(0) == DronesManager::DroneRecord(1))
+
+        /** test appropriate functionality for empty list */
+        DronesManager manager3;
+        ASSERT_FALSE(manager3.replace(0, 0))
+        ASSERT_FALSE(manager3.reverse_list())
         return true;
     }
 
@@ -297,23 +330,22 @@ public:
         ASSERT_TRUE(manager.is_sorted_asc())
         ASSERT_FALSE(manager.is_sorted_desc())
 
-        // to test when size = 1
+        /** test functionality when size = 1 */
         DronesManagerSorted manager1;
         manager1.insert_front(3);
 
-        // with size = 1, list is always sorted
-        // makes sure it returns true and doesn't fail
+        /** with size = 1, list sort should always return true */
         manager1.sort_desc();
         ASSERT_TRUE(manager1.is_sorted_desc())
         manager1.sort_asc();
         ASSERT_TRUE(manager1.is_sorted_asc())
 
-        // check return on empty function
+        /** check return on empty function */
         DronesManagerSorted manager2;
         ASSERT_FALSE(manager2.is_sorted_desc())
         ASSERT_FALSE(manager2.is_sorted_asc())
 
-        // checks functionality for a list with all the same value
+        /** checks functionality for a list with all the same value */
         DronesManagerSorted manager3;
         for (int i = 1; i <= initialListSize; i++) {
             manager3.insert_front(DronesManager::DroneRecord(10));
@@ -328,7 +360,6 @@ public:
     }
 
     // PURPOSE: insert and remove into sorted manager in ascending order
-    // TODO Mary
     bool test11() {
         DronesManagerSorted manager;
         const int initialListSize = 10;
@@ -339,11 +370,11 @@ public:
         }
         manager.sort_asc();
         ASSERT_TRUE(manager.is_sorted_asc())
-        // insert at front
+        /** insert at front */
         manager.insert_sorted_asc(0);
-        // insert randomly
+        /** insert randomly */
         manager.insert_sorted_asc(25);
-        // insert at back
+        /** insert at back */
         // TODO: fix insert sort functions to work when element should be added at the end
         // manager.insert_sorted_asc(60); **CURRENTLY FAILING**
         ASSERT_TRUE(manager.is_sorted_asc())
@@ -365,7 +396,6 @@ public:
     }
 
     // PURPOSE: insert and remove into sorted manager in descending order
-    // TODO Mary
     bool test12() {
         DronesManagerSorted manager;
         const int initialListSize = 10;
@@ -376,12 +406,12 @@ public:
         }
         manager.sort_desc();
         ASSERT_TRUE(manager.is_sorted_desc())
-        // insert at front
+        /** insert at front */
         // TODO: fix insert sort functions to work when element should be added at the end
         // manager.insert_sorted_desc(0); **CURRENTLY FAILING**
-        // insert randomly
+        /** insert randomly */
          manager.insert_sorted_desc(25);
-        // insert at back
+        /** insert at back */
          manager.insert_sorted_asc(60);
          ASSERT_TRUE(manager.is_sorted_desc())
          DronesManagerSorted manager1;
