@@ -1,6 +1,10 @@
-#include "lab2_drones_manager.h"
+/**
+ * LAB 2: Linked List Data Structure and C++ Inheritance
+ * Mary McPhee: 20717047
+ * Sammy Robens-Paradise: 20709541
+ */
 
-// TODO: Implement all of the listed functions below
+#include "lab2_drones_manager.h"
 
 // creates new empty DronesManager
 DronesManager::DronesManager() {
@@ -136,17 +140,21 @@ bool DronesManager::insert(DroneRecord value, unsigned int index) {
         } else if (index >= size) { // since unsigned int, no need to check neg case
             cout << "Insertion rejected - index out of bounds." << endl;
         } else if(index == size-1){
+            DroneRecord *recordToInsert = new DroneRecord(value);
+            recordToInsert->droneID = value.droneID;
+            recordToInsert->yearBought = value.yearBought;
+            recordToInsert->range = value.range;
             DroneRecord *current = first;
             while (current->next) {
                 current = current->next;
             }
-            current->next = &value;
-            last = &value;
+            current->next = recordToInsert;
+            last = recordToInsert;
             last->prev = current;
-            last->next = NULL;
-            first->prev = NULL;
+            last->next = nullptr;
+            first->prev = nullptr;
             size++;
-            return current->next == &value ? true : false;
+            return true;
         }else {
             int ittVerifySize = 0;
             while (current->next != nullptr && ittVerifySize != index) {
@@ -401,7 +409,6 @@ bool DronesManagerSorted::is_sorted_desc() const {
  * @param val
  * @return bool
  */
- // TODO Mary Fix case where inserting at the beginning
 bool DronesManagerSorted::insert_sorted_asc(DroneRecord val) {
     DroneRecord *recordToInsert = new DroneRecord();
     recordToInsert->droneID = val.droneID;
@@ -412,7 +419,7 @@ bool DronesManagerSorted::insert_sorted_asc(DroneRecord val) {
     } else {
         int index = 0;
         DroneRecord *current = first;
-        while(recordToInsert->droneID > current->droneID){
+        while(current->next && recordToInsert->droneID > current->droneID){
             current = current->next;
             index++;
         }
@@ -427,7 +434,6 @@ bool DronesManagerSorted::insert_sorted_asc(DroneRecord val) {
  * @param val
  * @return
  */
-// TODO Mary Fix case where inserting at the beginning
 bool DronesManagerSorted::insert_sorted_desc(DroneRecord val) {
     DroneRecord *recordToInsert = new DroneRecord();
     recordToInsert->droneID = val.droneID;
@@ -438,7 +444,7 @@ bool DronesManagerSorted::insert_sorted_desc(DroneRecord val) {
     } else {
         int index = 0;
         DroneRecord *current = first;
-        while(recordToInsert->droneID < current->droneID){
+        while(current->next && recordToInsert->droneID < current->droneID){
             current = current->next;
             index++;
         }

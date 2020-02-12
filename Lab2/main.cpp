@@ -1,3 +1,9 @@
+/**
+ * LAB 2: Linked List Data Structure and C++ Inheritance
+ * Mary McPhee: 20717047
+ * Sammy Robens-Paradise: 20709541
+ */
+
 #include <iostream>
 #include <string>
 #include <stdlib.h>     /* srand, rand */
