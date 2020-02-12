@@ -1,3 +1,9 @@
+/**
+ * LAB 2: Linked List Data Structure and C++ Inheritance
+ * Mary McPhee: 20717047
+ * Sammy Robens-Paradise: 20709541
+ */
+
 #ifndef DRONES_MANAGER_HPP
 #define DRONES_MANAGER_HPP
 #include <string>
