@@ -1,3 +1,9 @@
+/**
+ * LAB 2: Linked List Data Structure and C++ Inheritance
+ * Mary McPhee: 20717047
+ * Sammy Robens-Paradise: 20709541
+ */
+
 #ifndef DRONES_MANAGER_TEST
 #define DRONES_MANAGER_TEST
 
@@ -385,8 +391,7 @@ public:
         /** insert randomly */
         manager.insert_sorted_asc(25);
         /** insert at back */
-        // TODO: Mary fix insert sort functions to work when element should be added at the end
-        // manager.insert_sorted_asc(60); **CURRENTLY FAILING**
+        manager.insert_sorted_asc(60);
         ASSERT_TRUE(manager.is_sorted_asc())
         manager.remove(4);
         ASSERT_TRUE(manager.is_sorted_asc())
@@ -399,7 +404,7 @@ public:
         }
         manager1.insert_sorted_asc(4);
         manager1.insert_sorted_asc(5);
-        // manager1.insert_sorted_asc(6); **CURRENTLY FAILING**
+        manager1.insert_sorted_asc(6);
 
         ASSERT_TRUE(manager1.is_sorted_asc())
         return true;
@@ -417,8 +422,7 @@ public:
         manager.sort_desc();
         ASSERT_TRUE(manager.is_sorted_desc())
         /** insert at front */
-        // TODO: fix insert sort functions to work when element should be added at the end
-       //  manager.insert_sorted_desc(0); //**CURRENTLY FAILING**
+        manager.insert_sorted_desc(0);
         /** insert randomly */
          manager.insert_sorted_desc(25);
         /** insert at back */
@@ -430,7 +434,7 @@ public:
             // check to make sure size is correctly indexed
             ASSERT_TRUE(manager1.size == i);
         }
-        // manager1.insert_sorted_desc(4); **CURRENTLY FAILING**
+        manager1.insert_sorted_desc(4);
         manager1.insert_sorted_desc(5);
         manager1.insert_sorted_desc(6);
 
