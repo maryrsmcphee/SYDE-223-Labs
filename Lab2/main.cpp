@@ -8,7 +8,7 @@
 #include <string>
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>
-#include "lab2_drones_manager_test.h"
+#include "lab2_drones_manager_test_grading.h"
 
 using namespace std;
 
