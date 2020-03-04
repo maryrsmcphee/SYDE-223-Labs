@@ -225,7 +225,7 @@ bool DronesManager::insert_back(DroneRecord value) {
         last->next = NULL;
         first->prev = NULL;
         size++;
-        return current->next == &value ? true : false;
+        return true;
     }
 }
 /**

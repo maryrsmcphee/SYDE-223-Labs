@@ -36,13 +36,12 @@ public:
     // PURPOSE: select() and search() work properly
     bool test3() {
         DronesManager manager1;
-
         const int num_elems = 5;
         for (unsigned int i = 0; i < num_elems; i++) {
             ASSERT_TRUE(manager1.insert_back(DronesManager::DroneRecord(i*100)))
         }
-
         unsigned int idx = 3;
+
         ASSERT_TRUE(manager1.search(manager1.select(idx)) == idx)
         ASSERT_TRUE(manager1.select(num_elems + 1) == DronesManager::DroneRecord(400))
         ASSERT_TRUE(manager1.search(1000) == manager1.get_size())
