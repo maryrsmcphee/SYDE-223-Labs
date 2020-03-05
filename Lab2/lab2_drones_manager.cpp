@@ -404,7 +404,6 @@ bool DronesManagerSorted::insert_sorted_asc(DroneRecord val) {
             return true;
         }else{
             int index = 0;
-            cout<<recordToInsert->droneID<<current->droneID<<endl;
             while (current != NULL && recordToInsert->droneID > current->droneID) {
                 current = current->next;
                 index++;
