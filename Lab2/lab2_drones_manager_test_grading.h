@@ -57,6 +57,7 @@ public:
         ASSERT_TRUE(manager1.insert_front(DronesManager::DroneRecord(100)))
         ASSERT_TRUE(manager2.insert_front(DronesManager::DroneRecord(100)))
         ASSERT_TRUE(manager1.remove_front())
+        cout<<"reached"<<endl;
         ASSERT_TRUE(manager2.remove_back())
 
         ASSERT_TRUE(manager1.first == NULL && manager1.last == NULL)
