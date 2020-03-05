@@ -165,7 +165,6 @@ public:
         ASSERT_TRUE(manager.insert_back(DronesManager::DroneRecord(32)))
         ASSERT_TRUE(manager.insert_front(DronesManager::DroneRecord(44)))
         ASSERT_FALSE(manager.insert(DronesManager::DroneRecord(12),3))
-        cout<<"reached"<<endl;
         ASSERT_TRUE(manager.insert(DronesManager::DroneRecord(12),2))
         ASSERT_TRUE(manager.remove_back())
         ASSERT_FALSE(manager.remove(5))
@@ -229,10 +228,8 @@ public:
         ASSERT_TRUE(manager.insert_sorted_asc(DronesManager::DroneRecord(5)))
         ASSERT_TRUE(manager.insert_sorted_asc(DronesManager::DroneRecord(6)))
         ASSERT_TRUE(manager.insert_sorted_asc(DronesManager::DroneRecord(1)))
-
         ASSERT_TRUE(manager.select(0) == DronesManager::DroneRecord(1) && *manager.first == DronesManager::DroneRecord(1));
         ASSERT_TRUE(manager.select(9) == DronesManager::DroneRecord(25) && *manager.last == DronesManager::DroneRecord(25));
-
         ASSERT_TRUE(manager.remove_back())
         ASSERT_TRUE(manager.remove_back())
         ASSERT_TRUE(manager.remove_back())
