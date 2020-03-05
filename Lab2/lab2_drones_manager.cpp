@@ -111,7 +111,9 @@ void DronesManager::print() const {
  */
 
 bool DronesManager::insert(DroneRecord value, unsigned int index) {
-    if (empty()) {
+    if (index > size) {
+        return false;
+    } else if (empty()) {
         if (index == 0) {
             DroneRecord *recordToInsert = new DroneRecord(value);
             first = recordToInsert;
