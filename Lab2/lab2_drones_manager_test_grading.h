@@ -79,15 +79,12 @@ public:
         ASSERT_TRUE(*manager.first == DronesManager::DroneRecord(8))
         ASSERT_TRUE(*manager.last == DronesManager::DroneRecord(10))
         ASSERT_TRUE(*(manager.first->next->next->next) == DronesManager::DroneRecord(9))
-
         int test_values[8] = {10, 6, 5, 4, 9, 2, 1, 8};
         ASSERT_TRUE(manager.reverse_list());
         for (unsigned int i = 0; i < num_elems; i++) {
             ASSERT_TRUE(manager.select(i) == DronesManager::DroneRecord(test_values[i]))
         }
-
         ASSERT_TRUE(manager.first->prev == NULL && manager.last->next == NULL)
-
         return true;
     }
 
