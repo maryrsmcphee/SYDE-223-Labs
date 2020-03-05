@@ -111,7 +111,9 @@ void DronesManager::print() const {
  */
 
 bool DronesManager::insert(DroneRecord value, unsigned int index) {
-    if (empty()) {
+    if (index > size) {
+        return false;
+    } else if (empty()) {
         if (index == 0) {
             DroneRecord *recordToInsert = new DroneRecord(value);
             first = recordToInsert;
@@ -353,16 +355,17 @@ bool DronesManager::reverse_list() {
  */
 bool DronesManagerSorted::is_sorted_asc() const {
     if (empty()) {
-        return false;
-    }
-    DroneRecord *current = first;
-    while (current->next) {
-        if (current->droneID > current->next->droneID) {
-            return false;
+        return true;
+    } else {
+        DroneRecord *current = first;
+        while (current->next) {
+            if (current->droneID > current->next->droneID) {
+                return false;
+            }
+            current = current->next;
         }
-        current = current->next;
+        return true;
     }
-    return true;
 }
 
 /**
@@ -371,16 +374,17 @@ bool DronesManagerSorted::is_sorted_asc() const {
  */
 bool DronesManagerSorted::is_sorted_desc() const {
     if (empty()) {
-        return false;
-    }
-    DroneRecord *current = first;
-    while (current->next) {
-        if (current->droneID < current->next->droneID) {
-            return false;
+        return true;
+    } else {
+        DroneRecord *current = first;
+        while (current->next) {
+            if (current->droneID < current->next->droneID) {
+                return false;
+            }
+            current = current->next;
         }
-        current = current->next;
+        return true;
     }
-    return true;
 }
 
 /**
@@ -390,21 +394,23 @@ bool DronesManagerSorted::is_sorted_desc() const {
  * @return bool
  */
 bool DronesManagerSorted::insert_sorted_asc(DroneRecord val) {
-    DroneRecord *recordToInsert = new DroneRecord();
-    recordToInsert->droneID = val.droneID;
-    recordToInsert->yearBought = val.yearBought;
-    recordToInsert->range = val.range;
+    DroneRecord *recordToInsert = new DroneRecord(val);
     if (!is_sorted_asc()) {
         return false;
     } else {
-        int index = 0;
         DroneRecord *current = first;
-        while (current->next && recordToInsert->droneID > current->droneID) {
-            current = current->next;
-            index++;
+        if(empty()){
+            insert(val,0);
+            return true;
+        }else{
+            int index = 0;
+            while (current != NULL && recordToInsert->droneID > current->droneID) {
+                current = current->next;
+                index++;
+            }
+            insert(val, index);
+            return true;
         }
-        insert(val, index);
-        return true;
     }
 }
 
@@ -424,7 +430,7 @@ bool DronesManagerSorted::insert_sorted_desc(DroneRecord val) {
     } else {
         int index = 0;
         DroneRecord *current = first;
-        while (current->next && recordToInsert->droneID < current->droneID) {
+        while (current != NULL && recordToInsert->droneID < current->droneID) {
             current = current->next;
             index++;
         }

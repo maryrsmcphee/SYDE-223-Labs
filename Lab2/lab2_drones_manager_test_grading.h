@@ -121,11 +121,7 @@ public:
         int expected_values[] = {0, 5, 4, 1, 2, 6, 3, 7};
         ASSERT_TRUE(manager.get_size() == 8)
         DronesManager::DroneRecord* n = manager.first;
-        //test
-        for(int i = 0; i < manager.get_size(); i++){
-            cout<<manager.select(i).droneID<<endl;
-        }
-        //--
+
         for (unsigned int i = 0; i < manager.get_size(); i++) {
             ASSERT_TRUE(n != NULL && *n == DronesManager::DroneRecord(expected_values[i]))
             n = n->next;
@@ -232,10 +228,8 @@ public:
         ASSERT_TRUE(manager.insert_sorted_asc(DronesManager::DroneRecord(5)))
         ASSERT_TRUE(manager.insert_sorted_asc(DronesManager::DroneRecord(6)))
         ASSERT_TRUE(manager.insert_sorted_asc(DronesManager::DroneRecord(1)))
-
         ASSERT_TRUE(manager.select(0) == DronesManager::DroneRecord(1) && *manager.first == DronesManager::DroneRecord(1));
         ASSERT_TRUE(manager.select(9) == DronesManager::DroneRecord(25) && *manager.last == DronesManager::DroneRecord(25));
-
         ASSERT_TRUE(manager.remove_back())
         ASSERT_TRUE(manager.remove_back())
         ASSERT_TRUE(manager.remove_back())
