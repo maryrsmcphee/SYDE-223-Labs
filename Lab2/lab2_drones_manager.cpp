@@ -49,9 +49,11 @@ bool DronesManager::empty() const {
  * @return *DroneRecord
  */
 DronesManager::DroneRecord DronesManager::select(unsigned int index) const {
-    if (index >= size || index < 0) {
+    if (index < 0) {
         cout << "Unable to select: Index is outside of bounds" << endl;
         return NULL;
+    } else if(index >= size ){
+        return *last;
     } else if (empty()) {
         cout << "Unable to select: List is empty returning DroneRecord(0)" << endl;
         return DroneRecord(0);
