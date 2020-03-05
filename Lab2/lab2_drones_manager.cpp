@@ -58,7 +58,7 @@ DronesManager::DroneRecord DronesManager::select(unsigned int index) const {
     } else {
         int count = 0;
         DroneRecord *current = first;
-        while (count < index && current != nullptr) {
+        while (count < index && current != NULL) {
             current = current->next;
             count++;
         }
@@ -207,25 +207,21 @@ bool DronesManager::insert_front(DroneRecord value) {
  * @return bool
  */
 bool DronesManager::insert_back(DroneRecord value) {
+    DroneRecord *recordToInsert = new DroneRecord(value);
     if (empty()) {
-        first = &value;
-        last = &value;
-        first->prev = NULL;
-        last->next = NULL;
+        first = recordToInsert;
+        last = recordToInsert;
+        recordToInsert->prev = NULL;
+        recordToInsert->next = NULL;
         size++;
         return true;
-    } else {
-        DroneRecord *current = first;
-        while (current->next) {
-            current = current->next;
-        }
-        current->next = &value;
-        last = &value;
-        last->prev = current;
-        last->next = NULL;
-        first->prev = NULL;
+    }else{
+        last->next = recordToInsert;
+        recordToInsert->prev = last;
+        last = recordToInsert;
+        recordToInsert->next = NULL;
         size++;
-        return current->next == &value ? true : false;
+        return true;
     }
 }
 /**
