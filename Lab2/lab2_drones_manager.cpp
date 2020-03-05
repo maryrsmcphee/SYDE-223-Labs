@@ -193,6 +193,7 @@ bool DronesManager::insert_front(DroneRecord value) {
         recordToInsert->next = first;
         first = recordToInsert;
         recordToInsert->prev = NULL;
+        size++;
         return true;
     }
 }

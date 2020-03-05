@@ -96,7 +96,6 @@ public:
             ASSERT_TRUE(manager.insert_front(DronesManager::DroneRecord(i)))
             ASSERT_TRUE(manager.get_size() == (i + 1))
             ASSERT_TRUE(*manager.first == DronesManager::DroneRecord(i))
-
             DronesManager::DroneRecord* n = manager.first;
             for (unsigned int j = 0; j <= i; j++) {
                 DronesManager::DroneRecord expected_value = DronesManager::DroneRecord(i - j);
