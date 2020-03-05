@@ -117,15 +117,20 @@ public:
         ASSERT_TRUE(manager.insert(DronesManager::DroneRecord(5), 1))
         ASSERT_TRUE(manager.insert(DronesManager::DroneRecord(6), 5))
         ASSERT_TRUE(manager.insert(DronesManager::DroneRecord(7), 7))
-
         // Check that the list has the right values
         int expected_values[] = {0, 5, 4, 1, 2, 6, 3, 7};
         ASSERT_TRUE(manager.get_size() == 8)
         DronesManager::DroneRecord* n = manager.first;
+        //test
+        for(int i = 0; i < manager.get_size(); i++){
+            cout<<manager.select(i).droneID<<endl;
+        }
+        //--
         for (unsigned int i = 0; i < manager.get_size(); i++) {
             ASSERT_TRUE(n != NULL && *n == DronesManager::DroneRecord(expected_values[i]))
             n = n->next;
         }
+
         ASSERT_TRUE(manager.first->prev == NULL && manager.last->next == NULL)
         return true;
     }
