@@ -275,6 +275,7 @@ bool DronesManager::remove_front() {
         first = NULL;
         last = NULL;
         size--;
+        return true;
     } else {
         first = first->next;
         delete first->prev;
