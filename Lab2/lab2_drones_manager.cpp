@@ -374,16 +374,17 @@ bool DronesManagerSorted::is_sorted_asc() const {
  */
 bool DronesManagerSorted::is_sorted_desc() const {
     if (empty()) {
-        return false;
-    }
-    DroneRecord *current = first;
-    while (current->next) {
-        if (current->droneID < current->next->droneID) {
-            return false;
+        return true;
+    } else {
+        DroneRecord *current = first;
+        while (current->next) {
+            if (current->droneID < current->next->droneID) {
+                return false;
+            }
+            current = current->next;
         }
-        current = current->next;
+        return true;
     }
-    return true;
 }
 
 /**
@@ -430,7 +431,7 @@ bool DronesManagerSorted::insert_sorted_desc(DroneRecord val) {
     } else {
         int index = 0;
         DroneRecord *current = first;
-        while (current->next && recordToInsert->droneID < current->droneID) {
+        while (current != NULL && recordToInsert->droneID < current->droneID) {
             current = current->next;
             index++;
         }
