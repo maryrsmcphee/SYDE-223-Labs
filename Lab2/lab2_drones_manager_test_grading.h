@@ -36,17 +36,14 @@ public:
     // PURPOSE: select() and search() work properly
     bool test3() {
         DronesManager manager1;
-
         const int num_elems = 5;
         for (unsigned int i = 0; i < num_elems; i++) {
             ASSERT_TRUE(manager1.insert_back(DronesManager::DroneRecord(i*100)))
         }
-
         unsigned int idx = 3;
         ASSERT_TRUE(manager1.search(manager1.select(idx)) == idx)
         ASSERT_TRUE(manager1.select(num_elems + 1) == DronesManager::DroneRecord(400))
         ASSERT_TRUE(manager1.search(1000) == manager1.get_size())
-
         for (unsigned int i = 0; i < num_elems; i++) {
             ASSERT_TRUE(manager1.select(i) == DronesManager::DroneRecord(i*100))
         }
@@ -61,12 +58,10 @@ public:
         ASSERT_TRUE(manager2.insert_front(DronesManager::DroneRecord(100)))
         ASSERT_TRUE(manager1.remove_front())
         ASSERT_TRUE(manager2.remove_back())
-
         ASSERT_TRUE(manager1.first == NULL && manager1.last == NULL)
         ASSERT_TRUE(manager2.first == NULL && manager2.last == NULL)
         ASSERT_TRUE(manager1.get_size() == manager2.get_size() && manager1.get_size() == 0)
         ASSERT_TRUE(manager1.empty() == true && manager2.empty() == true)
-
         return true;
     }
 
@@ -77,7 +72,6 @@ public:
         for (unsigned int i = 0; i < num_elems; i++) {
             ASSERT_TRUE(manager.insert_back(DronesManager::DroneRecord(i)))
         }
-
         ASSERT_TRUE(manager.replace(0, DronesManager::DroneRecord(8)))
         ASSERT_TRUE(manager.replace(3, DronesManager::DroneRecord(9)))
         ASSERT_TRUE(manager.replace(7, DronesManager::DroneRecord(10)))

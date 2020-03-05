@@ -49,16 +49,18 @@ bool DronesManager::empty() const {
  * @return *DroneRecord
  */
 DronesManager::DroneRecord DronesManager::select(unsigned int index) const {
-    if (index >= size || index < 0) {
+    if (index < 0) {
         cout << "Unable to select: Index is outside of bounds" << endl;
         return NULL;
+    } else if(index >= size ){
+        return *last;
     } else if (empty()) {
         cout << "Unable to select: List is empty returning DroneRecord(0)" << endl;
         return DroneRecord(0);
     } else {
         int count = 0;
         DroneRecord *current = first;
-        while (count < index && current != nullptr) {
+        while (count < index && current != NULL) {
             current = current->next;
             count++;
         }
@@ -178,10 +180,7 @@ bool DronesManager::insert(DroneRecord value, unsigned int index) {
  * @return bool
  */
 bool DronesManager::insert_front(DroneRecord value) {
-    DroneRecord *recordToInsert = new DroneRecord();
-    recordToInsert->droneID = value.droneID;
-    recordToInsert->yearBought = value.yearBought;
-    recordToInsert->range = value.range;
+    DroneRecord *recordToInsert = new DroneRecord(value);
     if (empty()) {
         first = recordToInsert;
         last = recordToInsert;
@@ -190,15 +189,12 @@ bool DronesManager::insert_front(DroneRecord value) {
         size++;
         return true;
     } else {
-        DroneRecord *temp = first;
+        first->prev = recordToInsert;
+        recordToInsert->next = first;
         first = recordToInsert;
-        recordToInsert->prev = nullptr;
-        recordToInsert->next = temp;
-        recordToInsert->next->prev = recordToInsert;
-        size++;
+        recordToInsert->prev = NULL;
         return true;
     }
-
 }
 
 /**
@@ -207,25 +203,21 @@ bool DronesManager::insert_front(DroneRecord value) {
  * @return bool
  */
 bool DronesManager::insert_back(DroneRecord value) {
+    DroneRecord *recordToInsert = new DroneRecord(value);
     if (empty()) {
-        first = &value;
-        last = &value;
-        first->prev = NULL;
-        last->next = NULL;
+        first = recordToInsert;
+        last = recordToInsert;
+        recordToInsert->prev = NULL;
+        recordToInsert->next = NULL;
         size++;
         return true;
-    } else {
-        DroneRecord *current = first;
-        while (current->next) {
-            current = current->next;
-        }
-        current->next = &value;
-        last = &value;
-        last->prev = current;
-        last->next = NULL;
-        first->prev = NULL;
+    }else{
+        last->next = recordToInsert;
+        recordToInsert->prev = last;
+        last = recordToInsert;
+        recordToInsert->next = NULL;
         size++;
-        return current->next == &value ? true : false;
+        return true;
     }
 }
 /**
@@ -283,6 +275,7 @@ bool DronesManager::remove_front() {
         first = NULL;
         last = NULL;
         size--;
+        return true;
     } else {
         first = first->next;
         delete first->prev;
