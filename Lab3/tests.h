@@ -1,5 +1,5 @@
-#ifndef LAB3_TESTS_HPP
-#define LAB3_TESTS_HPP
+#ifndef LAB3_TESTS_H
+#define LAB3_TESTS_H
 
 #define ASSERT_TRUE(T) if (!(T)) return false;
 #define ASSERT_FALSE(T) if ((T)) return false;

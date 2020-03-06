@@ -1,5 +1,5 @@
 #include <iostream>
-#include "lab3_binary_search_tree.hpp"
+#include "lab3_binary_search_tree.h"
 
 using namespace std;
 
@@ -69,3 +69,4 @@ bool BinarySearchTree::insert( BinarySearchTree::TaskItem val ) {
 bool BinarySearchTree::remove( BinarySearchTree::TaskItem val ) {
     return false;
 }
+

@@ -1,5 +1,5 @@
-#ifndef LAB3_PRIORITY_QUEUE_HPP
-#define LAB3_PRIORITY_QUEUE_HPP
+#ifndef LAB3_PRIORITY_QUEUE_H
+#define LAB3_PRIORITY_QUEUE_H
 #include <string>
 using namespace std;
 

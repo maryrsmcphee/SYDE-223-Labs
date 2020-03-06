@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "lab3_tests.hpp"
+#include "lab3_tests.h"
 
 using namespace std;
 
