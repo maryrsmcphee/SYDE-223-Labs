@@ -78,19 +78,7 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab3/binary_search_tree.h">
-			<Option target="Lab3"/>
-		</Unit>
-		<Unit filename="/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab3/cmake-build-debug/priority_queue.h">
-			<Option target="Lab3"/>
-		</Unit>
 		<Unit filename="/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab3/main.cpp">
-			<Option target="Lab3"/>
-		</Unit>
-		<Unit filename="/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab3/priority_queue.cpp">
-			<Option target="Lab3"/>
-		</Unit>
-		<Unit filename="/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab3/tests.h">
 			<Option target="Lab3"/>
 		</Unit>
 		<Unit filename="/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab3/CMakeLists.txt">
