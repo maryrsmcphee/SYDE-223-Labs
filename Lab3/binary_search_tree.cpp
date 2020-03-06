@@ -1,5 +1,5 @@
 #include <iostream>
-#include "lab3_binary_search_tree.h"
+#include "binary_search_tree.h"
 
 using namespace std;
 

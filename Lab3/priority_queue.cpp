@@ -1,4 +1,4 @@
-#include "lab3_priority_queue.h"
+#include "priority_queue.h"
 
 using namespace std;
 
