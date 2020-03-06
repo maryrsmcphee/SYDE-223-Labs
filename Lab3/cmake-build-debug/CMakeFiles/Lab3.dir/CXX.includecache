@@ -6,11 +6,17 @@
 
 #IncludeRegexTransform: 
 
+/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab3/binary_search_tree.cpp
+iostream
+-
+lab3_binary_search_tree.h
+/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab3/lab3_binary_search_tree.h
+
 /Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab3/main.cpp
 iostream
 -
 string
 -
-lab3_tests.hpp
-/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab3/lab3_tests.hpp
+lab3_tests.h
+/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab3/lab3_tests.h
 

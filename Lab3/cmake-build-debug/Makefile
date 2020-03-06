@@ -123,6 +123,33 @@ Lab3/fast:
 	$(MAKE) -f CMakeFiles/Lab3.dir/build.make CMakeFiles/Lab3.dir/build
 .PHONY : Lab3/fast
 
+binary_search_tree.o: binary_search_tree.cpp.o
+
+.PHONY : binary_search_tree.o
+
+# target to build an object file
+binary_search_tree.cpp.o:
+	$(MAKE) -f CMakeFiles/Lab3.dir/build.make CMakeFiles/Lab3.dir/binary_search_tree.cpp.o
+.PHONY : binary_search_tree.cpp.o
+
+binary_search_tree.i: binary_search_tree.cpp.i
+
+.PHONY : binary_search_tree.i
+
+# target to preprocess a source file
+binary_search_tree.cpp.i:
+	$(MAKE) -f CMakeFiles/Lab3.dir/build.make CMakeFiles/Lab3.dir/binary_search_tree.cpp.i
+.PHONY : binary_search_tree.cpp.i
+
+binary_search_tree.s: binary_search_tree.cpp.s
+
+.PHONY : binary_search_tree.s
+
+# target to generate assembly for a file
+binary_search_tree.cpp.s:
+	$(MAKE) -f CMakeFiles/Lab3.dir/build.make CMakeFiles/Lab3.dir/binary_search_tree.cpp.s
+.PHONY : binary_search_tree.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -159,6 +186,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... Lab3"
+	@echo "... binary_search_tree.o"
+	@echo "... binary_search_tree.i"
+	@echo "... binary_search_tree.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
