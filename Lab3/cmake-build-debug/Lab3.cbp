@@ -81,6 +81,9 @@
 		<Unit filename="/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab3/main.cpp">
 			<Option target="Lab3"/>
 		</Unit>
+		<Unit filename="/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab3/tests.h">
+			<Option target="Lab3"/>
+		</Unit>
 		<Unit filename="/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab3/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
