@@ -8,8 +8,8 @@
 #include <sstream>
 #include <queue>
 
-#include "priority_queue.hpp"
-#include "binary_search_tree.hpp"
+#include "priority_queue.h"
+#include "binary_search_tree.h"
 
 class PriorityQueueTest {
 public:
