@@ -6,6 +6,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab3/binary_search_tree.cpp" "/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab3/cmake-build-debug/CMakeFiles/Lab3.dir/binary_search_tree.cpp.o"
   "/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab3/main.cpp" "/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab3/cmake-build-debug/CMakeFiles/Lab3.dir/main.cpp.o"
+  "/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab3/priority_queue.cpp" "/Users/marymcphee/CLionProjects/SYDE-223-Labs/Lab3/cmake-build-debug/CMakeFiles/Lab3.dir/priority_queue.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
 

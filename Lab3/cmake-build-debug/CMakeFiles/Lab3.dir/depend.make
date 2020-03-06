@@ -5,3 +5,5 @@ CMakeFiles/Lab3.dir/binary_search_tree.cpp.o: ../binary_search_tree.cpp
 
 CMakeFiles/Lab3.dir/main.cpp.o: ../main.cpp
 
+CMakeFiles/Lab3.dir/priority_queue.cpp.o: ../priority_queue.cpp
+
