@@ -49,7 +49,6 @@ bool PriorityQueue::enqueue( TaskItem val ) {
     }
     if (size == 0) {
         heap[1] = new TaskItem(val);
-        size++;
     } else {
         int i = size + 1;
         heap[i] = new TaskItem(val);
@@ -60,6 +59,7 @@ bool PriorityQueue::enqueue( TaskItem val ) {
             i /= 2;
         }
     }
+    size++;
     return true;
 }
 
