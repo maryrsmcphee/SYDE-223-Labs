@@ -5,6 +5,9 @@ using namespace std;
 // PURPOSE: Parametric constructor
 // initializes heap to an array of (n_capacity + 1) elements
 PriorityQueue::PriorityQueue(unsigned int n_capacity) {
+    heap = new TaskItem*[n_capacity + 1];
+    capacity = n_capacity;
+    size = 0;
 }
 
 // PURPOSE: Explicit destructor of the class PriorityQueue
@@ -13,17 +16,17 @@ PriorityQueue::~PriorityQueue() {
 
 // PURPOSE: Returns the number of elements in the priority queue
 unsigned int PriorityQueue::get_size() const {
-    return 0;
+    return size;
 }
 
 // PURPOSE: Returns true if the priority queue is empty; false, otherwise
 bool PriorityQueue::empty() const {
-    return false;
+    return size == 0;
 }
 
 // PURPOSE: Returns true if the priority queue is full; false, otherwise
 bool PriorityQueue::full() const {
-    return false;
+    return size == capacity;
 }
 
 // PURPOSE: Prints the contents of the priority queue; format not specified
@@ -41,7 +44,23 @@ PriorityQueue::TaskItem PriorityQueue::max() const {
 // returns true if successful and false otherwise
 // priority queue does not change in capacity
 bool PriorityQueue::enqueue( TaskItem val ) {
-    return false;
+    if (size == capacity) {
+        return false;
+    }
+    if (size == 0) {
+        heap[1] = new TaskItem(val);
+        size++;
+    } else {
+        int i = size + 1;
+        heap[i] = new TaskItem(val);
+        while ( i > 1 && heap[i/2]->priority < heap[i]->priority){
+            TaskItem* temp = heap[i];
+            heap[i] = heap[i/2];
+            heap[i/2] = temp;
+            i /= 2;
+        }
+    }
+    return true;
 }
 
 // PURPOSE: Removes the top element with the maximum priority
