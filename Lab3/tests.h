@@ -24,7 +24,26 @@ public:
 
     // PURPOSE: Tests enqueue of one item and then dequeue of that item
     bool test2() {
-        return false;
+        PriorityQueue test(31);
+        PriorityQueue::TaskItem mary(1, "Mary");
+        PriorityQueue::TaskItem conrad(2, "Mary");
+        PriorityQueue::TaskItem sammy(3, "Mary");
+        PriorityQueue::TaskItem becca(4, "Mary");
+
+        for ( int i = 0; i < 3; i++) {
+            ASSERT_TRUE(test.enqueue(becca))
+        }
+        for ( int i = 0; i < 4; i++) {
+            ASSERT_TRUE(test.enqueue(sammy))
+        }
+        for ( int i = 0; i < 8; i++) {
+            ASSERT_TRUE(test.enqueue(conrad))
+        }
+        for ( int i = 0; i < 16; i++) {
+            ASSERT_TRUE(test.enqueue(mary))
+        }
+        test.print();
+        return true;
     }
 
     // PURPOSE: Tests enqueue too many

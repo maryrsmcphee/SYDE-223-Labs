@@ -1,5 +1,5 @@
 #include "priority_queue.h"
-
+#include <iostream>
 using namespace std;
 
 // PURPOSE: Parametric constructor
@@ -31,6 +31,14 @@ bool PriorityQueue::full() const {
 
 // PURPOSE: Prints the contents of the priority queue; format not specified
 void PriorityQueue::print() const {
+    if (size == 0) {
+        cerr << "Tree empty, nothing to print." << endl;
+        return;
+    }
+    for ( int i = 1; i <= size; i++) {
+        cerr << heap[i]->priority << "  ";
+    }
+    cout << endl;
 }
 
 // PURPOSE: Returns the max element of the priority queue without removing it
@@ -44,7 +52,7 @@ PriorityQueue::TaskItem PriorityQueue::max() const {
 // returns true if successful and false otherwise
 // priority queue does not change in capacity
 bool PriorityQueue::enqueue( TaskItem val ) {
-    if (size == capacity) {
+    if (size >= capacity) {
         return false;
     }
     if (size == 0) {
@@ -68,5 +76,17 @@ bool PriorityQueue::enqueue( TaskItem val ) {
 // returns true if successful and false otherwise
 // priority queue does not change in capacity
 bool PriorityQueue::dequeue() {
+    if (size == 0 ) {
+        cerr << "Nothing to dequeue, tree empty.";
+    }
+    if (size == 1) {
+        TaskItem* temp = heap[1];
+        delete temp;
+        size--;
+    } else {
+//        TaskItem* root =
+
+    }
+
     return false;
 }
