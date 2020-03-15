@@ -78,15 +78,31 @@ bool PriorityQueue::enqueue( TaskItem val ) {
 bool PriorityQueue::dequeue() {
     if (size == 0 ) {
         cerr << "Nothing to dequeue, tree empty.";
+        return false;
     }
     if (size == 1) {
         TaskItem* temp = heap[1];
         delete temp;
-        size--;
     } else {
-//        TaskItem* root =
-
+        TaskItem* temp = heap[size];
+        heap[1] = temp;
+        delete heap[size];
+        heap[size] = nullptr;
+        int i = 1;
+        while ( i < size - 1) {
+            TaskItem* rightChild = heap[i*2+1];
+            TaskItem* leftChild = heap[i*2];
+            if (leftChild < rightChild) {
+                heap[i*2+1] = heap[i];
+                heap[i] = rightChild;
+                i*=2+1;
+            } else {
+                heap[i*2] = heap[i];
+                heap[i] = leftChild;
+                i = i*2;
+            }
+        }
     }
-
-    return false;
+    // size--;
+    return true;
 }

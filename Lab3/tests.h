@@ -29,19 +29,12 @@ public:
         PriorityQueue::TaskItem conrad(2, "Mary");
         PriorityQueue::TaskItem sammy(3, "Mary");
         PriorityQueue::TaskItem becca(4, "Mary");
-
-        for ( int i = 0; i < 3; i++) {
-            ASSERT_TRUE(test.enqueue(becca))
-        }
-        for ( int i = 0; i < 4; i++) {
-            ASSERT_TRUE(test.enqueue(sammy))
-        }
-        for ( int i = 0; i < 8; i++) {
-            ASSERT_TRUE(test.enqueue(conrad))
-        }
-        for ( int i = 0; i < 16; i++) {
-            ASSERT_TRUE(test.enqueue(mary))
-        }
+        ASSERT_TRUE(test.enqueue(becca))
+        ASSERT_TRUE(test.enqueue(sammy))
+        ASSERT_TRUE(test.enqueue(conrad))
+        ASSERT_TRUE(test.enqueue(mary))
+        test.print();
+        ASSERT_TRUE(test.dequeue())
         test.print();
         return true;
     }
