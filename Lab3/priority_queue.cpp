@@ -112,11 +112,9 @@ bool PriorityQueue::dequeue() {
         int current = 1;
         size--;
         // iterates through tree to reorganize
-        while (current < size - 1) { // iterates down the tree from the top node;
-            cout << "size " << size << endl;
+        while (current < size && (current * 2 + 1 || current * 2) <= size) { // iterates down the tree from the top node;
             int RIGHT = GET_CHILD(current, "R");
             int LEFT = GET_CHILD(current, "L");
-
             TaskItem *rightChild = heap[RIGHT];
             TaskItem *leftChild = heap[LEFT];
 
@@ -132,18 +130,40 @@ bool PriorityQueue::dequeue() {
                     current = RIGHT;
 
                 } else {
-                    cerr << endl << "L  " << leftChild->priority << endl;
+                    cout << "L  " << leftChild->priority << endl;
+                    TaskItem *temp = leftChild;
                     heap[LEFT] = heap[current];
-                    heap[current] = leftChild;
+                    heap[current] = temp;
                     current = LEFT;
                 }
             } else if (leftChild != NULL) {
-                cerr << endl << "L  " << leftChild->priority << endl;
+                cout << "L with left " << leftChild->priority << endl;
                 heap[LEFT] = heap[current];
                 heap[current] = leftChild;
                 current = LEFT;
+            }else{
+                break;
             }
         }
         return true;
     }
 }
+/*
+ * while ( i < = heapsize) {
+ le <- left(i)
+ ri <- right(i)
+ if (le<=heapsize) and (A[le]>A[i])
+  largest <- le
+ else
+  largest <- i
+ if (ri<=heapsize) and (A[ri]>A[largest])
+  largest <- ri
+ if (largest != i)
+ {
+   exchange A[i] <-> A[largest]
+   i <- largest
+ }
+ else
+  break
+}
+ * */
