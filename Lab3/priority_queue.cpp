@@ -32,7 +32,7 @@ bool PriorityQueue::full() const {
 
 // PURPOSE: Prints the contents of the priority queue; format not specified
 void PriorityQueue::print() const {
-    cerr<<"order: Root->Left->Right"<<endl;
+    cerr<<"\n order: depth D(i,n)\n"<<endl;
     if (size == 0) {
         cerr << "Tree empty, nothing to print." << endl;
         return;
