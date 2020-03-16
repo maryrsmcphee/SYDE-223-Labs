@@ -13,24 +13,43 @@ BinarySearchTree::~BinarySearchTree() {
 
 // PURPOSE: Returns the number of nodes in the tree
 unsigned int BinarySearchTree::get_size() const {
-    return 0;
+    return size;
 }
 
 // PURPOSE: Returns the maximum value of a node in the tree
 // if the tree is empty, it returns (-1, "N/A")
 BinarySearchTree::TaskItem BinarySearchTree::max() const {
-    return BinarySearchTree::TaskItem(-1, "N/A");
+    if (!root) return BinarySearchTree::TaskItem(-1, "N/A");
+    TaskItem *temp = root;
+    while (temp->right) {
+        temp = temp->right;
+    }
+    return *temp;
 }
 
 // PURPOSE: Returns the minimum value of a node in the tree
 // if the tree is empty, it returns (-1, "N/A")
 BinarySearchTree::TaskItem BinarySearchTree::min() const {
-    return BinarySearchTree::TaskItem(-1, "N/A");
+    if (!root) return BinarySearchTree::TaskItem(-1, "N/A");
+    // since lower values in a bst are on the left (slide 9 lecture 8)
+    TaskItem *temp = root;
+    while (temp->left) {
+        temp = temp->left;
+    }
+    return *temp;
 }
 
 // PURPOSE: Returns the tree height
 unsigned int BinarySearchTree::height() const {
-    return 0;
+    if (!root) return 0;
+    int count = 1;
+    TaskItem *temp = root;
+    // since BST must have all elements at the furthest left position
+    while (temp->left != NULL) {
+        temp = temp->left;
+        count++;
+    }
+    return count;
 }
 
 // PURPOSE: Prints the contents of the tree; format not specified

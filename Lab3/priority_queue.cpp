@@ -10,6 +10,7 @@ PriorityQueue::PriorityQueue(unsigned int n_capacity) {
     size = 0;
 }
 
+// TODO
 // PURPOSE: Explicit destructor of the class PriorityQueue
 PriorityQueue::~PriorityQueue() {
 }
