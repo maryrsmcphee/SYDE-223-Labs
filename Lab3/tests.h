@@ -90,10 +90,12 @@ public:
         ASSERT_TRUE(test.enqueue(t7))
         ASSERT_FALSE(test.enqueue(t8))
         test.print();
-      for(int i = 1; i< testSize-2;i++){
-            ASSERT_TRUE(test.dequeue())
-          cout<<"reached"<<endl;
-      }
+
+        for(int i = 1; i< testSize-2;i++){
+          ASSERT_TRUE(test.dequeue())
+            cout<<"reached"<<endl;
+
+        }
  //       ASSERT_FALSE(test.dequeue())
   //      ASSERT_FALSE(test.dequeue())
  //       ASSERT_FALSE(test.empty())
