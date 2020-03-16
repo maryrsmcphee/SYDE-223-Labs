@@ -8,6 +8,7 @@ BinarySearchTree::BinarySearchTree() {
 }
 
 // PURPOSE: Explicit destructor of the class BinarySearchTree
+// TODO
 BinarySearchTree::~BinarySearchTree() {
 }
 
@@ -53,6 +54,7 @@ unsigned int BinarySearchTree::height() const {
 }
 
 // PURPOSE: Prints the contents of the tree; format not specified
+// TODO
 void BinarySearchTree::print() const {
 }
 
@@ -64,7 +66,11 @@ bool BinarySearchTree::exists( BinarySearchTree::TaskItem val ) const {
 
 // PURPOSE: Optional helper function that returns a pointer to the root node
 BinarySearchTree::TaskItem* BinarySearchTree::get_root_node() {
-    return NULL;
+    if (!root) {
+        cerr << "Empty tree";
+        return 0;
+    }
+    return root;
 }
 
 // PURPOSE: Optional helper function that returns the root node pointer address
@@ -80,12 +86,14 @@ int BinarySearchTree::get_node_depth( BinarySearchTree::TaskItem* n ) const {
 // PURPOSE: Inserts the value val into the tree if it is unique
 // returns true if successful; returns false if val already exists
 bool BinarySearchTree::insert( BinarySearchTree::TaskItem val ) {
+    if (exists(val)) return false;
     return false;
 }
 
 // PURPOSE: Removes the node with the value val from the tree
 // returns true if successful; returns false otherwise
 bool BinarySearchTree::remove( BinarySearchTree::TaskItem val ) {
+    if (!exists(val)) return false;
     return false;
 }
 
