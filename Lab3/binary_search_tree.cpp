@@ -85,6 +85,7 @@ int BinarySearchTree::get_node_depth( BinarySearchTree::TaskItem* n ) const {
 
 // PURPOSE: Inserts the value val into the tree if it is unique
 // returns true if successful; returns false if val already exists
+// TODO: insert when unique
 bool BinarySearchTree::insert( BinarySearchTree::TaskItem val ) {
     if (exists(val)) return false;
     return false;
@@ -92,6 +93,7 @@ bool BinarySearchTree::insert( BinarySearchTree::TaskItem val ) {
 
 // PURPOSE: Removes the node with the value val from the tree
 // returns true if successful; returns false otherwise
+// TODO: remove when found
 bool BinarySearchTree::remove( BinarySearchTree::TaskItem val ) {
     if (!exists(val)) return false;
     return false;
