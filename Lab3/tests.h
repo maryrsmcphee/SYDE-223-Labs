@@ -47,7 +47,26 @@ public:
 
     // PURPOSE: Tests enqueue too many
     bool test3() {
-        return false;
+        int testSize = 6;
+        PriorityQueue test(testSize);
+        PriorityQueue::TaskItem t1(1, "testItem1");
+        PriorityQueue::TaskItem t2(2, "testItem2");
+        PriorityQueue::TaskItem t3(3, "testItem3");
+        PriorityQueue::TaskItem t4(4, "testItem4");
+        PriorityQueue::TaskItem t5(5, "testItem5");
+        PriorityQueue::TaskItem t6(6, "testItem6");
+        PriorityQueue::TaskItem t7(7, "testItem7");
+        PriorityQueue::TaskItem t8(8, "testItem8");
+        ASSERT_TRUE(test.enqueue(t1))
+        ASSERT_TRUE(test.enqueue(t2))
+        ASSERT_TRUE(test.enqueue(t3))
+        ASSERT_TRUE(test.enqueue(t4))
+        ASSERT_TRUE(test.enqueue(t5))
+        ASSERT_TRUE(test.enqueue(t6))
+        ASSERT_FALSE(test.enqueue(t7))
+        ASSERT_FALSE(test.enqueue(t8))
+        test.print();
+        return true;
     }
 
     // PURPOSE: Tests enqueue too many then dequeue too many
