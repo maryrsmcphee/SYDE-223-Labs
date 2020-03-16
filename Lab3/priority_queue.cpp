@@ -83,26 +83,29 @@ bool PriorityQueue::dequeue() {
     if (size == 1) {
         TaskItem* temp = heap[1];
         delete temp;
+        size--;
     } else {
         TaskItem* temp = heap[size];
         heap[1] = temp;
         delete heap[size];
         heap[size] = nullptr;
         int i = 1;
+        size--;
         while ( i < size - 1) {
             TaskItem* rightChild = heap[i*2+1];
             TaskItem* leftChild = heap[i*2];
-            if (leftChild < rightChild) {
+            if (leftChild->priority < rightChild->priority) {
+                cerr << endl<< "right child " <<  rightChild->priority << endl;
                 heap[i*2+1] = heap[i];
                 heap[i] = rightChild;
-                i*=2+1;
+                i=i*2+1;
             } else {
+                cerr << endl << "left child  " << leftChild->priority << endl;
                 heap[i*2] = heap[i];
                 heap[i] = leftChild;
                 i = i*2;
             }
         }
     }
-    // size--;
     return true;
 }

@@ -30,7 +30,13 @@ public:
         PriorityQueue::TaskItem sammy(3, "Mary");
         PriorityQueue::TaskItem becca(4, "Mary");
         ASSERT_TRUE(test.enqueue(becca))
+        ASSERT_TRUE(test.enqueue(becca))
+        ASSERT_TRUE(test.enqueue(becca))
         ASSERT_TRUE(test.enqueue(sammy))
+        ASSERT_TRUE(test.enqueue(sammy))
+        ASSERT_TRUE(test.enqueue(sammy))
+        ASSERT_TRUE(test.enqueue(conrad))
+        ASSERT_TRUE(test.enqueue(conrad))
         ASSERT_TRUE(test.enqueue(conrad))
         ASSERT_TRUE(test.enqueue(mary))
         test.print();
