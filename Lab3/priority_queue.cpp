@@ -1,8 +1,9 @@
 #include "priority_queue.h"
 #include <iostream>
-# define GET_LEFT(i,heap){return heap[i*2];}
+
+# define GET_LEFT(i, heap){return heap[i*2];}
 using namespace std;
-#define GET_CHILD(i,type)(type == "R"? (i*2+1): (i*2));
+#define GET_CHILD(i, type)(type == "R"? (i*2+1): (i*2));
 
 // PURPOSE: Parametric constructor
 // initializes heap to an array of (n_capacity + 1) elements
@@ -33,7 +34,7 @@ bool PriorityQueue::full() const {
 
 // PURPOSE: Prints the contents of the priority queue; format not specified
 void PriorityQueue::print() const {
-    cerr<<"\n order: depth D(i,n)\n"<<endl;
+    cerr << "\n order: depth D(i,n)\n" << endl;
     if (size == 0) {
         cerr << "Tree empty, nothing to print." << endl;
         return;
@@ -46,7 +47,7 @@ void PriorityQueue::print() const {
 
     }
     cerr << ']';
-    cerr<<endl;
+    cerr << endl;
 }
 
 // PURPOSE: Returns the max element of the priority queue without removing it
@@ -103,7 +104,7 @@ bool PriorityQueue::dequeue() {
         return true;
     } else {
         // sets bottom right leaf to temp and swaps
-        TaskItem* temp = heap[size];
+        TaskItem *temp = heap[size];
         heap[1] = temp;
         //deletes heap at size (which was the root)
         delete heap[size];
@@ -111,32 +112,36 @@ bool PriorityQueue::dequeue() {
         int current = 1;
         size--;
         // iterates through tree to reorganize
-        while ( current < size - 1 ) { // iterates down the tree from the top node;
-            int RIGHT = GET_CHILD(current,"R");
-            int LEFT = GET_CHILD(current,"L");
-            TaskItem* rightChild = heap[RIGHT];
-            TaskItem* leftChild = heap[LEFT];
-            bool isRightChildNull = rightChild == NULL;
-            bool isLeftChildNull = leftChild == NULL;
-            bool canGoForRightChild = leftChild->priority < rightChild->priority && !isRightChildNull;
-            bool canGoForLeftChild =  !isLeftChildNull;
+        while (current < size - 1) { // iterates down the tree from the top node;
+            cout << "size " << size << endl;
+            int RIGHT = GET_CHILD(current, "R");
+            int LEFT = GET_CHILD(current, "L");
+
+            TaskItem *rightChild = heap[RIGHT];
+            TaskItem *leftChild = heap[LEFT];
+
             // iterates down the higher size to reorder
-            if (canGoForRightChild) {
-                // print which child it went to (just for debugging etc) - will delete later
-                cerr << endl<< "choose right child " <<  rightChild->priority << endl;
-                // switches the heap at i with the greater child
-                TaskItem* temp = rightChild;
-                heap[RIGHT] = heap[current];
-                heap[current] = temp;
-                // sets i to be the right child
-                current=RIGHT;
-            } else if(canGoForLeftChild){
-                cerr << endl << "left child  " << leftChild->priority << endl;
+            if (rightChild != NULL) {
+                if (leftChild->priority < rightChild->priority) {
+                    cout << "R  " << rightChild->priority << endl;
+                    // switches the heap at i with the greater child
+                    TaskItem *temp = rightChild;
+                    heap[RIGHT] = heap[current];
+                    heap[current] = temp;
+                    // sets i to be the right child
+                    current = RIGHT;
+
+                } else {
+                    cerr << endl << "L  " << leftChild->priority << endl;
+                    heap[LEFT] = heap[current];
+                    heap[current] = leftChild;
+                    current = LEFT;
+                }
+            } else if (leftChild != NULL) {
+                cerr << endl << "L  " << leftChild->priority << endl;
                 heap[LEFT] = heap[current];
                 heap[current] = leftChild;
                 current = LEFT;
-            }else{
-                cout<<"err"<<endl;
             }
         }
         return true;
