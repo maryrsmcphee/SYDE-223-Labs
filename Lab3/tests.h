@@ -48,6 +48,30 @@ public:
     // PURPOSE: Tests enqueue too many
     bool test3() {
         int testSize = 6;
+        PriorityQueue test2(testSize);
+        PriorityQueue::TaskItem t1(1, "testItem1");
+        PriorityQueue::TaskItem t2(2, "testItem2");
+        PriorityQueue::TaskItem t3(3, "testItem3");
+        PriorityQueue::TaskItem t4(4, "testItem4");
+        PriorityQueue::TaskItem t5(5, "testItem5");
+        PriorityQueue::TaskItem t6(6, "testItem6");
+        PriorityQueue::TaskItem t7(7, "testItem7");
+        PriorityQueue::TaskItem t8(8, "testItem8");
+        ASSERT_TRUE(test2.enqueue(t1))
+        ASSERT_TRUE(test2.enqueue(t2))
+        ASSERT_TRUE(test2.enqueue(t3))
+        ASSERT_TRUE(test2.enqueue(t4))
+        ASSERT_TRUE(test2.enqueue(t5))
+        ASSERT_TRUE(test2.enqueue(t6))
+        ASSERT_FALSE(test2.enqueue(t7))
+        ASSERT_FALSE(test2.enqueue(t8))
+        test2.print();
+        return true;
+    }
+
+    // PURPOSE: Tests enqueue too many then dequeue too many
+    bool test4() {
+        int testSize = 7;
         PriorityQueue test(testSize);
         PriorityQueue::TaskItem t1(1, "testItem1");
         PriorityQueue::TaskItem t2(2, "testItem2");
@@ -63,15 +87,16 @@ public:
         ASSERT_TRUE(test.enqueue(t4))
         ASSERT_TRUE(test.enqueue(t5))
         ASSERT_TRUE(test.enqueue(t6))
-        ASSERT_FALSE(test.enqueue(t7))
+        ASSERT_TRUE(test.enqueue(t7))
         ASSERT_FALSE(test.enqueue(t8))
-        test.print();
+    /*    for(int i = 1; i< testSize-2;i++){
+            cout<<"reached"<<endl;
+            ASSERT_TRUE(test.dequeue())
+        } */
+ //       ASSERT_FALSE(test.dequeue())
+  //      ASSERT_FALSE(test.dequeue())
+ //       ASSERT_FALSE(test.empty())
         return true;
-    }
-
-    // PURPOSE: Tests enqueue too many then dequeue too many
-    bool test4() {
-        return false;
     }
 };
 

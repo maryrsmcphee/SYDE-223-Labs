@@ -1,11 +1,12 @@
 #include "priority_queue.h"
 #include <iostream>
+
 using namespace std;
 
 // PURPOSE: Parametric constructor
 // initializes heap to an array of (n_capacity + 1) elements
 PriorityQueue::PriorityQueue(unsigned int n_capacity) {
-    heap = new TaskItem*[n_capacity + 1];
+    heap = new TaskItem *[n_capacity + 1];
     capacity = n_capacity;
     size = 0;
 }
@@ -31,22 +32,28 @@ bool PriorityQueue::full() const {
 
 // PURPOSE: Prints the contents of the priority queue; format not specified
 void PriorityQueue::print() const {
+    cerr<<"order: Root->Left->Right"<<endl;
     if (size == 0) {
         cerr << "Tree empty, nothing to print." << endl;
         return;
     }
-    for ( int i = 1; i <= size; i++) {
-        cerr << heap[i]->priority << "  ";
+    cerr << '[';
+    for (int i = 1; i <= size; i++) {
+        cerr << "(";
+        cerr << heap[i]->priority << ", " << heap[i]->description << " ";
+        cerr << ")";
+
     }
-    cout << endl;
+    cerr << ']';
+    cerr<<endl;
 }
 
 // PURPOSE: Returns the max element of the priority queue without removing it
 // if the priority queue is empty, it returns (-1, "N/A")
 PriorityQueue::TaskItem PriorityQueue::max() const {
-    if(get_size() == 0){
+    if (get_size() == 0) {
         return TaskItem(-1, "N/A");
-    }else{
+    } else {
         /*
          * since it is a priority max queue we can
          * simply return the first value in the heap array
@@ -59,7 +66,7 @@ PriorityQueue::TaskItem PriorityQueue::max() const {
 // re-arranges the elements back into a heap
 // returns true if successful and false otherwise
 // priority queue does not change in capacity
-bool PriorityQueue::enqueue( TaskItem val ) {
+bool PriorityQueue::enqueue(TaskItem val) {
     if (size >= capacity) {
         return false;
     }
@@ -68,10 +75,10 @@ bool PriorityQueue::enqueue( TaskItem val ) {
     } else {
         int i = size + 1;
         heap[i] = new TaskItem(val);
-        while ( i > 1 && heap[i/2]->priority < heap[i]->priority){
-            TaskItem* temp = heap[i];
-            heap[i] = heap[i/2];
-            heap[i/2] = temp;
+        while (i > 1 && heap[i / 2]->priority < heap[i]->priority) {
+            TaskItem *temp = heap[i];
+            heap[i] = heap[i / 2];
+            heap[i / 2] = temp;
             i /= 2;
         }
     }
@@ -84,12 +91,12 @@ bool PriorityQueue::enqueue( TaskItem val ) {
 // returns true if successful and false otherwise
 // priority queue does not change in capacity
 bool PriorityQueue::dequeue() {
-    if (size == 0 ) {
+    if (size == 0) {
         cerr << "Nothing to dequeue, tree empty.";
         return false;
     }
     if (size == 1) {
-        TaskItem* temp = heap[1];
+        TaskItem *temp = heap[1];
         delete temp;
         size--;
     } else {
@@ -116,9 +123,9 @@ bool PriorityQueue::dequeue() {
                 i=i*2+1;
             } else {
                 cerr << endl << "left child  " << leftChild->priority << endl;
-                heap[i*2] = heap[i];
+                heap[i * 2] = heap[i];
                 heap[i] = leftChild;
-                i = i*2;
+                i = i * 2;
             }
         }
     }
