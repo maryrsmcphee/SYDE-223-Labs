@@ -41,10 +41,19 @@ void PriorityQueue::print() const {
     cout << endl;
 }
 
+// TODO @Sammy
 // PURPOSE: Returns the max element of the priority queue without removing it
 // if the priority queue is empty, it returns (-1, "N/A")
 PriorityQueue::TaskItem PriorityQueue::max() const {
-    return TaskItem(-1, "NULL");
+    if(get_size() == 0){
+        return TaskItem(-1, "N/A");
+    }else{
+        /*
+         * since it is a priority max queue we can
+         * simply return the first value in the heap array
+         * */
+        return *heap[1];
+    }
 }
 
 // PURPOSE: Inserts the given value into the priority queue
