@@ -56,7 +56,7 @@ public:
 
     // PURPOSE: Prints the contents of the tree; format not specified
     void print() const;
-
+    void print(TaskItem *node) const;
     // PURPOSE: Returns true if a node with the value val exists in the tree
     // otherwise, returns false
     bool exists(TaskItem val) const;
