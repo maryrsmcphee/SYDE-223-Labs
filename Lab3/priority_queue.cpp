@@ -35,20 +35,24 @@ bool PriorityQueue::full() const {
 
 // PURPOSE: Prints the contents of the priority queue; format not specified
 void PriorityQueue::print() const {
-    cerr << "\n order: depth D(i,n)\n" << endl;
-    if (size == 0) {
-        cerr << "Tree empty, nothing to print." << endl;
-        return;
-    }
-    cerr << '[';
     for (int i = 1; i <= size; i++) {
-        cerr << "(";
-        cerr << heap[i]->priority << ", " << heap[i]->description << " ";
-        cerr << ")";
-
+        cerr << heap[i]->priority << " ";
     }
-    cerr << ']';
     cerr << endl;
+//    cerr << "\n order: depth D(i,n)\n" << endl;
+//    if (size == 0) {
+//        cerr << "Tree empty, nothing to print." << endl;
+//        return;
+//    }
+//    cerr << '[';
+//    for (int i = 1; i <= size; i++) {
+//        cerr << "(";
+//        cerr << heap[i]->priority << ", " << heap[i]->description << " ";
+//        cerr << ")";
+//
+//    }
+//    cerr << ']';
+//    cerr << endl;
 }
 
 // PURPOSE: Returns the max element of the priority queue without removing it
@@ -76,8 +80,9 @@ bool PriorityQueue::enqueue(TaskItem val) {
     if (size == 0) {
         heap[1] = new TaskItem(val);
     } else {
-        int i = size + 1;
-        heap[i] = new TaskItem(val);
+        int i = size + 1; // sets i to the index after the last node
+        heap[i] = new TaskItem(val); // inserts val at last index
+        // while i is greater than one, and that the parent is less than the current i - basically start at the bottom of the heap and work your way up
         while (i > 1 && heap[i / 2]->priority < heap[i]->priority) {
             TaskItem *temp = heap[i];
             heap[i] = heap[i / 2];
@@ -106,6 +111,7 @@ bool PriorityQueue::dequeue() {
     } else {
         // sets bottom right leaf to temp and swaps
         TaskItem *temp = heap[size];
+        heap[size] = heap[1];
         heap[1] = temp;
         //deletes heap at size (which was the root)
         delete heap[size];
@@ -113,35 +119,35 @@ bool PriorityQueue::dequeue() {
         int current = 1;
         size--;
         // iterates through tree to reorganize
-        while (current < size && (current * 2 + 1 || current * 2) <= size) { // iterates down the tree from the top node;
-            int RIGHT = GET_CHILD(current, "R");
-            int LEFT = GET_CHILD(current, "L");
-            TaskItem *rightChild = heap[RIGHT];
-            TaskItem *leftChild = heap[LEFT];
+        while (current < size && (current * 2 + 1 <= size || current * 2 <= size)) { // iterates down the tree from the top node;
+//            int RIGHT = GET_CHILD(current, "R");
+//            int LEFT = GET_CHILD(current, "L");
+            TaskItem *rightChild = heap[current*2 + 1];
+            TaskItem *leftChild = heap[current*2];
 
             // iterates down the higher size to reorder
-            if (rightChild != NULL) {
+            if (rightChild != nullptr) {
                 if (leftChild->priority < rightChild->priority) {
                     cout << "R  " << rightChild->priority << endl;
                     // switches the heap at i with the greater child
                     TaskItem *temp = rightChild;
-                    heap[RIGHT] = heap[current];
+                    heap[current*2 + 1] = heap[current];
                     heap[current] = temp;
                     // sets i to be the right child
-                    current = RIGHT;
+                    current = current*2 + 1;
 
                 } else {
                     cout << "L  " << leftChild->priority << endl;
                     TaskItem *temp = leftChild;
-                    heap[LEFT] = heap[current];
+                    heap[current*2] = heap[current];
                     heap[current] = temp;
-                    current = LEFT;
+                    current = current*2;
                 }
-            } else if (leftChild != NULL) {
+            } else if (leftChild != nullptr) {
                 cout << "L with left " << leftChild->priority << endl;
-                heap[LEFT] = heap[current];
+                heap[current*2] = heap[current];
                 heap[current] = leftChild;
-                current = LEFT;
+                current = current*2;
             }else{
                 break;
             }

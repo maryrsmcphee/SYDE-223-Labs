@@ -24,6 +24,7 @@ public:
 
     // PURPOSE: Tests enqueue of one item and then dequeue of that item
     bool test2() {
+        cerr << "TEST 2" << endl;
         PriorityQueue test(31);
         PriorityQueue::TaskItem mary(1, "Mary");
         PriorityQueue::TaskItem conrad(2, "Mary");
@@ -47,6 +48,7 @@ public:
 
     // PURPOSE: Tests enqueue too many
     bool test3() {
+        cerr << "TEST 3" << endl;
         int testSize = 6;
         PriorityQueue test2(testSize);
         PriorityQueue::TaskItem t1(1, "testItem1");
@@ -71,6 +73,7 @@ public:
 
     // PURPOSE: Tests enqueue too many then dequeue too many
     bool test4() {
+        cerr << "TEST 4" << endl;
         int testSize = 7;
         PriorityQueue test(testSize);
         PriorityQueue::TaskItem t1(1, "testItem1");
@@ -91,11 +94,21 @@ public:
         ASSERT_FALSE(test.enqueue(t8))
         test.print();
 
-        for(int i = 1; i< testSize-2;i++){
-          ASSERT_TRUE(test.dequeue())
-            cout<<"reached"<<endl;
+        test.dequeue();
+        cerr << "after dequeue 1\n";
+        test.print();
+        test.dequeue();
+        cerr << "after dequeue 2 \n";
+        test.print();
+        test.dequeue();
+        cerr << "after dequeue 3 \n";
+        test.print();
+        //        for(int i = 1; i < 5;i++){
+//          ASSERT_TRUE(test.dequeue())
+//            cout<<"reached"<<endl;
+//
+//        }
 
-        }
  //       ASSERT_FALSE(test.dequeue())
   //      ASSERT_FALSE(test.dequeue())
  //       ASSERT_FALSE(test.empty())
