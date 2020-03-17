@@ -94,24 +94,15 @@ public:
         ASSERT_FALSE(test.enqueue(t8))
         test.print();
 
+        // Dequeues all elements except t1.
+        for(int i = 1; i < 7; i++){
+            ASSERT_TRUE(test.dequeue())
+        }
+        // Dequeues at size = 1
         test.dequeue();
-        cerr << "after dequeue 1\n";
-        test.print();
-        test.dequeue();
-        cerr << "after dequeue 2 \n";
-        test.print();
-        test.dequeue();
-        cerr << "after dequeue 3 \n";
-        test.print();
-        //        for(int i = 1; i < 5;i++){
-//          ASSERT_TRUE(test.dequeue())
-//            cout<<"reached"<<endl;
-//
-//        }
-
- //       ASSERT_FALSE(test.dequeue())
-  //      ASSERT_FALSE(test.dequeue())
- //       ASSERT_FALSE(test.empty())
+        ASSERT_TRUE(test.empty())
+        // should fail if dequeuing when empty
+        ASSERT_FALSE(test.dequeue())
         return true;
     }
 };

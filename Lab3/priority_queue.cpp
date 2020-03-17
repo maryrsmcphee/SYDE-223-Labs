@@ -100,12 +100,13 @@ bool PriorityQueue::enqueue(TaskItem val) {
 // priority queue does not change in capacity
 bool PriorityQueue::dequeue() {
     if (size == 0) {
-        cerr << "Nothing to dequeue, tree empty.";
+        cerr << "Nothing to dequeue, tree empty." << endl;
         return false;
     }
     if (size == 1) {
         TaskItem *temp = heap[1];
         delete temp;
+        heap[1] = nullptr;
         size--;
         return true;
     } else {
@@ -124,15 +125,12 @@ bool PriorityQueue::dequeue() {
             TaskItem *leftChild = heap[i * 2];
             // iterates down the higher size to reorder
             if (leftChild->priority < rightChild->priority) {
-                // print which child it went to (just for debugging etc) - will delete later
-                cerr << endl << "right child " << rightChild->priority << endl;
                 // switches the heap at i with the greater child
                 heap[i * 2 + 1] = heap[i];
                 heap[i] = rightChild;
                 // sets i to be the right child
                 i = i * 2 + 1;
             } else {
-                cerr << endl << "left child  " << leftChild->priority << endl;
                 heap[i * 2] = heap[i];
                 heap[i] = leftChild;
                 i = i * 2;
