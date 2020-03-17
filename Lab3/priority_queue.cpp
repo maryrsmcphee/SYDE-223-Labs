@@ -116,42 +116,28 @@ bool PriorityQueue::dequeue() {
         //deletes heap at size (which was the root)
         delete heap[size];
         heap[size] = nullptr;
-        int current = 1;
+        int i = 1;
         size--;
         // iterates through tree to reorganize
-        while (current < size && (current * 2 + 1 <= size || current * 2 <= size)) { // iterates down the tree from the top node;
-//            int RIGHT = GET_CHILD(current, "R");
-//            int LEFT = GET_CHILD(current, "L");
-            TaskItem *rightChild = heap[current*2 + 1];
-            TaskItem *leftChild = heap[current*2];
-
+        while (i < size - 1) { // iterates down the tree from the top node
+            TaskItem *rightChild = heap[i * 2 + 1];
+            TaskItem *leftChild = heap[i * 2];
             // iterates down the higher size to reorder
-            if (rightChild != nullptr) {
-                if (leftChild->priority < rightChild->priority) {
-                    cout << "R  " << rightChild->priority << endl;
-                    // switches the heap at i with the greater child
-                    TaskItem *temp = rightChild;
-                    heap[current*2 + 1] = heap[current];
-                    heap[current] = temp;
-                    // sets i to be the right child
-                    current = current*2 + 1;
-
-                } else {
-                    cout << "L  " << leftChild->priority << endl;
-                    TaskItem *temp = leftChild;
-                    heap[current*2] = heap[current];
-                    heap[current] = temp;
-                    current = current*2;
-                }
-            } else if (leftChild != nullptr) {
-                cout << "L with left " << leftChild->priority << endl;
-                heap[current*2] = heap[current];
-                heap[current] = leftChild;
-                current = current*2;
-            }else{
-                break;
+            if (leftChild->priority < rightChild->priority) {
+                // print which child it went to (just for debugging etc) - will delete later
+                cerr << endl << "right child " << rightChild->priority << endl;
+                // switches the heap at i with the greater child
+                heap[i * 2 + 1] = heap[i];
+                heap[i] = rightChild;
+                // sets i to be the right child
+                i = i * 2 + 1;
+            } else {
+                cerr << endl << "left child  " << leftChild->priority << endl;
+                heap[i * 2] = heap[i];
+                heap[i] = leftChild;
+                i = i * 2;
             }
+            return true;
         }
-        return true;
     }
 }
