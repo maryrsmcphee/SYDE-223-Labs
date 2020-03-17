@@ -35,15 +35,16 @@ bool PriorityQueue::full() const {
 
 // PURPOSE: Prints the contents of the priority queue; format not specified
 void PriorityQueue::print() const {
+    if (size == 0) {
+        cerr << "Tree empty, nothing to print." << endl;
+        return;
+    }
     for (int i = 1; i <= size; i++) {
         cerr << heap[i]->priority << " ";
     }
     cerr << endl;
 //    cerr << "\n order: depth D(i,n)\n" << endl;
-//    if (size == 0) {
-//        cerr << "Tree empty, nothing to print." << endl;
-//        return;
-//    }
+//
 //    cerr << '[';
 //    for (int i = 1; i <= size; i++) {
 //        cerr << "(";
