@@ -81,21 +81,6 @@ bool BinarySearchTree::exists(BinarySearchTree::TaskItem val) const {
     }
 }
 
-/*
- * struct node* search(struct node* root, int key)
-{
-    // Base Cases: root is null or key is present at root
-    if (root == NULL || root->key == key)
-       return root;
-
-    // Key is greater than root's key
-    if (root->key < key)
-       return search(root->right, key);
-
-    // Key is smaller than root's key
-    return search(root->left, key);
-}
- * */
 // PURPOSE: Optional helper function that returns a pointer to the root node
 BinarySearchTree::TaskItem *BinarySearchTree::get_root_node() {
     if (!root) {
