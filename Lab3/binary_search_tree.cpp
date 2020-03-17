@@ -84,7 +84,7 @@ bool BinarySearchTree::exists(BinarySearchTree::TaskItem val) const {
         cerr << "Empty tree\n";
         return false;
     } else if (size == 1) {
-        return val == *root ? true : false;
+        return val == *root;
     } else {
         if (*root == val) {
            return true;
