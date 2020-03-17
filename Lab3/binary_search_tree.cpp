@@ -53,15 +53,31 @@ unsigned int BinarySearchTree::height() const {
     return count;
 }
 
-// PURPOSE: Prints the contents of the tree; format not specified
+// PURPOSE: Prints the contents of the tree format not specified
 // TODO @Sammy
 void BinarySearchTree::print() const {
+    cout<<"print pre-order"<<endl;
+    if (root == NULL) {
+        cerr << "tree empty, nothing to print" << endl;
+    } else {
+        cerr << root->priority << " ";
+        TaskItem *L = root;
+        while (L != NULL) {
+            cout << L->left->priority << " ";
+            L = L->left;
+        }
+        TaskItem *R = root;
+        while (R != NULL) {
+            cout << R->right->priority << " ";
+            R = R->right;
+        }
+    }
 }
+
 
 // PURPOSE: Returns true if a node with the value val exists in the tree
 // otherwise, returns false
 // TODO @Sammy
-
 
 bool BinarySearchTree::exists(BinarySearchTree::TaskItem val) const {
     if (root == NULL) {
@@ -69,13 +85,13 @@ bool BinarySearchTree::exists(BinarySearchTree::TaskItem val) const {
         return false;
     } else if (size == 1) {
         return val == *root ? true : false;
-    }else{
-        if(*root == val){
-            true;
+    } else {
+        if (*root == val) {
+           return true;
         }
-        if(root->priority < val.priority){
+        if (root->priority < val.priority) {
             return exists(*root->right);
-        }else{
+        } else {
             return exists(*root->left);
         }
     }
