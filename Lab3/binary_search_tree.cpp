@@ -173,9 +173,9 @@ bool BinarySearchTree::insert(BinarySearchTree::TaskItem *val, BinarySearchTree:
             return true;
         }
     } else if (val->priority < node->priority) {
-        insert(val, node->left);
+       return insert(val, node->left);
     } else {
-        insert(val, node->right);
+       return insert(val, node->right);
     }
 }
 
