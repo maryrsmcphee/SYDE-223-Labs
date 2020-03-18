@@ -137,9 +137,13 @@ int BinarySearchTree::get_node_depth(BinarySearchTree::TaskItem *n) const {
     }
 }
 
-// PURPOSE: Inserts the value val into the tree if it is unique
-// returns true if successful; returns false if val already exists
-// TODO: insert when unique
+
+/**
+ * PURPOSE: Inserts the value val into the tree if it is unique
+ * returns true if successful; returns false if val already exists
+ * @param val
+ * @return bool
+ */
 bool BinarySearchTree::insert(BinarySearchTree::TaskItem val) {
     if (exists(val)) {
         return false;
@@ -147,7 +151,13 @@ bool BinarySearchTree::insert(BinarySearchTree::TaskItem val) {
         return insert(&val, root);
     }
 }
-
+/**
+ * PURPOSE: Inserts the value val into the tree if it is unique
+ * returns true if successful; returns false if val already exists
+ * @param val
+ * @param node
+ * @return bool
+ */
 bool BinarySearchTree::insert(BinarySearchTree::TaskItem *val, BinarySearchTree::TaskItem *node) {
     if (node == NULL) {
         root = val;
@@ -183,7 +193,18 @@ bool BinarySearchTree::insert(BinarySearchTree::TaskItem *val, BinarySearchTree:
 // returns true if successful; returns false otherwise
 // TODO: remove when found
 bool BinarySearchTree::remove(BinarySearchTree::TaskItem val) {
-    if (!exists(val)) return false;
+    if(root == NULL){
+        return false;
+    }else
+    if (!exists(val)){
+        return false;
+    }else if(&val == root){
+        delete root;
+        size--;
+        return true;
+    }else{
+
+    }
     return false;
 }
 
