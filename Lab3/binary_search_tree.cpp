@@ -95,7 +95,7 @@ bool BinarySearchTree::exists(BinarySearchTree::TaskItem val) const {
         cerr << "Empty tree\n";
         return false;
     } else {
-        exists(root, root->priority);
+        exists(root, val.priority);
     }
 }
 
@@ -151,6 +151,7 @@ bool BinarySearchTree::insert(BinarySearchTree::TaskItem val) {
         return insert(&val, root);
     }
 }
+
 /**
  * PURPOSE: Inserts the value val into the tree if it is unique
  * returns true if successful; returns false if val already exists
@@ -183,9 +184,9 @@ bool BinarySearchTree::insert(BinarySearchTree::TaskItem *val, BinarySearchTree:
             return true;
         }
     } else if (val->priority < node->priority) {
-       return insert(val, node->left);
+        return insert(val, node->left);
     } else {
-       return insert(val, node->right);
+        return insert(val, node->right);
     }
 }
 
@@ -193,18 +194,67 @@ bool BinarySearchTree::insert(BinarySearchTree::TaskItem *val, BinarySearchTree:
 // returns true if successful; returns false otherwise
 // TODO: remove when found
 bool BinarySearchTree::remove(BinarySearchTree::TaskItem val) {
-    if(root == NULL){
+    if (root == NULL) {
         return false;
-    }else
-    if (!exists(val)){
+    } else if (!exists(val)) {
         return false;
-    }else if(&val == root){
+    } else if (&val == root) {
         delete root;
         size--;
         return true;
-    }else{
-
+    } else {
+        return remove(root, val.priority);
     }
-    return false;
+
+}
+
+bool BinarySearchTree::remove(BinarySearchTree::TaskItem *val, int k) {
+    if (val == NULL) {
+        return false;
+    } else if (val->priority == k) {
+        // case where the node is found
+        bool is_leaf_node = val->left == val->right == NULL;
+        bool has_one_child = val->left == NULL || val->right == NULL;
+        bool has_two_children = val->left != NULL && val->right != NULL;
+        if (is_leaf_node) {
+            delete val;
+            size--;
+            return true;
+        } else if (has_one_child) {
+            if (val->left != NULL) {
+                // swap then delete child
+                TaskItem *temp = val;
+                val = val->left;
+                val->left = temp;
+                delete val->left;
+            } else {
+                TaskItem *temp = val;
+                val = val->right;
+                val->right = temp;
+                delete val->right;
+            }
+            size--;
+            return true;
+        } else if (has_two_children) {
+            TaskItem *current = val;
+            /* loop down to find the rightmost (highest) leaf */
+            while (current && current->right != NULL) {
+                current = current->right;
+            }
+            TaskItem *temp = val;
+            current->left = val->left;
+            current->right = val->right;
+            *val = *current;
+            current = temp;
+            current->left = current->right = NULL;
+            delete current;
+            size--;
+            return true;
+        }
+    } else if (k < val->priority) {
+        remove(val->left, k);
+    } else {
+        remove(val->right, k);
+    }
 }
 
