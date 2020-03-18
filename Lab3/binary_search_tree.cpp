@@ -151,20 +151,26 @@ bool BinarySearchTree::insert(BinarySearchTree::TaskItem val) {
 bool BinarySearchTree::insert(BinarySearchTree::TaskItem *val, BinarySearchTree::TaskItem *node) {
     if (node == NULL) {
         root = val;
+        size++;
         return true;
     } else if (node->left == NULL || node->right == NULL) {
         // reached the second last node depth
         if (val->priority > node->priority && node->right == NULL) {
             node->right = val;
+            size++;
             return true;
         } else if (val->priority > node->priority && node->right != NULL) {
             node->left = val;
+            size++;
             return true;
         } else if (val->priority < node->priority && node->left == NULL) {
             node->left = val;
+            size++;
             return true;
         } else {
+            size++;
             node->right = val;
+            return true;
         }
     } else if (val->priority < node->priority) {
         insert(val, node->left);
