@@ -75,6 +75,7 @@ public:
     // PURPOSE: Inserts the value val into the tree if it is unique
     // returns true if successful; returns false if val already exists
     bool insert(TaskItem val);
+    bool insert(TaskItem *val, TaskItem *node);
 
     // PURPOSE: Removes the node with the value val from the tree
     // returns true if successful; returns false otherwise

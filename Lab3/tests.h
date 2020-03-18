@@ -201,6 +201,7 @@ public:
         ASSERT_TRUE(bst.insert(t2))
         ASSERT_TRUE(bst.insert(t3))
         ASSERT_TRUE(bst.insert(t4))
+        cout<<"reached"<<endl;
         ASSERT_TRUE(bst.insert(t5))
         ASSERT_TRUE(bst.insert(t6))
         ASSERT_TRUE(bst.height() == 3)
