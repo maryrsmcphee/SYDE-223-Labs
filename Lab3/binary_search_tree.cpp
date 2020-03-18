@@ -144,30 +144,32 @@ bool BinarySearchTree::insert(BinarySearchTree::TaskItem val) {
     if (exists(val)) {
         return false;
     } else {
-        return insert(val, root);
-
+        return insert(&val, root);
     }
 }
 
-bool BinarySearchTree::insert(struct BinarySearchTree::TaskItem val, struct BinarySearchTree::TaskItem *node) {
-    if (node->left == NULL || node->right == NULL) {
+bool BinarySearchTree::insert(BinarySearchTree::TaskItem *val, BinarySearchTree::TaskItem *node) {
+    if (node == NULL) {
+        root = val;
+        return true;
+    } else if (node->left == NULL || node->right == NULL) {
         // reached the second last node depth
-        if (val.priority > node->priority && node->right == NULL) {
-            node->right = &val;
+        if (val->priority > node->priority && node->right == NULL) {
+            node->right = val;
             return true;
-        } else if (val.priority > node->priority && node->right != NULL) {
-            node->left = &val;
+        } else if (val->priority > node->priority && node->right != NULL) {
+            node->left = val;
             return true;
-        } else if (val.priority < node->priority && node->left == NULL) {
-            node->left = &val;
+        } else if (val->priority < node->priority && node->left == NULL) {
+            node->left = val;
             return true;
         } else {
-            node->right = &val;
+            node->right = val;
         }
-    } else if (val.priority < node->priority) {
-        insert(val,node->left);
-    }else{
-        insert(val,node->right);
+    } else if (val->priority < node->priority) {
+        insert(val, node->left);
+    } else {
+        insert(val, node->right);
     }
 }
 
