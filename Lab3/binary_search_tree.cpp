@@ -94,8 +94,8 @@ bool BinarySearchTree::exists(BinarySearchTree::TaskItem val) const {
     if (root == NULL) {
         cerr << "Empty tree\n";
         return false;
-    } else{
-        exists(root,root->priority);
+    } else {
+        exists(root, root->priority);
     }
 }
 
@@ -124,16 +124,16 @@ BinarySearchTree::TaskItem **BinarySearchTree::get_root_node_address() {
  * @return
  */
 int BinarySearchTree::get_node_depth(BinarySearchTree::TaskItem *n) const {
-    if(!n){
+    if (!n) {
         return 0;
-    }else{
+    } else {
         // compute the depth of each subtree
         int ld = get_node_depth(n->left);
         int rd = get_node_depth(n->right);
         // choose larger
         if (ld > rd)
-            return(ld + 1);
-        else return(rd + 1);
+            return (ld + 1);
+        else return (rd + 1);
     }
 }
 
@@ -141,15 +141,36 @@ int BinarySearchTree::get_node_depth(BinarySearchTree::TaskItem *n) const {
 // returns true if successful; returns false if val already exists
 // TODO: insert when unique
 bool BinarySearchTree::insert(BinarySearchTree::TaskItem val) {
-    if (exists(val)){
+    if (exists(val)) {
         return false;
-    } else{
-        return insert(val,root->priority);
+    } else {
+        return insert(val, root);
+
     }
 }
-bool BinarySearchTree::insert(struct BinarySearchTree::TaskItem val, int k) {
 
+bool BinarySearchTree::insert(struct BinarySearchTree::TaskItem val, struct BinarySearchTree::TaskItem *node) {
+    if (node->left == NULL || node->right == NULL) {
+        // reached the second last node depth
+        if (val.priority > node->priority && node->right == NULL) {
+            node->right = &val;
+            return true;
+        } else if (val.priority > node->priority && node->right != NULL) {
+            node->left = &val;
+            return true;
+        } else if (val.priority < node->priority && node->left == NULL) {
+            node->left = &val;
+            return true;
+        } else {
+            node->right = &val;
+        }
+    } else if (val.priority < node->priority) {
+        insert(val,node->left);
+    }else{
+        insert(val,node->right);
+    }
 }
+
 // PURPOSE: Removes the node with the value val from the tree
 // returns true if successful; returns false otherwise
 // TODO: remove when found
