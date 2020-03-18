@@ -108,14 +108,33 @@ BinarySearchTree::TaskItem *BinarySearchTree::get_root_node() {
     return root;
 }
 
-// PURPOSE: Optional helper function that returns the root node pointer address
+/**
+ * PURPOSE: Optional helper function that
+ * returns the root node pointer address
+ * @return
+ */
 BinarySearchTree::TaskItem **BinarySearchTree::get_root_node_address() {
-    return NULL;
+    return !root ? NULL : &root;
 }
 
-// PURPOSE: Optional helper function that gets the maximum depth for a given node
+/**
+ * PURPOSE: Optional helper function that gets the maximum depth for a given node
+ * Takes n as root node initially
+ * @param n
+ * @return
+ */
 int BinarySearchTree::get_node_depth(BinarySearchTree::TaskItem *n) const {
-    return 0;
+    if(!n){
+        return 0;
+    }else{
+        // compute the depth of each subtree
+        int ld = get_node_depth(n->left);
+        int rd = get_node_depth(n->right);
+        // choose larger
+        if (ld > rd)
+            return(ld + 1);
+        else return(rd + 1);
+    }
 }
 
 // PURPOSE: Inserts the value val into the tree if it is unique
