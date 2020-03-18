@@ -24,31 +24,36 @@ public:
 
     // PURPOSE: Tests enqueue of one item and then dequeue of that item
     bool test2() {
-        cerr << "TEST 2" << endl;
-        PriorityQueue test(31);
-        PriorityQueue::TaskItem mary(1, "Mary");
-        PriorityQueue::TaskItem conrad(2, "Mary");
-        PriorityQueue::TaskItem sammy(3, "Mary");
-        PriorityQueue::TaskItem becca(4, "Mary");
-        ASSERT_TRUE(test.enqueue(becca))
-        ASSERT_TRUE(test.enqueue(becca))
-        ASSERT_TRUE(test.enqueue(becca))
-        ASSERT_TRUE(test.enqueue(sammy))
-        ASSERT_TRUE(test.enqueue(sammy))
-        ASSERT_TRUE(test.enqueue(sammy))
-        ASSERT_TRUE(test.enqueue(conrad))
-        ASSERT_TRUE(test.enqueue(conrad))
-        ASSERT_TRUE(test.enqueue(conrad))
-        ASSERT_TRUE(test.enqueue(mary))
-        test.print();
+        PriorityQueue test(4);
+        ASSERT_TRUE(test.capacity == 4)
+        PriorityQueue::TaskItem t1(1, "testItem1");
+        PriorityQueue::TaskItem t2(2, "testItem2");
+        PriorityQueue::TaskItem t3(3, "testItem3");
+        PriorityQueue::TaskItem t4(4, "testItem4");
+        ASSERT_TRUE(test.enqueue(t1))
+        ASSERT_TRUE(test.enqueue(t2))
+        ASSERT_TRUE(test.enqueue(t3))
+        ASSERT_TRUE(test.enqueue(t4))
+        ASSERT_TRUE(test.max() == t4)
+        ASSERT_TRUE(test.get_size() == 4)
+        ASSERT_TRUE(test.full())
+        ASSERT_TRUE(test.capacity == 4)
         ASSERT_TRUE(test.dequeue())
-        test.print();
+        ASSERT_TRUE(test.dequeue())
+        ASSERT_TRUE(test.dequeue())
+        ASSERT_TRUE(test.dequeue())
+        ASSERT_TRUE(test.get_size() == 0)
+        ASSERT_FALSE(test.full())
+        PriorityQueue test1(1);
+        ASSERT_TRUE(test1.enqueue(t1))
+        ASSERT_TRUE(test1.get_size() == 1)
+        ASSERT_TRUE(test1.dequeue())
+        ASSERT_TRUE(test1.get_size() == 0)
         return true;
     }
 
     // PURPOSE: Tests enqueue too many
     bool test3() {
-        cerr << "TEST 3" << endl;
         int testSize = 6;
         PriorityQueue test2(testSize);
         PriorityQueue::TaskItem t1(1, "testItem1");
@@ -67,13 +72,11 @@ public:
         ASSERT_TRUE(test2.enqueue(t6))
         ASSERT_FALSE(test2.enqueue(t7))
         ASSERT_FALSE(test2.enqueue(t8))
-        test2.print();
         return true;
     }
 
     // PURPOSE: Tests enqueue too many then dequeue too many
     bool test4() {
-        cerr << "TEST 4" << endl;
         int testSize = 7;
         PriorityQueue test(testSize);
         PriorityQueue::TaskItem t1(1, "testItem1");
@@ -92,7 +95,6 @@ public:
         ASSERT_TRUE(test.enqueue(t6))
         ASSERT_TRUE(test.enqueue(t7))
         ASSERT_FALSE(test.enqueue(t8))
-        test.print();
 
         // Dequeues all elements except t1.
         for(int i = 1; i < 7; i++){
