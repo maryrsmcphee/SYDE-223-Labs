@@ -161,7 +161,11 @@ public:
 
     // PURPOSE: Tests a tree with one node
     bool test2() {
-        return false;
+        BinarySearchTree bst;
+        BinarySearchTree::TaskItem t1(1, "testItem1");
+        ASSERT_TRUE(bst.get_size() == 1)
+        ASSERT_TRUE(bst.height() == 1)
+        return true;
     }
 
     // PURPOSE: Tests insert, remove, and size on linear list formation with three elements
@@ -186,12 +190,57 @@ public:
 
     // PURPOSE: Tests depth with many inserts and some removes
     bool test7() {
-        return false;
+        BinarySearchTree bst;
+        BinarySearchTree::TaskItem t1(1, "testItem1");
+        BinarySearchTree::TaskItem t2(2, "testItem2");
+        BinarySearchTree::TaskItem t3(3, "testItem3");
+        BinarySearchTree::TaskItem t4(4, "testItem4");
+        BinarySearchTree::TaskItem t5(5, "testItem5");
+        BinarySearchTree::TaskItem t6(6, "testItem6");
+        ASSERT_TRUE(bst.insert(t1))
+        ASSERT_TRUE(bst.insert(t2))
+        ASSERT_TRUE(bst.insert(t3))
+        ASSERT_TRUE(bst.insert(t4))
+        ASSERT_TRUE(bst.insert(t5))
+        ASSERT_TRUE(bst.insert(t6))
+        ASSERT_TRUE(bst.height() == 3)
+        ASSERT_TRUE(bst.remove(t1))
+        ASSERT_TRUE(bst.remove(t2))
+        ASSERT_TRUE(bst.remove(t3))
+        ASSERT_TRUE(bst.height() == 2)
+        return true;
     }
 
     // PURPOSE: Tests lots of inserts and removes
     bool test8() {
-        return false;
+        BinarySearchTree bst;
+        BinarySearchTree::TaskItem t1(1, "testItem1");
+        BinarySearchTree::TaskItem t2(2, "testItem2");
+        BinarySearchTree::TaskItem t3(3, "testItem3");
+        BinarySearchTree::TaskItem t4(4, "testItem4");
+        BinarySearchTree::TaskItem t5(5, "testItem5");
+        BinarySearchTree::TaskItem t6(6, "testItem6");
+        ASSERT_TRUE(bst.insert(t1))
+        ASSERT_FALSE(bst.insert(t1))
+        ASSERT_TRUE(bst.insert(t2))
+        ASSERT_TRUE(bst.insert(t3))
+        ASSERT_TRUE(bst.insert(t4))
+        ASSERT_TRUE(bst.insert(t5))
+        ASSERT_TRUE(bst.insert(t6))
+        ASSERT_TRUE(bst.get_size() == 6)
+        bst.print();
+        ASSERT_TRUE(bst.remove(t1))
+        ASSERT_TRUE(bst.remove(t2))
+        ASSERT_TRUE(bst.remove(t3))
+        ASSERT_TRUE(bst.get_size() == 3)
+        ASSERT_TRUE(bst.remove(t4))
+        ASSERT_TRUE(bst.remove(t5))
+        ASSERT_TRUE(bst.remove(t6))
+        ASSERT_TRUE(bst.get_size() == 0)
+        ASSERT_FALSE(bst.remove(t1))
+        bst.print();
+
+        return true;
     }
 };
 #endif
