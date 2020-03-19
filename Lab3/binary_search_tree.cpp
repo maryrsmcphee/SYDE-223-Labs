@@ -198,10 +198,18 @@ bool BinarySearchTree::insert(BinarySearchTree::TaskItem *val, BinarySearchTree:
         // else if the node has leaf nodes
         if (val->priority < node->priority) {
             // assign left if less
-            node->left = val;
+            if (node->left == NULL) {
+                node->left = val;
+            } else {
+                return insert(val, node->left);
+            }
         } else {
             // assign right if more
-            node->right = val;
+            if (node->right == NULL) {
+                node->right = val;
+            } else {
+                return insert(val, node->right);
+            }
         }
         size++;
         return true;
