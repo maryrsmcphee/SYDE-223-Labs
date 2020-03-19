@@ -148,13 +148,11 @@ public:
     // PURPOSE: Tests if the new tree is valid
     bool test1() {
         std::string expected_tree_level_order = "";
-
-        BinarySearchTree bst;
-        ASSERT_TRUE(bst.root == NULL);
-        ASSERT_TRUE(bst.size == 0 && bst.get_size() == 0);
-
+        BinarySearchTree bst_test;
+        ASSERT_TRUE(bst_test.get_root_node() == NULL);
+        ASSERT_TRUE(bst_test.size == 0 && bst_test.get_size() == 0);
         // compare the tree's representation to the expected tree
-        std::string tree_level_order = level_order(bst.root);
+        std::string tree_level_order = level_order(bst_test.root);
         ASSERT_TRUE(tree_level_order.compare(expected_tree_level_order) == 0)
         return true;
     }

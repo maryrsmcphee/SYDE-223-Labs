@@ -5,6 +5,8 @@ using namespace std;
 
 // PURPOSE: Default/empty constructor
 BinarySearchTree::BinarySearchTree() {
+    root = NULL;
+    size = 0;
 }
 
 // PURPOSE: Explicit destructor of the class BinarySearchTree
@@ -57,13 +59,11 @@ unsigned int BinarySearchTree::height() const {
 // TODO: we never actually print anything here
 void BinarySearchTree::print(struct BinarySearchTree::TaskItem *node) const {
     if (node == NULL) {
-        cout<<"\n";
+        cout << "\n";
         return;
     } else {
-        cerr<<node->priority<<" ";
-
+        cerr << node->priority << " ";
         print(node->left);
-
         print(node->right);
     }
 }
@@ -82,15 +82,17 @@ void BinarySearchTree::print() const {
 // otherwise, returns false
 // TODO always returns false
 bool BinarySearchTree::exists(struct BinarySearchTree::TaskItem *val, int k) const {
-    if (val == NULL)
+    if (val == NULL) {
         return false;
-    if (val->priority == k)
+    }
+    if (val->priority == k) {
         return true;
+    }
     /* then recur on left sutree */
     bool res1 = exists(val->left, k);
-
-    if (res1) return true; // node found, no need to look further
-
+    if (res1) {
+        return true;
+    }  // node found, no need to look further
     /* node is not found in left, so recur on right subtree */
     bool res2 = exists(val->right, k);
     return res2;
