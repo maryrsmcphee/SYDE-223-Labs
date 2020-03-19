@@ -46,7 +46,7 @@ BinarySearchTree::TaskItem BinarySearchTree::min() const {
 
 unsigned int BinarySearchTree::height(BinarySearchTree::TaskItem *node, int h) const {
     if (node == NULL) {
-        return h-1;
+        return h - 1;
     } else if (node->left == NULL && node->right != NULL) {
         // go right
         return height(node->right, h + 1);
@@ -92,7 +92,7 @@ void BinarySearchTree::print() const {
     } else {
         print(root);
     }
-    cerr<<endl;
+    cerr << endl;
 }
 
 
@@ -174,8 +174,7 @@ bool BinarySearchTree::insert(BinarySearchTree::TaskItem val) {
     if (exists(val)) {
         return false;
     } else {
-        TaskItem *valPtr = &val;
-        return insert(valPtr, root);
+        return insert(&val, root);
     }
 }
 
@@ -189,26 +188,29 @@ bool BinarySearchTree::insert(BinarySearchTree::TaskItem val) {
 // TODO: Re-sorting tree doesn't work properly
 bool BinarySearchTree::insert(BinarySearchTree::TaskItem *val, BinarySearchTree::TaskItem *node) {
     if (node == NULL) {
-        root = val;
-        size++;
-        return true;
-    } else if (node->left == NULL || node->right == NULL) {
-        // reached the second last node depth
-        if (val->priority > node->priority && node->right == NULL) {
-            node->right = val;
-        } else if (val->priority > node->priority && node->right != NULL) {
-            node->left = val;
-        } else if (val->priority < node->priority && node->left == NULL) {
+        // if it is the first node
+        if (node == root) {
+            root = val;
+            size++;
+            return true;
+        }
+    } else if (node->right == NULL || node->left == NULL) {
+        // else if the node has leaf nodes
+        if (val->priority < node->priority) {
+            // assign left if less
             node->left = val;
         } else {
+            // assign right if more
             node->right = val;
         }
         size++;
         return true;
-    } else if (val->priority < node->priority) {
-        return insert(val, node->left);
-    } else {
+    } else if (val->priority >= node->priority) {
+        // go right
         return insert(val, node->right);
+    } else {
+        // go left
+        return insert(val, node->left);
     }
 }
 

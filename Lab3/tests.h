@@ -163,6 +163,7 @@ public:
         BinarySearchTree::TaskItem t1(1, "testItem1");
         ASSERT_TRUE(bst.insert(t1));
         ASSERT_TRUE(bst.get_size() == 1)
+        cout<<"reached"<<endl;
         ASSERT_TRUE(bst.height() == 1)
         ASSERT_TRUE(bst.remove(t1));
         ASSERT_TRUE(bst.get_size() == 0)
