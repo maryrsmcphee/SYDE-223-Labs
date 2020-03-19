@@ -49,6 +49,7 @@ unsigned int BinarySearchTree::height(BinarySearchTree::TaskItem *node, int h) c
         // go right
         return height(node->right, h + 1);
     } else if (node->right == NULL && node->left != NULL) {
+        // go left
         return height(node->left, h + 1);
     } else {
         // both are null and return height
