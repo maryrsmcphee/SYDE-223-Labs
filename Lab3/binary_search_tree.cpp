@@ -54,6 +54,7 @@ unsigned int BinarySearchTree::height() const {
 }
 
 // PURPOSE: Prints the contents of the tree format not specified
+// TODO: we never actually print anything here
 void BinarySearchTree::print(struct BinarySearchTree::TaskItem *node) const {
     if (node == NULL) {
         return;
@@ -90,7 +91,7 @@ bool BinarySearchTree::exists(struct BinarySearchTree::TaskItem *val, int k) con
     }
 }
 
-bool BinarySearchTree::exists(BinarySearchTree::TaskItem val) const {
+bool BinarySearchTree::exists(BinarySearchTree::TaskItem val) const { // I don't think this works... used in insert
     if (root == NULL) {
         cerr << "Empty tree\n";
         return false;
@@ -168,21 +169,15 @@ bool BinarySearchTree::insert(BinarySearchTree::TaskItem *val, BinarySearchTree:
         // reached the second last node depth
         if (val->priority > node->priority && node->right == NULL) {
             node->right = val;
-            size++;
-            return true;
         } else if (val->priority > node->priority && node->right != NULL) {
             node->left = val;
-            size++;
-            return true;
         } else if (val->priority < node->priority && node->left == NULL) {
             node->left = val;
-            size++;
-            return true;
         } else {
-            size++;
             node->right = val;
-            return true;
         }
+        size++;
+        return true;
     } else if (val->priority < node->priority) {
         return insert(val, node->left);
     } else {
@@ -196,8 +191,9 @@ bool BinarySearchTree::insert(BinarySearchTree::TaskItem *val, BinarySearchTree:
 bool BinarySearchTree::remove(BinarySearchTree::TaskItem val) {
     if (root == NULL) {
         return false;
-    } else if (!exists(val)) {
-        return false;
+//    } else if (!exists(val)) { // expression always true, exists always returns false.
+//        cerr << "!exists ";
+//        return false;
     } else if (&val == root) {
         delete root;
         size--;
@@ -212,15 +208,19 @@ bool BinarySearchTree::remove(BinarySearchTree::TaskItem *val, int k) {
     if (val == NULL) {
         return false;
     } else if (val->priority == k) {
+        cerr << "HERE!";
         // case where the node is found
-        bool is_leaf_node = val->left == val->right == NULL;
+        bool is_leaf_node = (val->left == NULL) && (val->right == NULL);
         bool has_one_child = val->left == NULL || val->right == NULL;
         bool has_two_children = val->left != NULL && val->right != NULL;
         if (is_leaf_node) {
+            cerr << "is_leaf_node";
             delete val;
             size--;
             return true;
         } else if (has_one_child) {
+            cerr << "has one child";
+
             if (val->left != NULL) {
                 // swap then delete child
                 TaskItem *temp = val;
@@ -235,19 +235,32 @@ bool BinarySearchTree::remove(BinarySearchTree::TaskItem *val, int k) {
             }
             size--;
             return true;
+            /*
+             * insert is wrong in how it organizes this
+             * when used in test case 9, deleting t1,
+             * it shouldn't have two children (it's the lowest, should be far left child)
+             */
         } else if (has_two_children) {
-            TaskItem *current = val;
+            cerr << "has two children";
+
+            TaskItem *current = val->right; // to be new parent of the mini-tree
             /* loop down to find the rightmost (highest) leaf */
-            while (current && current->right != NULL) {
-                current = current->right;
-            }
-            TaskItem *temp = val;
-            current->left = val->left;
-            current->right = val->right;
-            *val = *current;
-            current = temp;
-            current->left = current->right = NULL;
-            delete current;
+            /*
+             * it shouldn't swap with the highest value, it should swap with it's right child.
+             * if it swaps with the highest val (makes that the parent) then all the right children will be lower, they should be higher.
+             */
+//            while (current->right != NULL) {
+//                current = current->right;
+//            }
+            TaskItem *temp = val; // this is the pointed to be deleted - do we need to set a temp? can't we just delete val
+            current->left = val->left; // make the left child pointers the same
+            // current->right = val->right; // val->right is current so no
+            // *val = *current; //I think this line should be deleted, we want to delete current and val shouldn't have the same priority
+            // current = temp; // nope
+            temp->left = NULL;
+            temp->right = NULL;
+            temp = nullptr;
+            delete temp;
             size--;
             return true;
         }
