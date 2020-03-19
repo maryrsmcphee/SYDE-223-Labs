@@ -46,7 +46,7 @@ BinarySearchTree::TaskItem BinarySearchTree::min() const {
 
 unsigned int BinarySearchTree::height(BinarySearchTree::TaskItem *node, int h) const {
     if (node == NULL) {
-        return h+1;
+        return h-1;
     } else if (node->left == NULL && node->right != NULL) {
         // go right
         return height(node->right, h + 1);
@@ -65,7 +65,7 @@ unsigned int BinarySearchTree::height() const {
     } else if (root != NULL && size == 1) {
         return 1;
     } else {
-        int initHeight = 1;
+        int initHeight = 2;
         int leftH = height(root->left, initHeight);
         int rightH = height(root->right, initHeight);
         return leftH > rightH ? leftH : rightH;
