@@ -16,9 +16,9 @@ public:
     // PURPOSE: Tests if the new queue is valid
     bool test1() {
         PriorityQueue q(5);
-        ASSERT_TRUE( q.empty() );
-        ASSERT_TRUE( !q.full() );
-        ASSERT_TRUE( q.get_size() == 0 );
+        ASSERT_TRUE(q.empty());
+        ASSERT_TRUE(!q.full());
+        ASSERT_TRUE(q.get_size() == 0);
         return true;
     }
 
@@ -97,7 +97,7 @@ public:
         ASSERT_FALSE(test.enqueue(t8))
 
         // Dequeues all elements except t1.
-        for(int i = 1; i < 7; i++){
+        for (int i = 1; i < 7; i++) {
             ASSERT_TRUE(test.dequeue())
         }
         // Dequeues at size = 1
@@ -112,24 +112,24 @@ public:
 class BinarySearchTreeTest {
 public:
     bool insert_nodes(BinarySearchTree &tree, int *in, int nin) {
-        for(int i = 0; i < nin; i++) {
-            ASSERT_TRUE(tree.insert(BinarySearchTree::TaskItem(in[i],"Test Task")));
+        for (int i = 0; i < nin; i++) {
+            ASSERT_TRUE(tree.insert(BinarySearchTree::TaskItem(in[i], "Test Task")));
         }
         return true;
     }
 
     // PURPOSE: Traverse the tree using breadth-first traversal
     // Output is as follows: "val1 val2 ... valN"
-    std::string level_order(BinarySearchTree::TaskItem* root) {
+    std::string level_order(BinarySearchTree::TaskItem *root) {
         if (!root) {
             return "";
         }
 
         std::stringstream ss;
-        std::queue<BinarySearchTree::TaskItem*> node_queue;
+        std::queue<BinarySearchTree::TaskItem *> node_queue;
         node_queue.push(root);
         while (!node_queue.empty()) {
-            BinarySearchTree::TaskItem* cur_node = node_queue.front();
+            BinarySearchTree::TaskItem *cur_node = node_queue.front();
             node_queue.pop();
             ss << cur_node->priority << " ";
             if (cur_node->left) {
@@ -159,17 +159,34 @@ public:
 
     // PURPOSE: Tests a tree with one node
     bool test2() {
-      BinarySearchTree bst;
+        BinarySearchTree bst;
         BinarySearchTree::TaskItem t1(1, "testItem1");
         ASSERT_TRUE(bst.insert(t1));
         ASSERT_TRUE(bst.get_size() == 1)
         ASSERT_TRUE(bst.height() == 1)
+        ASSERT_TRUE(bst.remove(t1));
+        ASSERT_TRUE(bst.get_size() == 0)
+        ASSERT_TRUE(bst.height() == 0)
+        ASSERT_FALSE(bst.remove(t1))
         return true;
     }
 
     // PURPOSE: Tests insert, remove, and size on linear list formation with three elements
     bool test3() {
-        return false;
+        BinarySearchTree bst;
+        BinarySearchTree::TaskItem t1(1, "testItem1");
+        BinarySearchTree::TaskItem t2(2, "testItem2");
+        BinarySearchTree::TaskItem t3(3, "testItem3");
+        ASSERT_TRUE(bst.insert(t1));
+        ASSERT_TRUE(bst.get_size() == 1)
+        ASSERT_TRUE(bst.height() == 1)
+        ASSERT_TRUE(bst.insert(t2));
+        ASSERT_TRUE(bst.get_size() == 2)
+        ASSERT_TRUE(bst.height() == 2)
+        ASSERT_TRUE(bst.insert(t3))
+        ASSERT_TRUE(bst.get_size() == 3)
+        ASSERT_TRUE(bst.height() == 2)
+        return true;
     }
 
     // PURPOSE: Tests removal of a node with one child
@@ -189,7 +206,7 @@ public:
 
     // PURPOSE: Tests depth with many inserts and some removes
     bool test7() {
-     BinarySearchTree bst;
+        BinarySearchTree bst;
         BinarySearchTree::TaskItem t1(1, "testItem1");
         BinarySearchTree::TaskItem t2(2, "testItem2");
         BinarySearchTree::TaskItem t3(3, "testItem3");
@@ -243,4 +260,5 @@ public:
         return true;
     }
 };
+
 #endif

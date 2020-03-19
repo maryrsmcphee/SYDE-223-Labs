@@ -53,6 +53,7 @@ public:
 
     // PURPOSE: Returns the tree height
     unsigned int height() const;
+    unsigned int height(TaskItem *node, int h) const;
 
     // PURPOSE: Prints the contents of the tree; format not specified
     void print() const;
