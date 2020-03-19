@@ -148,24 +148,23 @@ public:
     // PURPOSE: Tests if the new tree is valid
     bool test1() {
         std::string expected_tree_level_order = "";
-
-        BinarySearchTree bst;
-        ASSERT_TRUE(bst.root == NULL);
-        ASSERT_TRUE(bst.size == 0 && bst.get_size() == 0);
-
+        BinarySearchTree bst_test;
+        ASSERT_TRUE(bst_test.get_root_node() == NULL);
+        ASSERT_TRUE(bst_test.size == 0 && bst_test.get_size() == 0);
         // compare the tree's representation to the expected tree
-        std::string tree_level_order = level_order(bst.root);
+        std::string tree_level_order = level_order(bst_test.root);
         ASSERT_TRUE(tree_level_order.compare(expected_tree_level_order) == 0)
         return true;
     }
 
     // PURPOSE: Tests a tree with one node
     bool test2() {
-//        BinarySearchTree bst;
-//        BinarySearchTree::TaskItem t1(1, "testItem1");
-//        ASSERT_TRUE(bst.get_size() == 1)
-//        ASSERT_TRUE(bst.height() == 1)
-        return false;
+      BinarySearchTree bst;
+        BinarySearchTree::TaskItem t1(1, "testItem1");
+        ASSERT_TRUE(bst.insert(t1));
+        ASSERT_TRUE(bst.get_size() == 1)
+        ASSERT_TRUE(bst.height() == 1)
+        return true;
     }
 
     // PURPOSE: Tests insert, remove, and size on linear list formation with three elements
@@ -190,13 +189,13 @@ public:
 
     // PURPOSE: Tests depth with many inserts and some removes
     bool test7() {
-//        BinarySearchTree bst;
-//        BinarySearchTree::TaskItem t1(1, "testItem1");
-//        BinarySearchTree::TaskItem t2(2, "testItem2");
-//        BinarySearchTree::TaskItem t3(3, "testItem3");
-//        BinarySearchTree::TaskItem t4(4, "testItem4");
-//        BinarySearchTree::TaskItem t5(5, "testItem5");
-//        BinarySearchTree::TaskItem t6(6, "testItem6");
+     BinarySearchTree bst;
+        BinarySearchTree::TaskItem t1(1, "testItem1");
+        BinarySearchTree::TaskItem t2(2, "testItem2");
+        BinarySearchTree::TaskItem t3(3, "testItem3");
+        BinarySearchTree::TaskItem t4(4, "testItem4");
+        BinarySearchTree::TaskItem t5(5, "testItem5");
+        BinarySearchTree::TaskItem t6(6, "testItem6");
 //        ASSERT_TRUE(bst.insert(t1))
 //        ASSERT_TRUE(bst.insert(t2))
 //        ASSERT_TRUE(bst.insert(t3))
