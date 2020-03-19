@@ -86,12 +86,13 @@ void BinarySearchTree::print(struct BinarySearchTree::TaskItem *node) const {
 }
 
 void BinarySearchTree::print() const {
-    cout << "print pre-order" << endl;
+    cerr << "print pre-order" << endl;
     if (root == NULL) {
         cerr << "tree empty, nothing to print" << endl;
     } else {
         print(root);
     }
+    cerr<<endl;
 }
 
 
