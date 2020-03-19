@@ -54,6 +54,7 @@ unsigned int BinarySearchTree::height() const {
 }
 
 // PURPOSE: Prints the contents of the tree format not specified
+// TODO: we never actually print anything here
 void BinarySearchTree::print(struct BinarySearchTree::TaskItem *node) const {
     if (node == NULL) {
         return;
@@ -76,9 +77,8 @@ void BinarySearchTree::print() const {
 
 // PURPOSE: Returns true if a node with the value val exists in the tree
 // otherwise, returns false
-// TODO @Sammy
+// TODO always returns true
 bool BinarySearchTree::exists(struct BinarySearchTree::TaskItem *val, int k) const {
-
     if (val == NULL) {
         return false;
     } else if (val->priority == k) {
@@ -159,6 +159,7 @@ bool BinarySearchTree::insert(BinarySearchTree::TaskItem val) {
  * @param node
  * @return bool
  */
+ // TODO: Re-sorting tree doesn't work properly
 bool BinarySearchTree::insert(BinarySearchTree::TaskItem *val, BinarySearchTree::TaskItem *node) {
     if (node == NULL) {
         root = val;
@@ -168,21 +169,15 @@ bool BinarySearchTree::insert(BinarySearchTree::TaskItem *val, BinarySearchTree:
         // reached the second last node depth
         if (val->priority > node->priority && node->right == NULL) {
             node->right = val;
-            size++;
-            return true;
         } else if (val->priority > node->priority && node->right != NULL) {
             node->left = val;
-            size++;
-            return true;
         } else if (val->priority < node->priority && node->left == NULL) {
             node->left = val;
-            size++;
-            return true;
         } else {
-            size++;
             node->right = val;
-            return true;
         }
+        size++;
+        return true;
     } else if (val->priority < node->priority) {
         return insert(val, node->left);
     } else {
@@ -192,12 +187,13 @@ bool BinarySearchTree::insert(BinarySearchTree::TaskItem *val, BinarySearchTree:
 
 // PURPOSE: Removes the node with the value val from the tree
 // returns true if successful; returns false otherwise
-// TODO: remove when found
 bool BinarySearchTree::remove(BinarySearchTree::TaskItem val) {
     if (root == NULL) {
         return false;
-    } else if (!exists(val)) {
-        return false;
+//    TODO: Uncomment this once exists works
+//    } else if (!exists(val)) {
+//        cerr << "!exists ";
+//        return false;
     } else if (&val == root) {
         delete root;
         size--;
@@ -208,49 +204,42 @@ bool BinarySearchTree::remove(BinarySearchTree::TaskItem val) {
 
 }
 
+// TODO: Only works when first called
 bool BinarySearchTree::remove(BinarySearchTree::TaskItem *val, int k) {
     if (val == NULL) {
         return false;
     } else if (val->priority == k) {
         // case where the node is found
-        bool is_leaf_node = val->left == val->right == NULL;
+        bool is_leaf_node = (val->left == NULL) && (val->right == NULL);
         bool has_one_child = val->left == NULL || val->right == NULL;
         bool has_two_children = val->left != NULL && val->right != NULL;
         if (is_leaf_node) {
+            val = nullptr;
             delete val;
-            size--;
-            return true;
         } else if (has_one_child) {
-            if (val->left != NULL) {
-                // swap then delete child
-                TaskItem *temp = val;
+            TaskItem *temp = val;
+            if (val->left) {
                 val = val->left;
                 val->left = temp;
-                delete val->left;
+                temp->left = nullptr;
             } else {
-                TaskItem *temp = val;
                 val = val->right;
                 val->right = temp;
-                delete val->right;
+                temp->right = nullptr;
             }
-            size--;
-            return true;
-        } else if (has_two_children) {
-            TaskItem *current = val;
-            /* loop down to find the rightmost (highest) leaf */
-            while (current && current->right != NULL) {
-                current = current->right;
-            }
-            TaskItem *temp = val;
-            current->left = val->left;
-            current->right = val->right;
-            *val = *current;
-            current = temp;
-            current->left = current->right = NULL;
-            delete current;
-            size--;
-            return true;
+            temp = nullptr;
+            delete temp;
+        } else {
+            TaskItem *current = val->right; // to be new parent of the mini-tree
+            TaskItem *temp = val; // to be deleted once swapped
+            current->left = val->left; // make the left child pointers the same
+            temp->left = NULL;
+            temp->right = NULL;
+            temp = nullptr;
+            delete temp;
         }
+        size--;
+        return true;
     } else if (k < val->priority) {
         remove(val->left, k);
     } else {
