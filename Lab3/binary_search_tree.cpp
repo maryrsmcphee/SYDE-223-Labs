@@ -77,7 +77,7 @@ void BinarySearchTree::print() const {
 
 // PURPOSE: Returns true if a node with the value val exists in the tree
 // otherwise, returns false
-// TODO always returns true
+// TODO always returns false
 bool BinarySearchTree::exists(struct BinarySearchTree::TaskItem *val, int k) const {
     if (val == NULL) {
         return false;
@@ -191,7 +191,7 @@ bool BinarySearchTree::remove(BinarySearchTree::TaskItem val) {
     if (root == NULL) {
         return false;
 //    TODO: Uncomment this once exists works
-//    } else if (!exists(val)) {
+//    } else if (!exists(val)) { // this line was always returning true; would end remove here and return false
 //        cerr << "!exists ";
 //        return false;
     } else if (&val == root) {
