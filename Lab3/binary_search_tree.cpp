@@ -45,12 +45,12 @@ BinarySearchTree::TaskItem BinarySearchTree::min() const {
 // PURPOSE: Returns the tree height
 
 unsigned int BinarySearchTree::height(BinarySearchTree::TaskItem *node, int h) const {
-    if(node->left == NULL && node->right != NULL){
+    if (node->left == NULL && node->right != NULL) {
         // go right
-        height(node->right,h+1);
-    }else if(node->right == NULL && node->left != NULL){
-     height(node->left,h+1);
-    }else{
+        return height(node->right, h + 1);
+    } else if (node->right == NULL && node->left != NULL) {
+        return height(node->left, h + 1);
+    } else {
         // both are null and return height
         return h;
     }
@@ -63,7 +63,7 @@ unsigned int BinarySearchTree::height() const {
         return 1;
     } else {
         int initHeight = 1;
-        return height(root,initHeight);
+        return height(root, initHeight);
     }
 }
 
