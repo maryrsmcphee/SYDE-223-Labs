@@ -77,7 +77,7 @@ void BinarySearchTree::print() const {
 
 // PURPOSE: Returns true if a node with the value val exists in the tree
 // otherwise, returns false
-// TODO always returns true
+// TODO always returns false
 bool BinarySearchTree::exists(struct BinarySearchTree::TaskItem *val, int k) const {
     if (val == NULL) {
         return false;
