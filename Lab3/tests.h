@@ -190,13 +190,13 @@ public:
 
     // PURPOSE: Tests depth with many inserts and some removes
     bool test7() {
-//        BinarySearchTree bst;
-//        BinarySearchTree::TaskItem t1(1, "testItem1");
-//        BinarySearchTree::TaskItem t2(2, "testItem2");
-//        BinarySearchTree::TaskItem t3(3, "testItem3");
-//        BinarySearchTree::TaskItem t4(4, "testItem4");
-//        BinarySearchTree::TaskItem t5(5, "testItem5");
-//        BinarySearchTree::TaskItem t6(6, "testItem6");
+     BinarySearchTree bst;
+        BinarySearchTree::TaskItem t1(1, "testItem1");
+        BinarySearchTree::TaskItem t2(2, "testItem2");
+        BinarySearchTree::TaskItem t3(3, "testItem3");
+        BinarySearchTree::TaskItem t4(4, "testItem4");
+        BinarySearchTree::TaskItem t5(5, "testItem5");
+        BinarySearchTree::TaskItem t6(6, "testItem6");
 //        ASSERT_TRUE(bst.insert(t1))
 //        ASSERT_TRUE(bst.insert(t2))
 //        ASSERT_TRUE(bst.insert(t3))

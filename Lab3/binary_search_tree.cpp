@@ -57,8 +57,11 @@ unsigned int BinarySearchTree::height() const {
 // TODO: we never actually print anything here
 void BinarySearchTree::print(struct BinarySearchTree::TaskItem *node) const {
     if (node == NULL) {
+        cout<<"\n";
         return;
     } else {
+        cerr<<node->priority<<" ";
+
         print(node->left);
 
         print(node->right);
@@ -79,15 +82,18 @@ void BinarySearchTree::print() const {
 // otherwise, returns false
 // TODO always returns true
 bool BinarySearchTree::exists(struct BinarySearchTree::TaskItem *val, int k) const {
-    if (val == NULL) {
+    if (val == NULL)
         return false;
-    } else if (val->priority == k) {
+    if (val->priority == k)
         return true;
-    } else if (k < val->priority) {
-        exists(val->left, k);
-    } else {
-        exists(val->right, k);
-    }
+    /* then recur on left sutree */
+    bool res1 = exists(val->left, k);
+
+    if (res1) return true; // node found, no need to look further
+
+    /* node is not found in left, so recur on right subtree */
+    bool res2 = exists(val->right, k);
+    return res2;
 }
 
 bool BinarySearchTree::exists(BinarySearchTree::TaskItem val) const {
@@ -159,7 +165,7 @@ bool BinarySearchTree::insert(BinarySearchTree::TaskItem val) {
  * @param node
  * @return bool
  */
- // TODO: Re-sorting tree doesn't work properly
+// TODO: Re-sorting tree doesn't work properly
 bool BinarySearchTree::insert(BinarySearchTree::TaskItem *val, BinarySearchTree::TaskItem *node) {
     if (node == NULL) {
         root = val;
