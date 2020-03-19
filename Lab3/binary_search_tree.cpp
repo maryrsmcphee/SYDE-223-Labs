@@ -191,7 +191,7 @@ bool BinarySearchTree::remove(BinarySearchTree::TaskItem val) {
     if (root == NULL) {
         return false;
 //    TODO: Uncomment this once exists works
-//    } else if (!exists(val)) {
+//    } else if (!exists(val)) { // this line was always returning true; would end remove here and return false
 //        cerr << "!exists ";
 //        return false;
     } else if (&val == root) {
