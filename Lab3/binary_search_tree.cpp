@@ -77,9 +77,8 @@ void BinarySearchTree::print() const {
 
 // PURPOSE: Returns true if a node with the value val exists in the tree
 // otherwise, returns false
-// TODO @Sammy
+// TODO always returns true
 bool BinarySearchTree::exists(struct BinarySearchTree::TaskItem *val, int k) const {
-
     if (val == NULL) {
         return false;
     } else if (val->priority == k) {
@@ -91,7 +90,7 @@ bool BinarySearchTree::exists(struct BinarySearchTree::TaskItem *val, int k) con
     }
 }
 
-bool BinarySearchTree::exists(BinarySearchTree::TaskItem val) const { // I don't think this works... used in insert
+bool BinarySearchTree::exists(BinarySearchTree::TaskItem val) const {
     if (root == NULL) {
         cerr << "Empty tree\n";
         return false;
@@ -160,6 +159,7 @@ bool BinarySearchTree::insert(BinarySearchTree::TaskItem val) {
  * @param node
  * @return bool
  */
+ // TODO: Re-sorting tree doesn't work properly
 bool BinarySearchTree::insert(BinarySearchTree::TaskItem *val, BinarySearchTree::TaskItem *node) {
     if (node == NULL) {
         root = val;
@@ -187,11 +187,11 @@ bool BinarySearchTree::insert(BinarySearchTree::TaskItem *val, BinarySearchTree:
 
 // PURPOSE: Removes the node with the value val from the tree
 // returns true if successful; returns false otherwise
-// TODO: remove when found
 bool BinarySearchTree::remove(BinarySearchTree::TaskItem val) {
     if (root == NULL) {
         return false;
-//    } else if (!exists(val)) { // expression always true, exists always returns false.
+//    TODO: Uncomment this once exists works
+//    } else if (!exists(val)) {
 //        cerr << "!exists ";
 //        return false;
     } else if (&val == root) {
@@ -204,61 +204,38 @@ bool BinarySearchTree::remove(BinarySearchTree::TaskItem val) {
 
 }
 
+// TODO: Only works when first called
 bool BinarySearchTree::remove(BinarySearchTree::TaskItem *val, int k) {
     if (val == NULL) {
         return false;
     } else if (val->priority == k) {
-        cerr << "HERE!";
         // case where the node is found
         bool is_leaf_node = (val->left == NULL) && (val->right == NULL);
         bool has_one_child = val->left == NULL || val->right == NULL;
         bool has_two_children = val->left != NULL && val->right != NULL;
         if (is_leaf_node) {
-            cerr << "is_leaf_node";
             val = nullptr;
             delete val;
         } else if (has_one_child) {
-            cerr << "has one child";
-
+            TaskItem *temp = val;
             if (val->left) {
-                // swap then delete child
-                TaskItem *temp = val;
                 val = val->left;
                 val->left = temp;
-                temp = nullptr; // maybe we should also set it's children to null?
-                delete temp;
+                temp->left = nullptr;
             } else {
-                TaskItem *temp = val;
                 val = val->right;
                 val->right = temp;
-                temp = nullptr;
-                delete temp;
+                temp->right = nullptr;
             }
-            /*
-             * insert is wrong in how it organizes this
-             * when used in test case 9, deleting t1,
-             * it shouldn't have two children (it's the lowest, should be far left child)
-             */
-        } else { // no other options
-            cerr << "has two children";
-
+            temp = nullptr;
+            delete temp;
+        } else {
             TaskItem *current = val->right; // to be new parent of the mini-tree
-            /* loop down to find the rightmost (highest) leaf */
-            /*
-             * it shouldn't swap with the highest value, it should swap with it's right child.
-             * if it swaps with the highest val (makes that the parent) then all the right children will be lower, they should be higher.
-             */
-//            while (current->right != NULL) {
-//                current = current->right;
-//            }
-            TaskItem *temp = val; // this is the pointed to be deleted - do we need to set a temp? can't we just delete val
+            TaskItem *temp = val; // to be deleted once swapped
             current->left = val->left; // make the left child pointers the same
-            // current->right = val->right; // val->right is current so no
-            // *val = *current; //I think this line should be deleted, we want to delete current and val shouldn't have the same priority
-            // current = temp; // nope
             temp->left = NULL;
             temp->right = NULL;
-            temp = nullptr; // previously had been returning a pointer error
+            temp = nullptr;
             delete temp;
         }
         size--;
