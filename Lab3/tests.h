@@ -159,7 +159,7 @@ public:
 
     // PURPOSE: Tests a tree with one node
     bool test2() {
-      BinarySearchTree bst;
+        BinarySearchTree bst;
         BinarySearchTree::TaskItem t1(1, "testItem1");
         ASSERT_TRUE(bst.insert(t1));
         ASSERT_TRUE(bst.get_size() == 1)
@@ -167,6 +167,7 @@ public:
         ASSERT_TRUE(bst.remove(t1));
         ASSERT_TRUE(bst.get_size() == 0)
         ASSERT_TRUE(bst.height() == 0)
+        ASSERT_FALSE(bst.remove(t1))
         return true;
     }
 
