@@ -174,7 +174,8 @@ bool BinarySearchTree::insert(BinarySearchTree::TaskItem val) {
     if (exists(val)) {
         return false;
     } else {
-        return insert(&val, root);
+        TaskItem *valPtr = &val;
+        return insert(valPtr, root);
     }
 }
 
