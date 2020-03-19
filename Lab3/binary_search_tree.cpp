@@ -43,18 +43,28 @@ BinarySearchTree::TaskItem BinarySearchTree::min() const {
 }
 
 // PURPOSE: Returns the tree height
+
+unsigned int BinarySearchTree::height(BinarySearchTree::TaskItem *node, int h) const {
+    if(node->left == NULL && node->right != NULL){
+        // go right
+        height(node->right,h+1);
+    }else if(node->right == NULL && node->left != NULL){
+     height(node->left,h+1);
+    }else{
+        // both are null and return height
+        return h;
+    }
+}
+
 unsigned int BinarySearchTree::height() const {
-    if (root == NULL){
+    if (root == NULL) {
         return 0;
+    } else if (root != NULL && size == 1) {
+        return 1;
+    } else {
+        int initHeight = 1;
+        return height(root,initHeight);
     }
-    int count = 1;
-    TaskItem *temp = root;
-    // since BST must have all elements at the furthest left position
-    while (temp->left != NULL) {
-        temp = temp->left;
-        count++;
-    }
-    return count;
 }
 
 // PURPOSE: Prints the contents of the tree format not specified

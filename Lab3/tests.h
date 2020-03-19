@@ -182,8 +182,7 @@ public:
         ASSERT_TRUE(bst.height() == 1)
         ASSERT_TRUE(bst.insert(t2));
         ASSERT_TRUE(bst.get_size() == 2)
-        // the rest failing
-      //  ASSERT_TRUE(bst.height() == 2)
+      ASSERT_TRUE(bst.height() == 2)
         return true;
     }
 
