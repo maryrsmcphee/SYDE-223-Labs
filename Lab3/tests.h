@@ -159,11 +159,12 @@ public:
 
     // PURPOSE: Tests a tree with one node
     bool test2() {
-//        BinarySearchTree bst;
-//        BinarySearchTree::TaskItem t1(1, "testItem1");
-//        ASSERT_TRUE(bst.get_size() == 1)
-//        ASSERT_TRUE(bst.height() == 1)
-        return false;
+      BinarySearchTree bst;
+        BinarySearchTree::TaskItem t1(1, "testItem1");
+        ASSERT_TRUE(bst.insert(t1));
+        ASSERT_TRUE(bst.get_size() == 1)
+        ASSERT_TRUE(bst.height() == 1)
+        return true;
     }
 
     // PURPOSE: Tests insert, remove, and size on linear list formation with three elements
