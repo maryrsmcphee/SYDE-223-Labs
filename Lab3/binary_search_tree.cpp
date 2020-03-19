@@ -215,32 +215,31 @@ bool BinarySearchTree::remove(BinarySearchTree::TaskItem *val, int k) {
         bool has_two_children = val->left != NULL && val->right != NULL;
         if (is_leaf_node) {
             cerr << "is_leaf_node";
+            val = nullptr;
             delete val;
-            size--;
-            return true;
         } else if (has_one_child) {
             cerr << "has one child";
 
-            if (val->left != NULL) {
+            if (val->left) {
                 // swap then delete child
                 TaskItem *temp = val;
                 val = val->left;
                 val->left = temp;
-                delete val->left;
+                temp = nullptr; // maybe we should also set it's children to null?
+                delete temp;
             } else {
                 TaskItem *temp = val;
                 val = val->right;
                 val->right = temp;
-                delete val->right;
+                temp = nullptr;
+                delete temp;
             }
-            size--;
-            return true;
             /*
              * insert is wrong in how it organizes this
              * when used in test case 9, deleting t1,
              * it shouldn't have two children (it's the lowest, should be far left child)
              */
-        } else if (has_two_children) {
+        } else { // no other options
             cerr << "has two children";
 
             TaskItem *current = val->right; // to be new parent of the mini-tree
@@ -259,11 +258,11 @@ bool BinarySearchTree::remove(BinarySearchTree::TaskItem *val, int k) {
             // current = temp; // nope
             temp->left = NULL;
             temp->right = NULL;
-            temp = nullptr;
+            temp = nullptr; // previously had been returning a pointer error
             delete temp;
-            size--;
-            return true;
         }
+        size--;
+        return true;
     } else if (k < val->priority) {
         remove(val->left, k);
     } else {

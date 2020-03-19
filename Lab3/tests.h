@@ -222,7 +222,7 @@ public:
         BinarySearchTree::TaskItem t5(5, "testItem5");
         BinarySearchTree::TaskItem t6(6, "testItem6");
         ASSERT_TRUE(bst.insert(t1))
-//        ASSERT_FALSE(bst.insert(t1)) // note: this doesn't work, should be returning false
+//        ASSERT_FALSE(bst.insert(t1)) // note: this doesn't work, should be returning false - because exists() is broken
         ASSERT_TRUE(bst.insert(t2))
         ASSERT_TRUE(bst.insert(t3))
         ASSERT_TRUE(bst.insert(t4))
@@ -230,7 +230,7 @@ public:
         ASSERT_TRUE(bst.insert(t6))
         ASSERT_TRUE(bst.get_size() == 6)
         bst.print();
-        ASSERT_TRUE(bst.remove(t1))
+        ASSERT_TRUE(bst.remove(t1)) // this currently goes to remove - with two children bool, it should be a leaf node
 //        ASSERT_TRUE(bst.remove(t2))
 //        ASSERT_TRUE(bst.remove(t3))
 //        ASSERT_TRUE(bst.get_size() == 3)
