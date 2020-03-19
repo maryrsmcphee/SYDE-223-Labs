@@ -185,9 +185,9 @@ public:
         ASSERT_TRUE(bst.height() == 2)
         ASSERT_TRUE(bst.insert(t3))
         ASSERT_TRUE(bst.get_size() == 3)
-       // ASSERT_TRUE(bst.height() == 2)
+        ASSERT_TRUE(bst.height() == 2)
         bst.print();
-     //   ASSERT_TRUE(bst.remove(t3));
+      //  ASSERT_TRUE(bst.remove(t3));
         return true;
     }
 
