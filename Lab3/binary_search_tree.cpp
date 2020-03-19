@@ -44,7 +44,9 @@ BinarySearchTree::TaskItem BinarySearchTree::min() const {
 
 // PURPOSE: Returns the tree height
 unsigned int BinarySearchTree::height() const {
-    if (!root) return 0;
+    if (root == NULL){
+        return 0;
+    }
     int count = 1;
     TaskItem *temp = root;
     // since BST must have all elements at the furthest left position
@@ -202,8 +204,8 @@ bool BinarySearchTree::remove(BinarySearchTree::TaskItem val) {
 //    } else if (!exists(val)) { // this line was always returning true; would end remove here and return false
 //        cerr << "!exists ";
 //        return false;
-    } else if (&val == root) {
-        delete root;
+    } else if (val.priority == root->priority && size == 1) {
+        root = NULL;
         size--;
         return true;
     } else {
