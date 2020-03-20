@@ -225,25 +225,43 @@ bool BinarySearchTree::insert(BinarySearchTree::TaskItem *val, BinarySearchTree:
 // PURPOSE: Removes the node with the value val from the tree
 // returns true if successful; returns false otherwise
 bool BinarySearchTree::remove(BinarySearchTree::TaskItem val) {
-    if (root == NULL) {
+    if (root == NULL || &val == NULL) {
+        // if the tree is empty
         return false;
-//    TODO: Uncomment this once exists works
-//    } else if (!exists(val)) { // this line was always returning true; would end remove here and return false
-//        cerr << "!exists ";
-//        return false;
     } else if (val.priority == root->priority && size == 1) {
+        // if the tree only has one node
         root = NULL;
         size--;
         return true;
     } else {
+        // general case
         return remove(root, val.priority);
     }
 
 }
 
 // TODO: Only works when first called
-bool BinarySearchTree::remove(BinarySearchTree::TaskItem *val, int k) {
-    if (val == NULL) {
+bool BinarySearchTree::remove(BinarySearchTree::TaskItem *node, int k) {
+    if(k == node->priority){
+        // node found
+        if(node->left == NULL && node->right == NULL){
+            // case if leaf node
+            node = NULL;
+            delete node;
+        }
+        size--;
+        return true;
+    }else
+    if(k < node->priority){
+        // go left
+        return remove(node->left,k);
+    }else{
+        // go right
+        return remove(node->right,k);
+    }
+
+
+  /* if (val == NULL) {
         return false;
     } else if (val->priority == k) {
         // case where the node is found
@@ -281,6 +299,6 @@ bool BinarySearchTree::remove(BinarySearchTree::TaskItem *val, int k) {
         remove(val->left, k);
     } else {
         remove(val->right, k);
-    }
+    } */
 }
 
