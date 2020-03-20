@@ -186,8 +186,10 @@ public:
         ASSERT_TRUE(bst.insert(t3))
         ASSERT_TRUE(bst.get_size() == 3)
         ASSERT_TRUE(bst.height() == 2)
+        cerr<<"test3"<<endl;
         bst.print();
         ASSERT_TRUE(bst.remove(t3));
+        bst.print();
         return true;
     }
 
