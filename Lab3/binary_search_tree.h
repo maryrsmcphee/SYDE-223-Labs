@@ -81,6 +81,6 @@ public:
     // PURPOSE: Removes the node with the value val from the tree
     // returns true if successful; returns false otherwise
     bool remove(TaskItem val);
-    bool remove(TaskItem *val, int k);
+    bool remove(TaskItem *node, int k);
 };
 #endif
