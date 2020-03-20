@@ -185,7 +185,6 @@ bool BinarySearchTree::insert(BinarySearchTree::TaskItem val) {
  * @param node
  * @return bool
  */
-// TODO: Re-sorting tree doesn't work properly
 bool BinarySearchTree::insert(BinarySearchTree::TaskItem *val, BinarySearchTree::TaskItem *node) {
     if (node == NULL) {
         // if it is the first node
@@ -195,20 +194,25 @@ bool BinarySearchTree::insert(BinarySearchTree::TaskItem *val, BinarySearchTree:
             return true;
         }
     } else if (node->right == NULL || node->left == NULL) {
-        // else if the node has leaf nodes
+        // else if the node has leaf nodes and one is null
         if (val->priority < node->priority) {
             // assign left if less
             if (node->left == NULL) {
                 node->left = val;
             } else {
-                return insert(val, node->left);
+                // swap here
+                TaskItem * temp = node;
+                node = val;
+                node->left = temp;
             }
         } else {
             // assign right if more
             if (node->right == NULL) {
                 node->right = val;
             } else {
-                return insert(val, node->right);
+                TaskItem * temp = node;
+                node = val;
+                node->right = temp;
             }
         }
         size++;
@@ -247,15 +251,23 @@ bool BinarySearchTree::remove(BinarySearchTree::TaskItem *node, int k) {
         if(node->left == NULL && node->right == NULL){
             // case if leaf node
             node = NULL;
-            delete node;
+            free(node);
+            size--;
+            return true;
         }else if(node->left != NULL && node->right == NULL){
             // case if node has left branch
             if(node->left->left == NULL && node->left->right == NULL){
                 // case that the child node is a leaf node
                 node = node->left;
                 node->left = NULL;
+                size--;
+                return true;
             }else{
+                // TODO
                 // case where a swap is required
+                size--;
+                return true;
+
             }
         }else if(node->right != NULL && node->left == NULL){
             // case if node has right branch
@@ -263,12 +275,20 @@ bool BinarySearchTree::remove(BinarySearchTree::TaskItem *node, int k) {
                 // case that the child node is a leaf node
                 node = node->right;
                 node->right = NULL;
+                size--;
+                return true;
             }else{
+                // TODO
                 // case where a swap is required
+                size--;
+                return true;
             }
+        }else if(node->right != NULL && node->left != NULL){
+            // TODO
+            // case where there is both a left and a right branch
+            size--;
+            return true;
         }
-        size--;
-        return true;
     }else
     if(k < node->priority){
         // go left

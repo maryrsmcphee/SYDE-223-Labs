@@ -174,8 +174,8 @@ public:
     // PURPOSE: Tests insert, remove, and size on linear list formation with three elements
     bool test3() {
         BinarySearchTree bst;
-        BinarySearchTree::TaskItem t1(5, "testItem1");
-        BinarySearchTree::TaskItem t2(6, "testItem2");
+        BinarySearchTree::TaskItem t1(5, "testItem5");
+        BinarySearchTree::TaskItem t2(6, "testItem6");
         BinarySearchTree::TaskItem t3(3, "testItem3");
         ASSERT_TRUE(bst.insert(t1));
         ASSERT_TRUE(bst.get_size() == 1)
@@ -186,8 +186,10 @@ public:
         ASSERT_TRUE(bst.insert(t3))
         ASSERT_TRUE(bst.get_size() == 3)
         ASSERT_TRUE(bst.height() == 2)
+        cerr<<"test3"<<endl;
         bst.print();
         ASSERT_TRUE(bst.remove(t3));
+        bst.print();
         return true;
     }
 
