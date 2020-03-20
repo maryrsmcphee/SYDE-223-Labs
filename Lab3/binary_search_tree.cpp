@@ -225,7 +225,7 @@ bool BinarySearchTree::insert(BinarySearchTree::TaskItem *val, BinarySearchTree:
 // PURPOSE: Removes the node with the value val from the tree
 // returns true if successful; returns false otherwise
 bool BinarySearchTree::remove(BinarySearchTree::TaskItem val) {
-    if (root == NULL || &val == NULL) {
+    if (root == NULL) {
         // if the tree is empty
         return false;
     } else if (val.priority == root->priority && size == 1) {
