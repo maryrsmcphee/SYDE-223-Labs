@@ -248,6 +248,24 @@ bool BinarySearchTree::remove(BinarySearchTree::TaskItem *node, int k) {
             // case if leaf node
             node = NULL;
             delete node;
+        }else if(node->left != NULL && node->right == NULL){
+            // case if node has left branch
+            if(node->left->left == NULL && node->left->right == NULL){
+                // case that the child node is a leaf node
+                node = node->left;
+                node->left = NULL;
+            }else{
+                // case where a swap is required
+            }
+        }else if(node->right != NULL && node->left == NULL){
+            // case if node has right branch
+            if(node->right->left == NULL && node->right->right == NULL){
+                // case that the child node is a leaf node
+                node = node->right;
+                node->right = NULL;
+            }else{
+                // case where a swap is required
+            }
         }
         size--;
         return true;
@@ -260,45 +278,5 @@ bool BinarySearchTree::remove(BinarySearchTree::TaskItem *node, int k) {
         return remove(node->right,k);
     }
 
-
-  /* if (val == NULL) {
-        return false;
-    } else if (val->priority == k) {
-        // case where the node is found
-        bool is_leaf_node = (val->left == NULL) && (val->right == NULL);
-        bool has_one_child = val->left == NULL || val->right == NULL;
-        bool has_two_children = val->left != NULL && val->right != NULL;
-        if (is_leaf_node) {
-            val = nullptr;
-            delete val;
-        } else if (has_one_child) {
-            TaskItem *temp = val;
-            if (val->left) {
-                val = val->left;
-                val->left = temp;
-                temp->left = nullptr;
-            } else {
-                val = val->right;
-                val->right = temp;
-                temp->right = nullptr;
-            }
-            temp = nullptr;
-            delete temp;
-        } else {
-            TaskItem *current = val->right; // to be new parent of the mini-tree
-            TaskItem *temp = val; // to be deleted once swapped
-            current->left = val->left; // make the left child pointers the same
-            temp->left = NULL;
-            temp->right = NULL;
-            temp = nullptr;
-            delete temp;
-        }
-        size--;
-        return true;
-    } else if (k < val->priority) {
-        remove(val->left, k);
-    } else {
-        remove(val->right, k);
-    } */
 }
 
