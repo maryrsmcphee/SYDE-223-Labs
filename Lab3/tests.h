@@ -242,7 +242,7 @@ public:
         BinarySearchTree::TaskItem t5(5, "testItem5");
         BinarySearchTree::TaskItem t6(6, "testItem6");
         ASSERT_TRUE(bst.insert(t1))
-//        ASSERT_FALSE(bst.insert(t1)) // note: this doesn't work, should be returning false - because exists() is broken
+        ASSERT_FALSE(bst.insert(t1)) // note: this doesn't work, should be returning false - because exists() is broken
         ASSERT_TRUE(bst.insert(t2))
         ASSERT_TRUE(bst.insert(t3))
         ASSERT_TRUE(bst.insert(t4))
@@ -259,7 +259,7 @@ public:
 //        ASSERT_TRUE(bst.remove(t6))
 //        ASSERT_TRUE(bst.get_size() == 0)
 //        ASSERT_FALSE(bst.remove(t1))
-//        bst.print();
+       bst.print();
 
         return true;
     }
