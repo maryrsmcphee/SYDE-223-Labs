@@ -121,7 +121,7 @@ bool BinarySearchTree::exists(BinarySearchTree::TaskItem val) const {
         cerr << "Empty tree\n";
         return false;
     } else {
-        exists(root, val.priority);
+        return exists(root, val.priority);
     }
 }
 
@@ -171,6 +171,8 @@ int BinarySearchTree::get_node_depth(BinarySearchTree::TaskItem *n) const {
  * @return bool
  */
 bool BinarySearchTree::insert(BinarySearchTree::TaskItem val) {
+    bool e = exists(val);
+
     if (exists(val)) {
         return false;
     } else {
