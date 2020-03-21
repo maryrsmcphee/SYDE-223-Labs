@@ -203,7 +203,7 @@ bool BinarySearchTree::insert(BinarySearchTree::TaskItem *val, BinarySearchTree:
                 node->left = val;
             } else {
                 // swap here
-                TaskItem * temp = node;
+                TaskItem *temp = node;
                 node = val;
                 node->left = temp;
             }
@@ -212,7 +212,7 @@ bool BinarySearchTree::insert(BinarySearchTree::TaskItem *val, BinarySearchTree:
             if (node->right == NULL) {
                 node->right = val;
             } else {
-                TaskItem * temp = node;
+                TaskItem *temp = node;
                 node = val;
                 node->right = temp;
             }
@@ -248,56 +248,80 @@ bool BinarySearchTree::remove(BinarySearchTree::TaskItem val) {
 
 // TODO: Only works when first called
 bool BinarySearchTree::remove(BinarySearchTree::TaskItem *node, int k) {
-    if(k == node->priority){
-        // node found
-        if(node->left == NULL && node->right == NULL){
-            // case if leaf node
+    if (node->left == NULL || node->right == NULL) {
+        if (k == node->priority) {
             node = NULL;
             free(node);
             size--;
             return true;
-        }else if(node->left != NULL && node->right == NULL){
-            // case if node has left branch
-            if(node->left->left == NULL && node->left->right == NULL){
-                // case that the child node is a leaf node
-                node = node->left;
-                node->left = NULL;
-                size--;
-                return true;
-            }else{
-                // TODO
-                // case where a swap is required
-                size--;
-                return true;
-
-            }
-        }else if(node->right != NULL && node->left == NULL){
-            // case if node has right branch
-            if(node->right->left == NULL && node->right->right == NULL){
-                // case that the child node is a leaf node
-                node = node->right;
-                node->right = NULL;
-                size--;
-                return true;
-            }else{
-                // TODO
-                // case where a swap is required
-                size--;
-                return true;
-            }
-        }else if(node->right != NULL && node->left != NULL){
-            // TODO
-            // case where there is both a left and a right branch
+        }
+    } else if (k == node->left->priority) {
+        // if the left node is the one to switch
+        if (node->left->left == NULL && node->left->right == NULL) {
+            //if the node is a lead node;
+            node->left = NULL;
+            free(node->left);
+            size--;
+            return true;
+        } else if (node->left->left != NULL && node->left->right == NULL) {
+            // the node has one left child
+            TaskItem *temp = node->left->left;
+            node->left->left = node;
+            node = temp;
+            node->left->left = NULL;
+            free(node->left->left);
+            size--;
+            return true;
+        } else if (node->left->left == NULL && node->right->right != NULL) {
+            // the node has one right child;
+            TaskItem *temp = node->right->right;
+            node->right->right = node;
+            node = temp;
+            node->right->right = NULL;
+            free(node->right->right);
+            size--;
+            return true;
+        } else {
+            // TODO swap here
             size--;
             return true;
         }
-    }else
-    if(k < node->priority){
+    } else if (k == node->right->priority) {
+        if (node->right->left == NULL && node->right->right == NULL) {
+            // if the node is a lead node;
+            node->right = NULL;
+            free(node->right);
+            size--;
+            return true;
+        } else if (node->right->left != NULL && node->right->right == NULL) {
+            // the node has one left child
+            TaskItem *temp = node->left->left;
+            node->left->left = node;
+            node = temp;
+            node->left->left = NULL;
+            free(node->left->left);
+            size--;
+            return true;
+        } else if (node->right->left == NULL && node->right->right != NULL) {
+            // the node has one right child;
+            TaskItem *temp = node->right->right;
+            node->right->right = node;
+            node = temp;
+            node->right->right = NULL;
+            free(node->right->right);
+            size--;
+            return true;
+        } else {
+            // TODO swap here
+            size--;
+            return true;
+        }
+    } else if (k < node->priority) {
         // go left
-        return remove(node->left,k);
-    }else{
+        return remove(node->left, k);
+    } else {
         // go right
-        return remove(node->right,k);
+        return remove(node->right, k);
     }
 
 }
