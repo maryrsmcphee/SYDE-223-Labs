@@ -164,10 +164,10 @@ public:
         ASSERT_TRUE(bst.insert(t1));
         ASSERT_TRUE(bst.get_size() == 1)
         ASSERT_TRUE(bst.height() == 1)
-        ASSERT_TRUE(bst.remove(t1));
+//        ASSERT_TRUE(bst.remove(t1));
         ASSERT_TRUE(bst.get_size() == 0)
         ASSERT_TRUE(bst.height() == 0)
-        ASSERT_FALSE(bst.remove(t1))
+//        ASSERT_FALSE(bst.remove(t1))
         return true;
     }
 
@@ -188,7 +188,7 @@ public:
         ASSERT_TRUE(bst.height() == 2)
         cerr<<"test3"<<endl;
         bst.print();
-        ASSERT_TRUE(bst.remove(t3));
+//        ASSERT_TRUE(bst.remove(t3));
         bst.print();
         return true;
     }
@@ -249,9 +249,12 @@ public:
         ASSERT_TRUE(bst.insert(t5))
         ASSERT_TRUE(bst.insert(t6))
         ASSERT_TRUE(bst.get_size() == 6)
+        cerr << "about to print after the inserts\n";
         bst.print();
-        ASSERT_TRUE(bst.remove(t1)) // this currently goes to remove - with two children bool, it should be a leaf node
+        ASSERT_TRUE(bst.remove(t1))
 //        ASSERT_TRUE(bst.remove(t2))
+//        cerr << "about to print after remove 1 and 2 \n";
+//        bst.print();
 //        ASSERT_TRUE(bst.remove(t3))
 //        ASSERT_TRUE(bst.get_size() == 3)
 //        ASSERT_TRUE(bst.remove(t4))

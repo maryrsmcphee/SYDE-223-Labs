@@ -231,6 +231,7 @@ bool BinarySearchTree::insert(BinarySearchTree::TaskItem *val, BinarySearchTree:
 // PURPOSE: Removes the node with the value val from the tree
 // returns true if successful; returns false otherwise
 bool BinarySearchTree::remove(BinarySearchTree::TaskItem val) {
+    cerr << "REMOVE BEGIN\n";
     if (root == NULL) {
         // if the tree is empty
         return false;
@@ -241,6 +242,7 @@ bool BinarySearchTree::remove(BinarySearchTree::TaskItem val) {
         return true;
     } else {
         // general case
+        cerr << "general case\n";
         return remove(root, val.priority);
     }
 
@@ -248,18 +250,17 @@ bool BinarySearchTree::remove(BinarySearchTree::TaskItem val) {
 
 // TODO: Only works when first called
 bool BinarySearchTree::remove(BinarySearchTree::TaskItem *node, int k) {
-    // base case: remove node, no children
-    // are we ever gonna get to this? if it's the root we catch it in the original
-    // remove pass and if it's not then it's a child which we catch below
-    if (node->left == NULL || node->right == NULL) {
-        if (k == node->priority) {
-            node = NULL;
-            free(node);
-            size--;
-            return true;
-        }
-    } else if (k == node->left->priority) {
+    // if leaf node
+    if ((node->left == NULL && node->right == NULL) && (k == node->priority)) {
+        cerr << "leaf node \n" << endl;
+        node = NULL;
+        free(node);
+        size--;
+        return true;
+        // if the left node exists
+    } else if (node->left!=NULL && k == node->left->priority) {
         // if the left node is the one to switch
+        cerr << "left node exists \n";
         if (node->left->left == NULL && node->left->right == NULL) {
             //if the node is a leaf node;
             node->left = NULL;
@@ -297,7 +298,9 @@ bool BinarySearchTree::remove(BinarySearchTree::TaskItem *node, int k) {
             size--;
             return true;
         }
-    } else if (k == node->right->priority) {
+        // right node exists and is the value
+    } else if (node->right != NULL && k == node->right->priority) {
+        cerr << "right node\n";
         // want to switch right node
         if (node->right->left == NULL && node->right->right == NULL) {
             // if the node is a lead node;
