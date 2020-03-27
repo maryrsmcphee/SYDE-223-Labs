@@ -248,6 +248,9 @@ bool BinarySearchTree::remove(BinarySearchTree::TaskItem val) {
 
 // TODO: Only works when first called
 bool BinarySearchTree::remove(BinarySearchTree::TaskItem *node, int k) {
+    // base case: remove node, no children
+    // are we ever gonna get to this? if it's the root we catch it in the original
+    // remove pass and if it's not then it's a child which we catch below
     if (node->left == NULL || node->right == NULL) {
         if (k == node->priority) {
             node = NULL;
@@ -258,7 +261,7 @@ bool BinarySearchTree::remove(BinarySearchTree::TaskItem *node, int k) {
     } else if (k == node->left->priority) {
         // if the left node is the one to switch
         if (node->left->left == NULL && node->left->right == NULL) {
-            //if the node is a lead node;
+            //if the node is a leaf node;
             node->left = NULL;
             free(node->left);
             size--;
@@ -282,11 +285,11 @@ bool BinarySearchTree::remove(BinarySearchTree::TaskItem *node, int k) {
             size--;
             return true;
         } else {
-            // TODO swap here
             size--;
             return true;
         }
     } else if (k == node->right->priority) {
+        // want to switch right node
         if (node->right->left == NULL && node->right->right == NULL) {
             // if the node is a lead node;
             node->right = NULL;
@@ -312,7 +315,15 @@ bool BinarySearchTree::remove(BinarySearchTree::TaskItem *node, int k) {
             size--;
             return true;
         } else {
-            // TODO swap here
+            TaskItem *deleteMe = node->left;
+            TaskItem *replaceWithMe = deleteMe->right;
+            while (replaceWithMe->left) {
+                replaceWithMe = replaceWithMe->left;
+            }
+            node->right = replaceWithMe;
+            replaceWithMe->left = deleteMe->left;
+            replaceWithMe->right = deleteMe->right;
+            free(deleteMe);
             size--;
             return true;
         }
