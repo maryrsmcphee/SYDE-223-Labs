@@ -285,6 +285,15 @@ bool BinarySearchTree::remove(BinarySearchTree::TaskItem *node, int k) {
             size--;
             return true;
         } else {
+            TaskItem *deleteMe = node->left;
+            TaskItem *replaceWithMe = deleteMe->right;
+            while (replaceWithMe->left) {
+                replaceWithMe = replaceWithMe->left;
+            }
+            node->left = replaceWithMe;
+            replaceWithMe->left = deleteMe->left;
+            replaceWithMe->right = deleteMe->right;
+            free(deleteMe);
             size--;
             return true;
         }
@@ -315,7 +324,7 @@ bool BinarySearchTree::remove(BinarySearchTree::TaskItem *node, int k) {
             size--;
             return true;
         } else {
-            TaskItem *deleteMe = node->left;
+            TaskItem *deleteMe = node->right;
             TaskItem *replaceWithMe = deleteMe->right;
             while (replaceWithMe->left) {
                 replaceWithMe = replaceWithMe->left;
