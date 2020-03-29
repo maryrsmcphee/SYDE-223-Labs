@@ -245,13 +245,13 @@ public:
         ASSERT_FALSE(bst.insert(t1)) // note: this doesn't work, should be returning false - because exists() is broken
         ASSERT_TRUE(bst.insert(t2))
         ASSERT_TRUE(bst.insert(t3))
-        ASSERT_TRUE(bst.insert(t4))
-        ASSERT_TRUE(bst.insert(t5))
-        ASSERT_TRUE(bst.insert(t6))
-        ASSERT_TRUE(bst.get_size() == 6)
+//        ASSERT_TRUE(bst.insert(t4))
+//        ASSERT_TRUE(bst.insert(t5))
+//        ASSERT_TRUE(bst.insert(t6))
+//        ASSERT_TRUE(bst.get_size() == 6)
         cerr << "about to print after the inserts\n";
         bst.print();
-        ASSERT_TRUE(bst.remove(t1))
+//        ASSERT_TRUE(bst.remove(t1))
 //        ASSERT_TRUE(bst.remove(t2))
 //        cerr << "about to print after remove 1 and 2 \n";
 //        bst.print();
@@ -262,7 +262,7 @@ public:
 //        ASSERT_TRUE(bst.remove(t6))
 //        ASSERT_TRUE(bst.get_size() == 0)
 //        ASSERT_FALSE(bst.remove(t1))
-       bst.print();
+//       bst.print();
 
         return true;
     }
