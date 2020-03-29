@@ -209,7 +209,21 @@ public:
 
     // PURPOSE: Tests removal of a node with one child
     bool test4() {
-        return false;
+        BinarySearchTree bst;
+        BinarySearchTree::TaskItem t3(3, "testItem3");
+        BinarySearchTree::TaskItem t1(1, "testItem1");
+        BinarySearchTree::TaskItem t4(4, "testItem4");
+        BinarySearchTree::TaskItem t5(5, "testItem5");
+        ASSERT_TRUE(bst.insert(t3))
+        ASSERT_TRUE(bst.insert(t1));
+        ASSERT_TRUE(bst.insert(t4));
+        ASSERT_TRUE(bst.insert(t5))
+        ASSERT_TRUE(bst.height() == 3);
+        ASSERT_TRUE(bst.get_size() == 4);
+        cerr<<" - Print: test4"<<endl;
+        bst.print();
+        //  remove nodes
+        return true;
     }
 
     // PURPOSE: Tests insert of multiple elements and remove till nothing remains
