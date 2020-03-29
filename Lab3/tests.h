@@ -186,9 +186,10 @@ public:
         ASSERT_TRUE(bst.insert(t3))
         ASSERT_TRUE(bst.get_size() == 3)
         ASSERT_TRUE(bst.height() == 2)
-        cerr<<"test3"<<endl;
+        cerr<<" - Print: test3"<<endl;
         bst.print();
         ASSERT_TRUE(bst.remove(t3));
+        cerr <<" remove node, then: "<<endl;
         bst.print();
         return true;
     }
@@ -217,19 +218,26 @@ public:
         BinarySearchTree::TaskItem t4(4, "testItem4");
         BinarySearchTree::TaskItem t5(5, "testItem5");
         BinarySearchTree::TaskItem t6(6, "testItem6");
+        BinarySearchTree::TaskItem t0(0, "testItem0");
+        BinarySearchTree::TaskItem t_1(-1, "testItem0");
         ASSERT_TRUE(bst.insert(t1))
         ASSERT_TRUE(bst.insert(t2))
         ASSERT_TRUE(bst.insert(t3))
         ASSERT_TRUE(bst.insert(t4))
         ASSERT_TRUE(bst.insert(t5))
         ASSERT_TRUE(bst.insert(t6))
-        ASSERT_TRUE(bst.height() == 3)
-        cout<<"reached"<<endl;
-        ASSERT_TRUE(bst.remove(t1))
-        ASSERT_TRUE(bst.remove(t2))
-        ASSERT_TRUE(bst.remove(t3))
-        ASSERT_TRUE(bst.height() == 2)
-        return false;
+        cerr<<" - Print: test7"<<endl;
+        bst.print();
+        ASSERT_TRUE(bst.height() == 6)
+        ASSERT_FALSE(bst.insert(t_1));
+        ASSERT_TRUE(bst.insert(t0))
+        ASSERT_TRUE(bst.height() == 6)
+        bst.print();
+        //  ASSERT_TRUE(bst.remove(t1))
+     //   ASSERT_TRUE(bst.remove(t2))
+     //   ASSERT_TRUE(bst.remove(t3))
+     //   ASSERT_TRUE(bst.height() == 5)
+        return true;
     }
 
     // PURPOSE: Tests lots of inserts and removes
@@ -242,14 +250,14 @@ public:
         BinarySearchTree::TaskItem t5(5, "testItem5");
         BinarySearchTree::TaskItem t6(6, "testItem6");
         ASSERT_TRUE(bst.insert(t1))
-        ASSERT_FALSE(bst.insert(t1)) // note: this doesn't work, should be returning false - because exists() is broken
+        ASSERT_FALSE(bst.insert(t1))
         ASSERT_TRUE(bst.insert(t2))
         ASSERT_TRUE(bst.insert(t3))
         ASSERT_TRUE(bst.insert(t4))
         ASSERT_TRUE(bst.insert(t5))
         ASSERT_TRUE(bst.insert(t6))
         ASSERT_TRUE(bst.get_size() == 6)
-        cerr << "about to print after the inserts\n";
+        cerr<<" - Print: test8"<<endl;
         bst.print();
         ASSERT_TRUE(bst.remove(t1))
         ASSERT_TRUE(bst.remove(t2))
@@ -263,7 +271,6 @@ public:
         ASSERT_TRUE(bst.get_size() == 0)
         ASSERT_FALSE(bst.remove(t1))
        bst.print();
-
         return true;
     }
 };
