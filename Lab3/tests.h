@@ -224,8 +224,9 @@ public:
         ASSERT_TRUE(bst.insert(t4))
         ASSERT_TRUE(bst.insert(t5))
         ASSERT_TRUE(bst.insert(t6))
+        cerr<<" - Print: test7"<<endl;
+        bst.print();
       //  ASSERT_TRUE(bst.height() == 3)
-        cout<<"reached"<<endl;
       //  ASSERT_TRUE(bst.remove(t1))
      //   ASSERT_TRUE(bst.remove(t2))
      //   ASSERT_TRUE(bst.remove(t3))
@@ -250,7 +251,7 @@ public:
         ASSERT_TRUE(bst.insert(t5))
         ASSERT_TRUE(bst.insert(t6))
         ASSERT_TRUE(bst.get_size() == 6)
-        cerr << "about to print after the inserts\n";
+        cerr<<" - Print: test8"<<endl;
         bst.print();
         ASSERT_TRUE(bst.remove(t1))
         ASSERT_TRUE(bst.remove(t2))

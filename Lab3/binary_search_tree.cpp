@@ -248,7 +248,6 @@ bool BinarySearchTree::remove(BinarySearchTree::TaskItem val) {
 
 // TODO: Only works when first called
 bool BinarySearchTree::remove(BinarySearchTree::TaskItem *node, int k) {
-    cerr << "start of remove";
     // if leaf node
     if ((node->left == NULL && node->right == NULL) && (k == node->priority)) {
         cerr << "leaf node \n" << endl;
