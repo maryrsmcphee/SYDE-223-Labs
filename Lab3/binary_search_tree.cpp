@@ -76,7 +76,6 @@ unsigned int BinarySearchTree::height() const {
 // TODO: we never actually print anything here
 void BinarySearchTree::print(struct BinarySearchTree::TaskItem *node) const {
     if (node == NULL) {
-        cerr << "\n";
         return;
     } else {
         cerr << node->priority << " ";
@@ -231,7 +230,6 @@ BinarySearchTree::TaskItem* BinarySearchTree::insert(BinarySearchTree::TaskItem 
 // PURPOSE: Removes the node with the value val from the tree
 // returns true if successful; returns false otherwise
 bool BinarySearchTree::remove(BinarySearchTree::TaskItem val) {
-    cerr << "REMOVE BEGIN\n";
     if (root == NULL) {
         // if the tree is empty
         return false;
