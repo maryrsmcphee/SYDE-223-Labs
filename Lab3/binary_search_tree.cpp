@@ -172,12 +172,37 @@ int BinarySearchTree::get_node_depth(BinarySearchTree::TaskItem *n) const {
  * @return bool
  */
 bool BinarySearchTree::insert(BinarySearchTree::TaskItem val) {
-    if (exists(val)) {
-        return false;
+    TaskItem *newValToInsert = new TaskItem(val);
+    TaskItem *prevValSeen = root;
+    if (root == NULL) {
+        root = newValToInsert;
+        size++;
     } else {
-        TaskItem *p = &val;
-        return insert(p, root);
+        int index = 0;
+        while (newValToInsert != NULL) {
+            index++;
+            if (newValToInsert->priority < prevValSeen->priority) {
+                if (prevValSeen->left == NULL) {
+                    prevValSeen->left = newValToInsert;
+                    size++;
+                    return true;
+                } else {
+                    prevValSeen = prevValSeen->left;
+                }
+            } else if (newValToInsert->priority > prevValSeen->priority) {
+                if (prevValSeen->right == NULL) {
+                    prevValSeen->right = newValToInsert;
+                    size++;
+                    return true;
+                } else {
+                    prevValSeen = prevValSeen->right;
+                }
+            } else if (val.priority == newValToInsert->priority) {
+                return false;
+            }
+        }
     }
+    return true;
 }
 
 /**
@@ -186,27 +211,22 @@ bool BinarySearchTree::insert(BinarySearchTree::TaskItem val) {
  * @param val
  * @param node
  * @return bool
- */
-bool BinarySearchTree::insert(BinarySearchTree::TaskItem *val, BinarySearchTree::TaskItem *node) {
-    if(node == root){
-        root = val;
+
+BinarySearchTree::TaskItem* BinarySearchTree::insert(BinarySearchTree::TaskItem *val, BinarySearchTree::TaskItem *node) {
+    if(node == NULL) {
         size++;
-        return true;
-    }
-    else if(node == NULL) {
-        // if it is the first node
-        node = val;
-        size++;
-        return true;
+        return val;
     } else if (val->priority < node->priority){
         // go to left sub tree
-        return insert(val,node->left);
+        return node->left =  insert(val,node->left);
     }else if(val->priority > node->priority){
-        return insert(val,node->right);
+        // go right subtree
+        return node->right = insert(val,node->right);
     }else{
-        return false;
+        return node;
     }
 }
+  */
 
 // PURPOSE: Removes the node with the value val from the tree
 // returns true if successful; returns false otherwise
@@ -239,7 +259,7 @@ bool BinarySearchTree::remove(BinarySearchTree::TaskItem *node, int k) {
         size--;
         return true;
         // if the left node exists
-    } else if (node->left!=NULL && k == node->left->priority) {
+    } else if (node->left != NULL && k == node->left->priority) {
         // if the left node is the one to switch
         cerr << "left node exists \n";
         if (node->left->left == NULL && node->left->right == NULL) {
