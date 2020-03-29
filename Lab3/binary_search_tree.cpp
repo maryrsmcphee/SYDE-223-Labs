@@ -76,7 +76,7 @@ unsigned int BinarySearchTree::height() const {
 // TODO: we never actually print anything here
 void BinarySearchTree::print(struct BinarySearchTree::TaskItem *node) const {
     if (node == NULL) {
-        cout << "\n";
+        cerr << "\n";
         return;
     } else {
         cerr << node->priority << " ";
@@ -106,6 +106,7 @@ bool BinarySearchTree::exists(struct BinarySearchTree::TaskItem *val, int k) con
     if (val->priority == k) {
         return true;
     }
+    // TODO: This could be done smarter, use k and val->priority to check which direction to search down.
     /* then recur on left sutree */
     bool res1 = exists(val->left, k);
     if (res1) {
@@ -171,8 +172,6 @@ int BinarySearchTree::get_node_depth(BinarySearchTree::TaskItem *n) const {
  * @return bool
  */
 bool BinarySearchTree::insert(BinarySearchTree::TaskItem val) {
-    bool e = exists(val);
-
     if (exists(val)) {
         return false;
     } else {
@@ -188,17 +187,16 @@ bool BinarySearchTree::insert(BinarySearchTree::TaskItem val) {
  * @return bool
  */
 bool BinarySearchTree::insert(BinarySearchTree::TaskItem *val, BinarySearchTree::TaskItem *node) {
-    if (node == NULL) {
+    if (node == NULL && node == root) {
         // if it is the first node
-        if (node == root) {
-            root = val;
-            size++;
-            return true;
-        }
+        root = val;
+        size++;
+        return true;
+        // we've gotten to a leaf node
     } else if (node->right == NULL || node->left == NULL) {
         // else if the node has leaf nodes and one is null
         if (val->priority < node->priority) {
-            // assign left if less
+            // assign left if  less
             if (node->left == NULL) {
                 node->left = val;
             } else {
@@ -231,6 +229,7 @@ bool BinarySearchTree::insert(BinarySearchTree::TaskItem *val, BinarySearchTree:
 // PURPOSE: Removes the node with the value val from the tree
 // returns true if successful; returns false otherwise
 bool BinarySearchTree::remove(BinarySearchTree::TaskItem val) {
+    cerr << "REMOVE BEGIN\n";
     if (root == NULL) {
         // if the tree is empty
         return false;
@@ -241,6 +240,7 @@ bool BinarySearchTree::remove(BinarySearchTree::TaskItem val) {
         return true;
     } else {
         // general case
+        cerr << "general case\n";
         return remove(root, val.priority);
     }
 
@@ -248,18 +248,18 @@ bool BinarySearchTree::remove(BinarySearchTree::TaskItem val) {
 
 // TODO: Only works when first called
 bool BinarySearchTree::remove(BinarySearchTree::TaskItem *node, int k) {
-    // base case: remove node, no children
-    // are we ever gonna get to this? if it's the root we catch it in the original
-    // remove pass and if it's not then it's a child which we catch below
-    if (node->left == NULL || node->right == NULL) {
-        if (k == node->priority) {
-            node = NULL;
-            free(node);
-            size--;
-            return true;
-        }
-    } else if (k == node->left->priority) {
+    cerr << "start of remove";
+    // if leaf node
+    if ((node->left == NULL && node->right == NULL) && (k == node->priority)) {
+        cerr << "leaf node \n" << endl;
+        node = NULL;
+        free(node);
+        size--;
+        return true;
+        // if the left node exists
+    } else if (node->left!=NULL && k == node->left->priority) {
         // if the left node is the one to switch
+        cerr << "left node exists \n";
         if (node->left->left == NULL && node->left->right == NULL) {
             //if the node is a leaf node;
             node->left = NULL;
@@ -297,10 +297,12 @@ bool BinarySearchTree::remove(BinarySearchTree::TaskItem *node, int k) {
             size--;
             return true;
         }
-    } else if (k == node->right->priority) {
+        // right node exists and is the value
+    } else if (node->right != NULL && k == node->right->priority) {
+        cerr << "right node\n";
         // want to switch right node
         if (node->right->left == NULL && node->right->right == NULL) {
-            // if the node is a lead node;
+            // if the node is a leaf node;
             node->right = NULL;
             free(node->right);
             size--;
@@ -336,13 +338,28 @@ bool BinarySearchTree::remove(BinarySearchTree::TaskItem *node, int k) {
             size--;
             return true;
         }
-    } else if (k < node->priority) {
-        // go left
-        return remove(node->left, k);
     } else {
-        // go right
-        return remove(node->right, k);
+        cout << "ITERATING";
+        if (k < node->priority && node->left != NULL) {
+            cout << "Travel left\n";
+            if (node->left != NULL) {
+                cout << "Printing current node and left child " << node->priority << "  " << node->left->priority
+                     << endl;
+            } else cout << "no left child";
+            // go left
+            return remove(node->left, k);
+        } else if (k < node->priority && node->right != NULL) {
+            // go right
+            cout << "Travel right\n";
+            if (node->right != NULL) {
+                cout << "Printing current node and right child " << node->priority << "  " << node->right->priority
+                     << endl;
+            } else cout << "no right child";
+            return remove(node->right, k);
+        } else {
+            cerr << "super didn't work" << endl;
+            return false;
+        }
     }
-
 }
 

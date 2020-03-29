@@ -217,18 +217,18 @@ public:
         BinarySearchTree::TaskItem t4(4, "testItem4");
         BinarySearchTree::TaskItem t5(5, "testItem5");
         BinarySearchTree::TaskItem t6(6, "testItem6");
-//        ASSERT_TRUE(bst.insert(t1))
-//        ASSERT_TRUE(bst.insert(t2))
-//        ASSERT_TRUE(bst.insert(t3))
-//        ASSERT_TRUE(bst.insert(t4))
-//        ASSERT_TRUE(bst.insert(t5))
-//        ASSERT_TRUE(bst.insert(t6))
-//        ASSERT_TRUE(bst.height() == 3)
-//        cout<<"reached"<<endl;
-//        ASSERT_TRUE(bst.remove(t1))
-//        ASSERT_TRUE(bst.remove(t2))
-//        ASSERT_TRUE(bst.remove(t3))
-//        ASSERT_TRUE(bst.height() == 2)
+        ASSERT_TRUE(bst.insert(t1))
+        ASSERT_TRUE(bst.insert(t2))
+        ASSERT_TRUE(bst.insert(t3))
+        ASSERT_TRUE(bst.insert(t4))
+        ASSERT_TRUE(bst.insert(t5))
+        ASSERT_TRUE(bst.insert(t6))
+        ASSERT_TRUE(bst.height() == 3)
+        cout<<"reached"<<endl;
+        ASSERT_TRUE(bst.remove(t1))
+        ASSERT_TRUE(bst.remove(t2))
+        ASSERT_TRUE(bst.remove(t3))
+        ASSERT_TRUE(bst.height() == 2)
         return false;
     }
 
@@ -249,16 +249,19 @@ public:
         ASSERT_TRUE(bst.insert(t5))
         ASSERT_TRUE(bst.insert(t6))
         ASSERT_TRUE(bst.get_size() == 6)
+        cerr << "about to print after the inserts\n";
         bst.print();
-        ASSERT_TRUE(bst.remove(t1)) // this currently goes to remove - with two children bool, it should be a leaf node
-//        ASSERT_TRUE(bst.remove(t2))
-//        ASSERT_TRUE(bst.remove(t3))
-//        ASSERT_TRUE(bst.get_size() == 3)
-//        ASSERT_TRUE(bst.remove(t4))
-//        ASSERT_TRUE(bst.remove(t5))
-//        ASSERT_TRUE(bst.remove(t6))
-//        ASSERT_TRUE(bst.get_size() == 0)
-//        ASSERT_FALSE(bst.remove(t1))
+        ASSERT_TRUE(bst.remove(t1))
+        ASSERT_TRUE(bst.remove(t2))
+        cerr << "about to print after remove 1 and 2 \n";
+        bst.print();
+        ASSERT_TRUE(bst.remove(t3))
+        ASSERT_TRUE(bst.get_size() == 3)
+        ASSERT_TRUE(bst.remove(t4))
+        ASSERT_TRUE(bst.remove(t5))
+        ASSERT_TRUE(bst.remove(t6))
+        ASSERT_TRUE(bst.get_size() == 0)
+        ASSERT_FALSE(bst.remove(t1))
        bst.print();
 
         return true;

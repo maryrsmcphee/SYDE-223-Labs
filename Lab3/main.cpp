@@ -58,5 +58,6 @@ int main() {
     for (int i = 0; i < 8; ++i) {
         cout << bst_test_descriptions[i] << endl << get_status_str(bst_test_results[i]) << endl;
     }
+    cout << bst_test_descriptions[7] << endl << get_status_str(bst_test_results[7]) << endl;
     cout << endl;
 }
