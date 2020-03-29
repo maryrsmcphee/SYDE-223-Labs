@@ -175,7 +175,8 @@ bool BinarySearchTree::insert(BinarySearchTree::TaskItem val) {
     if (exists(val)) {
         return false;
     } else {
-        return insert(&val, root);
+        TaskItem *p = &val;
+        return insert(p, root);
     }
 }
 
@@ -187,42 +188,23 @@ bool BinarySearchTree::insert(BinarySearchTree::TaskItem val) {
  * @return bool
  */
 bool BinarySearchTree::insert(BinarySearchTree::TaskItem *val, BinarySearchTree::TaskItem *node) {
-    if (node == NULL && node == root) {
-        // if it is the first node
+    if(node == root){
         root = val;
         size++;
         return true;
-        // we've gotten to a leaf node
-    } else if (node->right == NULL || node->left == NULL) {
-        // else if the node has leaf nodes and one is null
-        if (val->priority < node->priority) {
-            // assign left if  less
-            if (node->left == NULL) {
-                node->left = val;
-            } else {
-                // swap here
-                TaskItem *temp = node;
-                node = val;
-                node->left = temp;
-            }
-        } else {
-            // assign right if more
-            if (node->right == NULL) {
-                node->right = val;
-            } else {
-                TaskItem *temp = node;
-                node = val;
-                node->right = temp;
-            }
-        }
+    }
+    else if(node == NULL) {
+        // if it is the first node
+        node = val;
         size++;
         return true;
-    } else if (val->priority >= node->priority) {
-        // go right
-        return insert(val, node->right);
-    } else {
-        // go left
-        return insert(val, node->left);
+    } else if (val->priority < node->priority){
+        // go to left sub tree
+        return insert(val,node->left);
+    }else if(val->priority > node->priority){
+        return insert(val,node->right);
+    }else{
+        return false;
     }
 }
 
