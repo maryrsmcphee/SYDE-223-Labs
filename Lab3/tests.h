@@ -189,6 +189,19 @@ public:
         cerr<<" - Print: test3"<<endl;
         bst.print();
         ASSERT_TRUE(bst.remove(t3));
+        ASSERT_TRUE(bst.get_size() == 2);
+        ASSERT_TRUE(bst.height() == 2)
+        cerr <<" remove node, then: "<<endl;
+        bst.print();
+        ASSERT_TRUE(bst.remove(t2));
+        ASSERT_TRUE(bst.get_size() == 1);
+        ASSERT_TRUE(bst.height() == 1)
+        cerr <<" remove node, then: "<<endl;
+        bst.print();
+        ASSERT_FALSE(bst.remove(t2));
+        ASSERT_TRUE(bst.remove(t1));
+        ASSERT_TRUE(bst.get_size() == 0);
+        ASSERT_TRUE(bst.height() == 0)
         cerr <<" remove node, then: "<<endl;
         bst.print();
         return true;
@@ -196,7 +209,21 @@ public:
 
     // PURPOSE: Tests removal of a node with one child
     bool test4() {
-        return false;
+        BinarySearchTree bst;
+        BinarySearchTree::TaskItem t3(3, "testItem3");
+        BinarySearchTree::TaskItem t1(1, "testItem1");
+        BinarySearchTree::TaskItem t4(4, "testItem4");
+        BinarySearchTree::TaskItem t5(5, "testItem5");
+        ASSERT_TRUE(bst.insert(t3))
+        ASSERT_TRUE(bst.insert(t1));
+        ASSERT_TRUE(bst.insert(t4));
+        ASSERT_TRUE(bst.insert(t5))
+        ASSERT_TRUE(bst.height() == 3);
+        ASSERT_TRUE(bst.get_size() == 4);
+        cerr<<" - Print: test4"<<endl;
+        bst.print();
+        //  remove nodes
+        return true;
     }
 
     // PURPOSE: Tests insert of multiple elements and remove till nothing remains
@@ -220,6 +247,7 @@ public:
         BinarySearchTree::TaskItem t6(6, "testItem6");
         BinarySearchTree::TaskItem t0(0, "testItem0");
         BinarySearchTree::TaskItem t_1(-1, "testItem0");
+        ASSERT_FALSE(bst.remove(t1));
         ASSERT_TRUE(bst.insert(t1))
         ASSERT_TRUE(bst.insert(t2))
         ASSERT_TRUE(bst.insert(t3))
@@ -233,7 +261,7 @@ public:
         ASSERT_TRUE(bst.insert(t0))
         ASSERT_TRUE(bst.height() == 6)
         bst.print();
-        //  ASSERT_TRUE(bst.remove(t1))
+       //   ASSERT_TRUE(bst.remove(t1))
      //   ASSERT_TRUE(bst.remove(t2))
      //   ASSERT_TRUE(bst.remove(t3))
      //   ASSERT_TRUE(bst.height() == 5)
