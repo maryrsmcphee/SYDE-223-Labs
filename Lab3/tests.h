@@ -189,6 +189,19 @@ public:
         cerr<<" - Print: test3"<<endl;
         bst.print();
         ASSERT_TRUE(bst.remove(t3));
+        ASSERT_TRUE(bst.get_size() == 2);
+        ASSERT_TRUE(bst.height() == 2)
+        cerr <<" remove node, then: "<<endl;
+        bst.print();
+        ASSERT_TRUE(bst.remove(t2));
+        ASSERT_TRUE(bst.get_size() == 1);
+        ASSERT_TRUE(bst.height() == 1)
+        cerr <<" remove node, then: "<<endl;
+        bst.print();
+        ASSERT_FALSE(bst.remove(t2));
+        ASSERT_TRUE(bst.remove(t1));
+        ASSERT_TRUE(bst.get_size() == 0);
+        ASSERT_TRUE(bst.height() == 0)
         cerr <<" remove node, then: "<<endl;
         bst.print();
         return true;
@@ -220,6 +233,7 @@ public:
         BinarySearchTree::TaskItem t6(6, "testItem6");
         BinarySearchTree::TaskItem t0(0, "testItem0");
         BinarySearchTree::TaskItem t_1(-1, "testItem0");
+        ASSERT_FALSE(bst.remove(t1));
         ASSERT_TRUE(bst.insert(t1))
         ASSERT_TRUE(bst.insert(t2))
         ASSERT_TRUE(bst.insert(t3))
@@ -233,7 +247,7 @@ public:
         ASSERT_TRUE(bst.insert(t0))
         ASSERT_TRUE(bst.height() == 6)
         bst.print();
-        //  ASSERT_TRUE(bst.remove(t1))
+       //   ASSERT_TRUE(bst.remove(t1))
      //   ASSERT_TRUE(bst.remove(t2))
      //   ASSERT_TRUE(bst.remove(t3))
      //   ASSERT_TRUE(bst.height() == 5)
