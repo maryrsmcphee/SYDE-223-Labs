@@ -261,10 +261,9 @@ public:
         ASSERT_TRUE(bst.insert(t0))
         ASSERT_TRUE(bst.height() == 6)
         bst.print();
-       //   ASSERT_TRUE(bst.remove(t1))
-     //   ASSERT_TRUE(bst.remove(t2))
-     //   ASSERT_TRUE(bst.remove(t3))
-     //   ASSERT_TRUE(bst.height() == 5)
+        ASSERT_TRUE(bst.remove(t1))
+        ASSERT_TRUE(bst.remove(t2))
+        ASSERT_TRUE(bst.remove(t3))
         return true;
     }
 
@@ -298,7 +297,7 @@ public:
         ASSERT_TRUE(bst.remove(t6))
         ASSERT_TRUE(bst.get_size() == 0)
         ASSERT_FALSE(bst.remove(t1))
-       bst.print();
+        bst.print();
         return true;
     }
 };
