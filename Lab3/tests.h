@@ -223,6 +223,8 @@ public:
         cerr<<" - Print: test4"<<endl;
         bst.print();
         ASSERT_TRUE(bst.remove(t4));
+        ASSERT_TRUE(bst.height() == 2);
+        ASSERT_TRUE(bst.get_size() == 3);
         cerr <<" remove node, then: "<<endl;
         bst.print();
         return true;
