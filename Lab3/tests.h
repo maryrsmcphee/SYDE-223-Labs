@@ -266,10 +266,8 @@ public:
         ASSERT_TRUE(bst.insert(t0))
         ASSERT_TRUE(bst.height() == 6)
         bst.print();
-       //   ASSERT_TRUE(bst.remove(t1))
-     //   ASSERT_TRUE(bst.remove(t2))
-     //   ASSERT_TRUE(bst.remove(t3))
-     //   ASSERT_TRUE(bst.height() == 5)
+        ASSERT_TRUE(bst.remove(t2))
+        ASSERT_TRUE(bst.remove(t3))
         return true;
     }
 
