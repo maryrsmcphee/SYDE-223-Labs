@@ -217,120 +217,136 @@ bool BinarySearchTree::remove(BinarySearchTree::TaskItem val) {
         root = NULL;
         size--;
         return true;
-    } else {
-        // general case
-        cerr << "general case\n";
-        return remove(root, val.priority);
-    }
-
-}
-
-// TODO: Only works when first called
-bool BinarySearchTree::remove(BinarySearchTree::TaskItem *node, int k) {
-    // if leaf node
-    TaskItem *target = node;
-    if ((node->left == NULL && node->right == NULL) && (k == target->priority)) {
-        cerr << "leaf node \n" << endl;
-        target = NULL;
-        delete target;
+    } else if (val.priority == root->priority){
+        BinarySearchTree::TaskItem *replaceWithMeParent;
+        BinarySearchTree::TaskItem *deleteMe = root;
+        if (deleteMe->left == NULL) {
+            // right leaf
+            root = root->right;
+            free(deleteMe);
+        } else if (deleteMe->right == NULL) {
+            // left leaf
+            root = root->left;
+            free(deleteMe);
+        } else {
+            // has grandchildren
+            if (deleteMe->right->left != NULL) {
+                replaceWithMeParent = deleteMe->right;
+                while (replaceWithMeParent->left->left != NULL) {
+                    replaceWithMeParent = replaceWithMeParent->left;
+                }
+                replaceWithMeParent->left->left = deleteMe->left;
+                replaceWithMeParent->left->right = deleteMe->right;
+                root = replaceWithMeParent->left;
+                replaceWithMeParent->left = NULL;
+                free(deleteMe);
+            } else {
+                replaceWithMeParent = deleteMe;
+                replaceWithMeParent->right->left = deleteMe->left;
+                root = replaceWithMeParent->right;
+                free(deleteMe);
+            }
+        }
         size--;
         return true;
-        // if the left node exists
-    } else if (node->left != NULL && k == node->left->priority) {
-        // if the left node is the one to switch
-        cerr << "left node exists \n";
-        if (node->left->left == NULL && node->left->right == NULL) {
-            //if the node is a leaf node;
-            node->left = NULL;
-            free(node->left);
-            size--;
-            return true;
-        } else if (node->left->left != NULL && node->left->right == NULL) {
-            // the node has one left child
-            TaskItem *temp = node->left->left;
-            node->left->left = node;
-            node = temp;
-            node->left->left = NULL;
-            free(node->left->left);
-            size--;
-            return true;
-        } else if (node->left->left == NULL && node->right->right != NULL) {
-            // the node has one right child;
-            TaskItem *temp = node->right->right;
-            node->right->right = node;
-            node = temp;
-            node->right->right = NULL;
-            free(node->right->right);
-            size--;
-            return true;
-        } else {
-            TaskItem *deleteMe = node->left;
-            TaskItem *replaceWithMe = deleteMe->right;
-            while (replaceWithMe->left) {
-                replaceWithMe = replaceWithMe->left;
-            }
-            node->left = replaceWithMe;
-            replaceWithMe->left = deleteMe->left;
-            replaceWithMe->right = deleteMe->right;
-            free(deleteMe);
-            size--;
-            return true;
-        }
-        // right node exists and is the value
-    } else if (node->right != NULL && k == node->right->priority) {
-        cerr << "right node\n";
-        // want to switch right node
-        if (node->right->left == NULL && node->right->right == NULL) {
-            // if the node is a leaf node;
-            node->right = NULL;
-            free(node->right);
-            size--;
-            return true;
-        } else if (node->right->left != NULL && node->right->right == NULL) {
-            // the node has one left child
-            node->left = node->left->left;
-            size--;
-            return true;
-        } else if (node->right->left == NULL && node->right->right != NULL) {
-            // the node has one right child;
-            node->right = node->right->right;
-            size--;
-            return true;
-        } else {
-            TaskItem *deleteMe = node->right;
-            TaskItem *replaceWithMe = deleteMe->right;
-            while (replaceWithMe->left) {
-                replaceWithMe = replaceWithMe->left;
-            }
-            node->right = replaceWithMe;
-            replaceWithMe->left = deleteMe->left;
-            replaceWithMe->right = deleteMe->right;
-            free(deleteMe);
-            size--;
-            return true;
-        }
     } else {
-        cout << "ITERATING";
-        if (k < node->priority && node->left != NULL) {
-            cout << "Travel left\n";
-            if (node->left != NULL) {
-                cout << "Printing current node and left child " << node->priority << "  " << node->left->priority
-                     << endl;
-            } else cout << "no left child";
-            // go left
-            return remove(node->left, k);
-        } else if (k < node->priority && node->right != NULL) {
-            // go right
-            cout << "Travel right\n";
-            if (node->right != NULL) {
-                cout << "Printing current node and right child " << node->priority << "  " << node->right->priority
-                     << endl;
-            } else cout << "no right child";
-            return remove(node->right, k);
-        } else {
-            cerr << "super didn't work" << endl;
-            return false;
-        }
+        // general case
+        return remove(root, val.priority);
     }
+}
+
+bool BinarySearchTree::remove(BinarySearchTree::TaskItem *node, int k) {
+    // We've reached the end and since we have to delete a node from the parent we've failed.
+    if (node->left == NULL && node->right == NULL) return false;
+
+    bool goRight = k > node->priority;
+
+    if (goRight && node->right != NULL) {
+        if (node->right->priority == k) {
+            // We've found it so delete.
+            BinarySearchTree::TaskItem *replaceWithMeParent;
+            BinarySearchTree::TaskItem *deleteMe = node->right;
+            if (deleteMe->left == NULL && deleteMe->right == NULL){
+                // a one-child situation
+                free(deleteMe);
+                node->right = NULL;
+            } else if (deleteMe->left == NULL) {
+                // right leaf
+                replaceWithMeParent = deleteMe;
+                node->right = replaceWithMeParent->right;
+                free(deleteMe);
+            } else if (deleteMe->right == NULL) {
+                // left leaf
+                replaceWithMeParent = deleteMe;
+                node->right = replaceWithMeParent->left;
+                free(deleteMe);
+            } else {
+                // Has grandchildren
+                if (deleteMe->right->left != NULL) {
+                    replaceWithMeParent = deleteMe->right;
+                    while (replaceWithMeParent->left->left != NULL) {
+                        // ends up being replaceWithMe's parent
+                        replaceWithMeParent = replaceWithMeParent->left;
+                    }
+                    replaceWithMeParent->left->left = deleteMe->left;
+                    replaceWithMeParent->left->right = deleteMe->right;
+                    node->right = replaceWithMeParent->left;
+                    replaceWithMeParent->left = NULL;
+                    free(deleteMe);
+                } else {
+                    replaceWithMeParent = deleteMe;
+                    replaceWithMeParent->right->left = deleteMe->left;
+                    node->right = replaceWithMeParent->right;
+                    free(deleteMe);
+                }
+            }
+            size--;
+            return true;
+            // Else it's somewhere down this tree.
+        } else return remove(node->right, k);
+    } else if (!goRight && node->left != NULL) {
+        if (node->left->priority == k) {
+            // We've found it so delete.
+            BinarySearchTree::TaskItem *replaceWithMeParent;
+            BinarySearchTree::TaskItem *deleteMe = node->left;
+            if (deleteMe->left == NULL && deleteMe->right == NULL){
+                // a one-child situation
+                free(deleteMe);
+                node->left = NULL;
+            } else if (deleteMe->left == NULL) {
+                // right leaf
+                replaceWithMeParent = deleteMe;
+                node->left = replaceWithMeParent->right;
+                free(deleteMe);
+            } else if (deleteMe->right == NULL) {
+                // left leaf
+                replaceWithMeParent = deleteMe;
+                node->left = replaceWithMeParent->left;
+                free(deleteMe);
+            } else {
+                // Has grandchildren
+                if (deleteMe->right->left != NULL) {
+                    replaceWithMeParent = deleteMe->right;
+                    while (replaceWithMeParent->left->left != NULL) {
+                        // ends up being replaceWithMe's parent
+                        replaceWithMeParent = replaceWithMeParent->left;
+                    }
+                    replaceWithMeParent->left->left = deleteMe->left;
+                    replaceWithMeParent->left->right = deleteMe->right;
+                    node->left = replaceWithMeParent->left;
+                    replaceWithMeParent->left = NULL;
+                    free(deleteMe);
+                } else {
+                    replaceWithMeParent = deleteMe;
+                    replaceWithMeParent->right->left = deleteMe->left;
+                    node->left = replaceWithMeParent->right;
+                    free(deleteMe);
+                }
+            }
+            size--;
+            return true;
+        } else return remove(node->left, k);
+        // Else the node we're looking for is down a tree that doesn't exist so fail.
+    } else return false;
 }
 
