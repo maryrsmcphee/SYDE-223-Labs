@@ -214,6 +214,7 @@ public:
         BinarySearchTree::TaskItem t1(1, "testItem1");
         BinarySearchTree::TaskItem t4(4, "testItem4");
         BinarySearchTree::TaskItem t5(5, "testItem5");
+        BinarySearchTree::TaskItem t0(0,"testItem0");
         ASSERT_TRUE(bst.insert(t3))
         ASSERT_TRUE(bst.insert(t1));
         ASSERT_TRUE(bst.insert(t4));
