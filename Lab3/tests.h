@@ -329,6 +329,7 @@ public:
         BinarySearchTree::TaskItem t4(4, "testItem4");
         BinarySearchTree::TaskItem t5(5, "testItem5");
         BinarySearchTree::TaskItem t6(6, "testItem6");
+        // Insert a bunch of elements
         ASSERT_TRUE(bst.insert(t2))
         ASSERT_TRUE(bst.insert(t4))
         ASSERT_TRUE(bst.insert(t1))
@@ -336,20 +337,32 @@ public:
         ASSERT_TRUE(bst.get_size() == 4)
         ASSERT_TRUE(bst.insert(t3))
         ASSERT_TRUE(bst.remove(t3))
+        ASSERT_TRUE(bst.insert(t3))
         ASSERT_FALSE(bst.insert(t1))
         ASSERT_TRUE(bst.insert(t6))
-        ASSERT_TRUE(bst.get_size() == 5)
-        bst.print();
+        ASSERT_TRUE(bst.get_size() == 6)
+        // Test priority of some elements to ensure insert works as expected
+        ASSERT_TRUE(bst.root->priority == 2)
+        ASSERT_TRUE(bst.root->right->priority == 4)
+        ASSERT_TRUE(bst.root->left->priority == 1)
+        ASSERT_TRUE(bst.root->right->left->left == NULL)
+        // check remove (root and a leaf node)
         ASSERT_TRUE(bst.remove(t1))
         ASSERT_TRUE(bst.remove(t2))
-        bst.print();
-        ASSERT_TRUE(bst.get_size() == 3)
-        ASSERT_TRUE(bst.remove(t4))
-        ASSERT_TRUE(bst.remove(t5))
+        ASSERT_TRUE(bst.root->priority == 4)
+        ASSERT_TRUE((bst.root->right->priority > bst.root->priority) && (bst.root->priority > bst.root->left->priority))
+        ASSERT_TRUE(bst.get_size() == 4)
+        // check remove (rest of elements
+        ASSERT_TRUE(bst.remove(t5)) // one child
+        ASSERT_TRUE(bst.remove(t4)) // root
         ASSERT_TRUE(bst.remove(t6))
+        ASSERT_TRUE(bst.remove(t3))
         ASSERT_TRUE(bst.get_size() == 0)
         ASSERT_FALSE(bst.remove(t1))
-        bst.print(); // should print "Tree empty, nothing to print"
+        // insert into an empty list 
+        ASSERT_TRUE(bst.insert(t1))
+        ASSERT_TRUE(bst.get_size() == 1)
+        ASSERT_TRUE(bst.root->priority == 1)
         return true;
     }
 };
