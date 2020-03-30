@@ -319,12 +319,6 @@ public:
         ASSERT_TRUE(bst.insert(t0))
         ASSERT_TRUE(bst.height() == 6)
         bst.print();
-<<<<<<< HEAD
-=======
-        ASSERT_TRUE(bst.remove(t1))
->>>>>>> aca172236a6147c062b926b19101dab05148c9ac
-        ASSERT_TRUE(bst.remove(t2))
-        ASSERT_TRUE(bst.remove(t3))
         return true;
     }
 
