@@ -1,3 +1,7 @@
+// SYDE 223, W2020, LAB 3
+// Mary McPhee, 20717047
+// Sammy Robens-Paradise, 20719541
+
 #ifndef LAB3_PRIORITY_QUEUE_H
 #define LAB3_PRIORITY_QUEUE_H
 #include <string>
