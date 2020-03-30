@@ -129,8 +129,14 @@ bool PriorityQueue::dequeue() {
         size--;
         // iterates through tree to reorganize
         while (i < size - 1) { // iterates down the tree from the top node
-            TaskItem *rightChild = heap[i * 2 + 1];
+            if (heap[i * 2] == NULL) break;
             TaskItem *leftChild = heap[i * 2];
+            if (heap[i * 2 + 1] == NULL) {
+                heap[i * 2] = heap[i];
+                heap[i] = leftChild;
+                break;
+            }
+            TaskItem *rightChild = heap[i * 2 + 1];
             // iterates down the higher size to reorder
             if (leftChild->priority < rightChild->priority) {
                 // switches the heap at i with the greater child
@@ -143,7 +149,7 @@ bool PriorityQueue::dequeue() {
                 heap[i] = leftChild;
                 i = i * 2;
             }
-            return true;
         }
+        return true;
     }
 }
