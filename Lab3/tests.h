@@ -391,9 +391,49 @@ public:
         ASSERT_TRUE(bst.get_size() == 0)
         ASSERT_FALSE(bst.remove(t1))
         // insert into an empty list 
-        ASSERT_TRUE(bst.insert(t1))
+        ASSERT_TRUE(bst.insert(t6))
         ASSERT_TRUE(bst.get_size() == 1)
-        ASSERT_TRUE(bst.root->priority == 1)
+        ASSERT_TRUE(bst.root->priority == 6)
+        // to test for a list with a lot of elements
+        BinarySearchTree::TaskItem t7(7, "testItem7");
+        BinarySearchTree::TaskItem t8(8, "testItem8");
+        BinarySearchTree::TaskItem t9(9, "testItem9");
+        BinarySearchTree::TaskItem t10(10, "testItem10");
+        BinarySearchTree::TaskItem t11(11, "testItem11");
+        BinarySearchTree::TaskItem t12(12, "testItem12");
+        ASSERT_TRUE(bst.insert(t3))
+        ASSERT_TRUE(bst.insert(t8))
+        ASSERT_TRUE(bst.insert(t5))
+        ASSERT_TRUE(bst.insert(t12))
+        ASSERT_TRUE(bst.insert(t11))
+        ASSERT_TRUE(bst.insert(t9))
+        ASSERT_TRUE(bst.insert(t7))
+        ASSERT_TRUE(bst.insert(t4))
+        ASSERT_TRUE(bst.insert(t10))
+        ASSERT_TRUE(bst.insert(t2))
+        ASSERT_TRUE(bst.insert(t1))
+        // check priority values in a large list
+        ASSERT_TRUE(bst.root->priority == 6)
+        ASSERT_TRUE(bst.root->right->left->priority == 7)
+        ASSERT_TRUE(bst.root->right->priority == 8)
+        ASSERT_TRUE(bst.root->left->priority == 3)
+        ASSERT_TRUE(bst.remove(t6))
+        // check priority values in a large list after removing root
+        ASSERT_TRUE(bst.root->priority == 7)
+        ASSERT_TRUE(bst.root->right->left == NULL)
+        ASSERT_TRUE(bst.root->right->priority == 8)
+        ASSERT_TRUE(bst.root->left->priority == 3)
+        // remove leaf node
+        ASSERT_TRUE(bst.remove(t1))
+        ASSERT_TRUE(bst.root->left->left->priority == 2)
+        ASSERT_TRUE(bst.root->left->left->left == NULL)
+        // remove node with one child
+        ASSERT_TRUE(bst.root->left->right->priority == 5)
+        // ensure that t5 only has one child
+        ASSERT_TRUE((bst.root->left->right->left->priority == 4) && (bst.root->left->right->right == NULL))
+        ASSERT_TRUE(bst.remove(t5))
+        ASSERT_TRUE(bst.root->left->right->priority == 4)
+        ASSERT_TRUE((bst.root->left->right->left == NULL) && (bst.root->left->right->right == NULL))
         return true;
     }
 };
