@@ -19,6 +19,7 @@ public:
         ASSERT_TRUE(q.empty());
         ASSERT_TRUE(!q.full());
         ASSERT_TRUE(q.get_size() == 0);
+        ASSERT_TRUE(q.capacity == 5);
         return true;
     }
 
@@ -104,6 +105,9 @@ public:
         test.dequeue();
         ASSERT_TRUE(test.empty())
         // should fail if dequeuing when empty
+        ASSERT_FALSE(test.dequeue())
+        ASSERT_FALSE(test.dequeue())
+        ASSERT_FALSE(test.dequeue())
         ASSERT_FALSE(test.dequeue())
         return true;
     }
