@@ -318,6 +318,35 @@ public:
         ASSERT_FALSE(bst.insert(t_1));
         ASSERT_TRUE(bst.insert(t0))
         ASSERT_TRUE(bst.height() == 6)
+        ASSERT_TRUE(bst.remove(t1));
+        ASSERT_TRUE(bst.height() == 5)
+        ASSERT_FALSE(bst.remove(t1))
+        ASSERT_TRUE(bst.remove(t6));
+        ASSERT_TRUE(bst.remove(t2));
+        ASSERT_TRUE(bst.remove(t3));
+        ASSERT_TRUE(bst.height() == 2)
+        ASSERT_TRUE(bst.get_size() == 3)
+        ASSERT_TRUE(bst.remove(t0));
+        ASSERT_TRUE(bst.height() == 2)
+        ASSERT_TRUE(bst.get_size() == 2)
+        ASSERT_TRUE(bst.remove(t4));
+        ASSERT_TRUE(bst.get_root_node()->priority == t5.priority)
+        ASSERT_TRUE(bst.get_size() == 1);
+        ASSERT_TRUE(bst.height() == 1)
+        ASSERT_FALSE(bst.remove(t4));
+        ASSERT_TRUE(bst.remove(t5));
+        ASSERT_TRUE(bst.get_size() == 0)
+        ASSERT_TRUE(bst.height() == 0);
+        ASSERT_TRUE(bst.get_root_node() == NULL)
+        bst.print();
+        ASSERT_FALSE(bst.remove(t1));
+        ASSERT_TRUE(bst.insert(t1))
+        ASSERT_TRUE(bst.insert(t2))
+        ASSERT_TRUE(bst.insert(t3))
+        ASSERT_TRUE(bst.insert(t4))
+        ASSERT_TRUE(bst.insert(t5))
+        ASSERT_TRUE(bst.insert(t6))
+        ASSERT_TRUE(bst.height() == 6)
         bst.print();
         return true;
     }
