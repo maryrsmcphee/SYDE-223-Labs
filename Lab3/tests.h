@@ -233,7 +233,27 @@ public:
 
     // PURPOSE: Tests insert of multiple elements and remove till nothing remains
     bool test5() {
-        return false;
+        BinarySearchTree bst;
+        BinarySearchTree::TaskItem t5(5, "testItem5");
+        BinarySearchTree::TaskItem t1(1, "testItem1");
+        BinarySearchTree::TaskItem t4(4, "testItem4");
+        BinarySearchTree::TaskItem t6(6, "testItem6");
+        BinarySearchTree::TaskItem t7(7, "testItem6");
+        ASSERT_TRUE(bst.insert(t5))
+        ASSERT_TRUE(bst.insert(t1))
+        ASSERT_TRUE(bst.insert(t6))
+        ASSERT_TRUE(bst.insert(t4));
+        ASSERT_TRUE(bst.insert(t7))
+        ASSERT_TRUE(bst.get_size() == 5)
+        ASSERT_TRUE(bst.height() == 3 )
+        ASSERT_TRUE(bst.remove(t7))
+        ASSERT_TRUE(bst.remove(t4));
+        ASSERT_TRUE(bst.remove(t6))
+        ASSERT_TRUE(bst.remove(t1))
+        ASSERT_TRUE(bst.remove(t5))
+        ASSERT_TRUE(bst.height() == 0)
+        ASSERT_TRUE(bst.get_size() == 0);
+        return true;
     }
 
     // PURPOSE: Tests removal of root node when both children of root have two children
