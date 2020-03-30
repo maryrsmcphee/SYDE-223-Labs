@@ -288,16 +288,11 @@ bool BinarySearchTree::remove(BinarySearchTree::TaskItem *node, int k) {
             return true;
         } else if (node->right->left != NULL && node->right->right == NULL) {
             // the node has one left child
-            TaskItem *temp = node->left->left;
-            node->left->left = node;
-            node = temp;
-            node->left->left = NULL;
-            free(node->left->left);
+            node->left = node->left->left;
             size--;
             return true;
         } else if (node->right->left == NULL && node->right->right != NULL) {
             // the node has one right child;
-            TaskItem *temp = node->right->right;
             node->right = node->right->right;
             size--;
             return true;
