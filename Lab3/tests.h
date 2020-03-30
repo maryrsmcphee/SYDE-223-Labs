@@ -228,12 +228,65 @@ public:
 
     // PURPOSE: Tests insert of multiple elements and remove till nothing remains
     bool test5() {
-        return false;
+        BinarySearchTree bst;
+        BinarySearchTree::TaskItem t4(4, "testItem4");
+        BinarySearchTree::TaskItem t1(1, "testItem1");
+        BinarySearchTree::TaskItem t5(5, "testItem5");
+        BinarySearchTree::TaskItem t3(3, "testItem3");
+        BinarySearchTree::TaskItem t2(2, "testItem2");
+        BinarySearchTree::TaskItem t0(0, "testItem0");
+        BinarySearchTree::TaskItem t6(6, "testItem6");
+        // insert all elements
+        ASSERT_TRUE(bst.insert(t1))
+        ASSERT_TRUE(bst.insert(t2))
+        ASSERT_TRUE(bst.insert(t3))
+        ASSERT_TRUE(bst.insert(t6))
+        ASSERT_TRUE(bst.insert(t5))
+        ASSERT_TRUE(bst.insert(t4))
+        ASSERT_TRUE(bst.insert(t0))
+        // check size
+        ASSERT_TRUE(bst.size == 7)
+        // remove all elements
+        ASSERT_TRUE(bst.remove(t6))
+        ASSERT_TRUE(bst.remove(t5))
+        ASSERT_TRUE(bst.remove(t2))
+        ASSERT_TRUE(bst.remove(t4))
+        ASSERT_TRUE(bst.remove(t1))
+        ASSERT_TRUE(bst.remove(t3))
+        ASSERT_TRUE(bst.remove(t0))
+        // remove fails - element already removed
+        ASSERT_FALSE(bst.remove(t5))
+        // tree is empty
+        ASSERT_TRUE(bst.size == 0)
+        return true;
     }
 
     // PURPOSE: Tests removal of root node when both children of root have two children
     bool test6() {
-        return false;
+        BinarySearchTree bst;
+        BinarySearchTree::TaskItem t4(4, "testItem4"); // root
+        BinarySearchTree::TaskItem t2(2, "testItem2"); // root->left
+        BinarySearchTree::TaskItem t1(1, "testItem1"); // root->left->left
+        BinarySearchTree::TaskItem t3(3, "testItem3"); // root->left->right
+        BinarySearchTree::TaskItem t6(6, "testItem6"); // root->right
+        BinarySearchTree::TaskItem t5(5, "testItem5"); // root->right->left
+        BinarySearchTree::TaskItem t7(7, "testItem7"); // root->right->right
+        // tree created
+        ASSERT_TRUE(bst.insert(t4))
+        ASSERT_TRUE(bst.insert(t2))
+        ASSERT_TRUE(bst.insert(t1))
+        ASSERT_TRUE(bst.insert(t3))
+        ASSERT_TRUE(bst.insert(t6))
+        ASSERT_TRUE(bst.insert(t5))
+        ASSERT_TRUE(bst.insert(t7))
+        // remove root
+        ASSERT_TRUE(bst.remove(t4))
+        // check that tree reassembled properly
+        ASSERT_TRUE(bst.root->priority == 5)
+        ASSERT_TRUE(bst.root->left->priority == 2)
+        ASSERT_TRUE(bst.root->right->priority == 6)
+        ASSERT_TRUE(bst.root->right->left == NULL)
+        return true;
     }
 
     // PURPOSE: Tests depth with many inserts and some removes
@@ -276,28 +329,40 @@ public:
         BinarySearchTree::TaskItem t4(4, "testItem4");
         BinarySearchTree::TaskItem t5(5, "testItem5");
         BinarySearchTree::TaskItem t6(6, "testItem6");
-        ASSERT_TRUE(bst.insert(t1))
-        ASSERT_FALSE(bst.insert(t1))
+        // Insert a bunch of elements
         ASSERT_TRUE(bst.insert(t2))
-        ASSERT_TRUE(bst.insert(t3))
         ASSERT_TRUE(bst.insert(t4))
+        ASSERT_TRUE(bst.insert(t1))
         ASSERT_TRUE(bst.insert(t5))
+        ASSERT_TRUE(bst.get_size() == 4)
+        ASSERT_TRUE(bst.insert(t3))
+        ASSERT_TRUE(bst.remove(t3))
+        ASSERT_TRUE(bst.insert(t3))
+        ASSERT_FALSE(bst.insert(t1))
         ASSERT_TRUE(bst.insert(t6))
         ASSERT_TRUE(bst.get_size() == 6)
-        cerr<<" - Print: test8"<<endl;
-        bst.print();
+        // Test priority of some elements to ensure insert works as expected
+        ASSERT_TRUE(bst.root->priority == 2)
+        ASSERT_TRUE(bst.root->right->priority == 4)
+        ASSERT_TRUE(bst.root->left->priority == 1)
+        ASSERT_TRUE(bst.root->right->left->left == NULL)
+        // check remove (root and a leaf node)
         ASSERT_TRUE(bst.remove(t1))
         ASSERT_TRUE(bst.remove(t2))
-        cerr << "about to print after remove 1 and 2 \n";
-        bst.print();
-        ASSERT_TRUE(bst.remove(t3))
-        ASSERT_TRUE(bst.get_size() == 3)
-        ASSERT_TRUE(bst.remove(t4))
-        ASSERT_TRUE(bst.remove(t5))
+        ASSERT_TRUE(bst.root->priority == 4)
+        ASSERT_TRUE((bst.root->right->priority > bst.root->priority) && (bst.root->priority > bst.root->left->priority))
+        ASSERT_TRUE(bst.get_size() == 4)
+        // check remove (rest of elements
+        ASSERT_TRUE(bst.remove(t5)) // one child
+        ASSERT_TRUE(bst.remove(t4)) // root
         ASSERT_TRUE(bst.remove(t6))
+        ASSERT_TRUE(bst.remove(t3))
         ASSERT_TRUE(bst.get_size() == 0)
         ASSERT_FALSE(bst.remove(t1))
-        bst.print();
+        // insert into an empty list 
+        ASSERT_TRUE(bst.insert(t1))
+        ASSERT_TRUE(bst.get_size() == 1)
+        ASSERT_TRUE(bst.root->priority == 1)
         return true;
     }
 };
