@@ -214,6 +214,7 @@ public:
         BinarySearchTree::TaskItem t1(1, "testItem1");
         BinarySearchTree::TaskItem t4(4, "testItem4");
         BinarySearchTree::TaskItem t5(5, "testItem5");
+        BinarySearchTree::TaskItem t0(0,"testItem0");
         ASSERT_TRUE(bst.insert(t3))
         ASSERT_TRUE(bst.insert(t1));
         ASSERT_TRUE(bst.insert(t4));
@@ -222,7 +223,11 @@ public:
         ASSERT_TRUE(bst.get_size() == 4);
         cerr<<" - Print: test4"<<endl;
         bst.print();
-        //  remove nodes
+        ASSERT_TRUE(bst.remove(t4));
+        ASSERT_TRUE(bst.height() == 2);
+        ASSERT_TRUE(bst.get_size() == 3);
+        cerr <<" remove node, then: "<<endl;
+        bst.print();
         return true;
     }
 
@@ -313,10 +318,36 @@ public:
         ASSERT_FALSE(bst.insert(t_1));
         ASSERT_TRUE(bst.insert(t0))
         ASSERT_TRUE(bst.height() == 6)
+        ASSERT_TRUE(bst.remove(t1));
+        ASSERT_TRUE(bst.height() == 5)
+        ASSERT_FALSE(bst.remove(t1))
+        ASSERT_TRUE(bst.remove(t6));
+        ASSERT_TRUE(bst.remove(t2));
+        ASSERT_TRUE(bst.remove(t3));
+        ASSERT_TRUE(bst.height() == 2)
+        ASSERT_TRUE(bst.get_size() == 3)
+        ASSERT_TRUE(bst.remove(t0));
+        ASSERT_TRUE(bst.height() == 2)
+        ASSERT_TRUE(bst.get_size() == 2)
+        ASSERT_TRUE(bst.remove(t4));
+        ASSERT_TRUE(bst.get_root_node()->priority == t5.priority)
+        ASSERT_TRUE(bst.get_size() == 1);
+        ASSERT_TRUE(bst.height() == 1)
+        ASSERT_FALSE(bst.remove(t4));
+        ASSERT_TRUE(bst.remove(t5));
+        ASSERT_TRUE(bst.get_size() == 0)
+        ASSERT_TRUE(bst.height() == 0);
+        ASSERT_TRUE(bst.get_root_node() == NULL)
         bst.print();
-        ASSERT_TRUE(bst.remove(t1))
-        ASSERT_TRUE(bst.remove(t2))
-        ASSERT_TRUE(bst.remove(t3))
+        ASSERT_FALSE(bst.remove(t1));
+        ASSERT_TRUE(bst.insert(t1))
+        ASSERT_TRUE(bst.insert(t2))
+        ASSERT_TRUE(bst.insert(t3))
+        ASSERT_TRUE(bst.insert(t4))
+        ASSERT_TRUE(bst.insert(t5))
+        ASSERT_TRUE(bst.insert(t6))
+        ASSERT_TRUE(bst.height() == 6)
+        bst.print();
         return true;
     }
 
