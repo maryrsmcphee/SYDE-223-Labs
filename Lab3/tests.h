@@ -222,7 +222,9 @@ public:
         ASSERT_TRUE(bst.get_size() == 4);
         cerr<<" - Print: test4"<<endl;
         bst.print();
-        //  remove nodes
+        ASSERT_TRUE(bst.remove(t4));
+        cerr <<" remove node, then: "<<endl;
+        bst.print();
         return true;
     }
 
