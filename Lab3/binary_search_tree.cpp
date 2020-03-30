@@ -251,12 +251,10 @@ bool BinarySearchTree::remove(BinarySearchTree::TaskItem val) {
         return true;
     } else {
         // general case
-        cerr << "general case\n";
         return remove(root, val.priority);
     }
 }
 
-// TODO: Only works when first called
 bool BinarySearchTree::remove(BinarySearchTree::TaskItem *node, int k) {
     // We've reached the end and since we have to delete a node from the parent we've failed.
     if (node->left == NULL && node->right == NULL) return false;
