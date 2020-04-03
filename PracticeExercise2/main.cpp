@@ -1,11 +1,44 @@
-// SYDE 223, W2020, PRACTICE EXERCISE 2
-// Mary McPhee, 20717047
-// Sammy Robens-Paradise, 20719541
+/** SYDE 223, W2020, PRACTICE EXERCISE 2
+ Mary McPhee, 20717047
+ Sammy Robens-Paradise, 20719541
+ */
 
 #include <iostream>
-
+using namespace std;
+// setup for test node structure to create nodes to use
+struct node
+{
+    int data;
+    struct node *left;
+    struct node *right;
+};
+/**
+ * @param data
+ * @return struct node
+ */
+struct node* createNode(int data)
+{
+    struct node* node = (struct node*)malloc(sizeof(struct node));
+    // set node state
+    node->data = data;
+    node->left = NULL;
+    node->right = NULL;
+    return(node);
+}
+void printPreOrder(struct node *root){
+    // ROOT -> LEFT SUBTREE -> RIGHT SUBTREE
+    if(root == NULL)
+        return;
+    cout<<root->data;
+    printPreOrder(root->left);
+    printPreOrder(root->right);
+}
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    struct node * root = createNode(1);
+    root->left = createNode(5);
+    root->right = createNode(7);
+    root->left->left = createNode(10);
+    printPreOrder(root);
     return 0;
 }
 
