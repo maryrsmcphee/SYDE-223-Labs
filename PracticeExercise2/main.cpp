@@ -92,27 +92,22 @@ int find_max_sum_of_nodes(BinaryTreeNode *T, int &temp_max_sum) {
     int right_sum = find_max_sum_of_nodes(T->right, temp_max_sum);
     // compare T->value, left_sum + T->value, and right_sum + T->value; store as max1
     int max1 = T->value;
-    if(left_sum+T->value> max1){
-        max1 =  left_sum+T->value;
+    if (left_sum + T->value > max1) {
+        max1 = left_sum + T->value;
     }
-    if(right_sum+T->value > max1){
+    if (right_sum + T->value > max1) {
         max1 = right_sum + T->value;
     }
-    int max2 = left_sum + right_sum + T->value;
-    // compare max1, left_sum + right_sum + T->value; store as max2, update temp_max_sum with the new max
-    if (max1 > max2) {
-        temp_max_sum = max1;
-    } else {
-        temp_max_sum = max2;
-    }
-    // TODO: return max1
-    // it says return max1 but I think we should be returning temp_max_sum, why else would we be comparing them?
+
+    temp_max_sum = max1 > left_sum + right_sum + T->value ?
+                   max1 : left_sum + right_sum + T->value;
     return max1;
 }
 
 int find_max_sum_of_nodes(BinaryTreeNode *T) {
     int temp_max_sum = INT_MIN;
     find_max_sum_of_nodes(T, temp_max_sum);
+
     return temp_max_sum;
 }
 
@@ -171,7 +166,7 @@ int main() {
 
     /** First test case */
     cout << "FIRST TEST CASE" << endl;
-    cout << "should print 18" << endl;
+    cout << "should print 19" << endl;
     cout << find_max_sum_of_nodes(root) << endl;
 
     /** Second test case */
