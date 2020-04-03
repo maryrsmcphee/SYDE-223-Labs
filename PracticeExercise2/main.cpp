@@ -72,8 +72,6 @@ void find_and_print_sum_of_nodes(BinaryTreeNode *T, int desired_sum, int cur_sum
     // TODO: continue down the right subtree
     find_and_print_sum_of_nodes(T->right, desired_sum, new_sum, new_buffer);
     // since we always start with an empty buffer
-    // restart from the left subtree if buffer = “”
-    // restart from the right subtree if buffer = “”
     if (buffer == "") {
         cur_sum = 0;
         find_and_print_sum_of_nodes(T->left, desired_sum, cur_sum, "");
@@ -93,18 +91,24 @@ int find_max_sum_of_nodes(BinaryTreeNode *T, int &temp_max_sum) {
     // derive the maximum sum for the right subtree
     int right_sum = find_max_sum_of_nodes(T->right, temp_max_sum);
     // compare T->value, left_sum + T->value, and right_sum + T->value; store as max1
-    int max1;
-    if (left_sum > right_sum) {
-        max1 = left_sum;
-    } else max1 = right_sum;
+    int max1 = T->value;
+    if(left_sum+T->value< max1){
+        max1 =  left_sum+T->value;
+    }
+    if(right_sum+T->value > max1){
+        max1 = right_sum + T->value;
+    }
+    // we know max1 is
     int max2 = left_sum + right_sum + T->value;
     // compare max1, left_sum + right_sum + T->value; store as max2, update temp_max_sum with the new max
     if (max1 > max2) {
         temp_max_sum = max1;
-    } else temp_max_sum = max2;
+    } else {
+        temp_max_sum = max2;
+    }
     // TODO: return max1
     // it says return max1 but I think we should be returning temp_max_sum, why else would we be comparing them?
-    return temp_max_sum;
+    return max1;
 }
 
 int find_max_sum_of_nodes(BinaryTreeNode *T) {
