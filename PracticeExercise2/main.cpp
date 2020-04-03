@@ -4,6 +4,7 @@
  */
 
 #include <iostream>
+#include <string>
 using namespace std;
 // setup for test node structure to create nodes to use
 struct BinaryTreeNode
@@ -36,41 +37,37 @@ void printPreOrder(struct BinaryTreeNode *root){
 
 // function of interest
 void find_and_print_sum_of_nodes (BinaryTreeNode* T, int desired_sum, int cur_sum, string buffer) {
-    // exit if T is NULLif (!T) return;
+     if (!T)
+         return;
+
     // update the ongoing sum with the current value for T
     int new_sum = cur_sum + T->value;
     // update the current path string
-  //  string new_buffer = buffer + " " + int2ascii(T->value);
+    char valToAddToBuffer = '0' + T->value;
+    string new_buffer = buffer + " " + valToAddToBuffer;
     // if the desired sum is found, print the corresponding path
-  //  if (new_sum == desired_sum)cout << new_buffer << endl;
+    if (new_sum == desired_sum)
+        cout << new_buffer << endl;
     // TODO: continue down theleft subtree
+    find_and_print_sum_of_nodes(T->left,desired_sum,new_sum,new_buffer);
     // TODO: continue down theright subtree
+    find_and_print_sum_of_nodes(T->right,desired_sum,new_sum,new_buffer);
+    if(buffer == ""){
+        new_sum = 0;
+        find_and_print_sum_of_nodes(T->left,desired_sum,new_sum,new_buffer);
+        find_and_print_sum_of_nodes(T->right,desired_sum,new_sum,new_buffer);
+
+    }
     // TODO: restart from the left subtree if buffer = “”
     // TODO: restart from the right subtreeif buffer = “”
 }
 
 int main() {
-    struct BinaryTreeNode * root = createNode(1);
-    root->left = createNode(5);
+    struct BinaryTreeNode * root = createNode(5);
+    root->left = createNode(4);
     root->right = createNode(7);
-    root->left->left = createNode(10);
+    root->left->left = createNode(2);
+    root->left->right = createNode(3);
     printPreOrder(root);
     return 0;
 }
-
-// Starter code
-/*
-void find_and_print_sum_of_nodes (BinaryTreeNode* T, int desired_sum, int cur_sum, string buffer) {
-    // exit if T is NULLif (!T) return;
-    // update the ongoing sum with the current value for T
-    int new_sum = cur_sum + T->value;
-    // update the current path string
-    string new_buffer = buffer + " " + int2ascii(T->value);
-    // if the desired sum is found, print the corresponding path
-    if (new_sum == desired_sum)cout << new_buffer << endl;
-    // TODO: continue down theleft subtree
-    // TODO: continue down theright subtree
-    // TODO: restart from the left subtree if buffer = “”
-    // TODO: restart from the right subtreeif buffer = “”
-}
- */
