@@ -143,13 +143,18 @@ int main() {
     root3->left = createNode(6);
     root3->right = createNode(5);
     root3->left->left = createNode(4);
+    root3->left->left->left = createNode(22);
     root3->left->right = createNode(3);
+    root3->left->right->left = createNode(3);
+    root3->left->right->left->right = createNode(3);
     root3->right->left = createNode(2);
     root3->right->right = createNode(1);
+    root3->right->right->right = createNode(1);
+    root3->right->right->right->right = createNode(8);
     printPreOrder(root3);
     cout << endl;
-    cout<<"should print 7, 5 2"<<endl;
-    find_and_print_sum_of_nodes (root3, 7, 0, "");
+    cout<<"should print 7 6 3 3 3, 7 5 1 1 8, 22"<<endl;
+    find_and_print_sum_of_nodes (root3, 22, 0, "");
 
     cout <<"Testing for find_max_sum_of_nodes"<< endl;
     cout<<"**********************************"<<endl;
