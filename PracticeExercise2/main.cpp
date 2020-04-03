@@ -150,10 +150,26 @@ int main() {
     cout << endl;
     cout<<"should print 7, 5 2"<<endl;
     find_and_print_sum_of_nodes (root3, 7, 0, "");
-    cout << "FIND MAX SUM OF NODES" << endl;
-    cout << find_max_sum_of_nodes(root); // should be 18
-    cout << find_max_sum_of_nodes(root2); // should be 18
-    cout << find_max_sum_of_nodes(root3); // should be 18
+
+    cout <<"Testing for find_max_sum_of_nodes"<< endl;
+    cout<<"**********************************"<<endl;
+
+    /** First test case */
+    cout << "FIRST TEST CASE" << endl;
+    cout<<"should print 18"<<endl;
+    cout << find_max_sum_of_nodes(root)<<endl;
+
+    /** Second test case */
+    cout << "SECOND TEST CASE" << endl;
+    cout<<"should print 18"<<endl;
+    cout << find_max_sum_of_nodes(root2)<<endl; // should be 18
+
+    /** Third test case */
+    cout << "THIRD TEST CASE" << endl;
+    cout<<"should print 18"<<endl;
+    cout << find_max_sum_of_nodes(root3)<<endl; // should be 18
+
+    cout<<"~TEST RUN COMPLETE~"<<endl;
     return 0;
 
 }
