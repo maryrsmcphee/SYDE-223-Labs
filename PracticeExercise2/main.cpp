@@ -78,6 +78,9 @@ void find_and_print_sum_of_nodes (BinaryTreeNode* T, int desired_sum, int cur_su
 
 int find_max_sum_of_nodes (BinaryTreeNode* T, int &temp_max_sum) {
     // exit if T is NULLif (!T) return0;
+    if (!T)
+        return 0;
+
     // derive the maximum sum for the left subtree
     int left_sum = find_max_sum_of_nodes(T->left, temp_max_sum);
     // derive the maximum sum for the right subtree
@@ -99,7 +102,8 @@ int find_max_sum_of_nodes (BinaryTreeNode* T, int &temp_max_sum) {
 
 int find_max_sum_of_nodes(BinaryTreeNode *T) {
     int temp_max_sum = INT_MIN;
-    find_max_sum_of_nodes(T, temp_max_sum);return temp_max_sum;
+    find_max_sum_of_nodes(T, temp_max_sum);
+    return temp_max_sum;
 }
 
 int main() {
@@ -146,6 +150,10 @@ int main() {
     cout << endl;
     cout<<"should print 7, 5 2"<<endl;
     find_and_print_sum_of_nodes (root3, 7, 0, "");
+    cout << "FIND MAX SUM OF NODES" << endl;
+    cout << find_max_sum_of_nodes(root); // should be 18
+    cout << find_max_sum_of_nodes(root2); // should be 18
+    cout << find_max_sum_of_nodes(root3); // should be 18
     return 0;
 
 }
