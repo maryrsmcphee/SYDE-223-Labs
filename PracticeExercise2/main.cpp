@@ -176,7 +176,7 @@ int main() {
 
     /** Third test case */
     cout << "THIRD TEST CASE" << endl;
-    cout << "should print 18" << endl;
+    cout << "should print 54" << endl;
     cout << find_max_sum_of_nodes(root3) << endl; // should be 18
 
     cout << "~TEST RUN COMPLETE~" << endl;
