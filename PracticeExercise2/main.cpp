@@ -78,19 +78,32 @@ void find_and_print_sum_of_nodes (BinaryTreeNode* T, int desired_sum, int cur_su
 
 int find_max_sum_of_nodes (BinaryTreeNode* T, int &temp_max_sum) {
     // exit if T is NULLif (!T) return0;
+    if (!T)
+        return 0;
+
     // derive the maximum sum for the left subtree
     int left_sum = find_max_sum_of_nodes(T->left, temp_max_sum);
     // derive the maximum sum for the right subtree
     int right_sum= find_max_sum_of_nodes(T->right, temp_max_sum);
-    // TODO: compare T->value, left_sum + T->value, and right_sum + T->value; store as max1
-    // TODO: compare max1, left_sum + right_sum + T->value; store as max2
-    // TODO: update temp_max_sum with the new max
+    // compare T->value, left_sum + T->value, and right_sum + T->value; store as max1
+    int max1;
+    if (left_sum > right_sum){
+        max1 = left_sum;
+    } else max1 = right_sum;
+    int max2 = left_sum + right_sum + T->value;
+    // compare max1, left_sum + right_sum + T->value; store as max2, update temp_max_sum with the new max
+    if (max1 > max2) {
+        temp_max_sum = max1;
+    } else temp_max_sum = max2;
     // TODO: return max1
+    // it says return max1 but I think we should be returning temp_max_sum, why else would we be comparing them?
+    return temp_max_sum;
 }
 
 int find_max_sum_of_nodes(BinaryTreeNode *T) {
     int temp_max_sum = INT_MIN;
-    find_max_sum_of_nodes(T, temp_max_sum);return temp_max_sum;
+    find_max_sum_of_nodes(T, temp_max_sum);
+    return temp_max_sum;
 }
 
 int main() {
@@ -137,7 +150,10 @@ int main() {
     cout << endl;
     cout<<"should print 7, 5 2"<<endl;
     find_and_print_sum_of_nodes (root3, 7, 0, "");
-
+    cout << "FIND MAX SUM OF NODES" << endl;
+    cout << find_max_sum_of_nodes(root); // should be 18
+    cout << find_max_sum_of_nodes(root2); // should be 18
+    cout << find_max_sum_of_nodes(root3); // should be 18
     return 0;
 
 }
