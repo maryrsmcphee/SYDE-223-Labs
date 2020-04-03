@@ -58,14 +58,11 @@ void printPreOrder(struct BinaryTreeNode *root) {
 void find_and_print_sum_of_nodes(BinaryTreeNode *T, int desired_sum, int cur_sum, string buffer) {
     if (!T)
         return;
-
     // update the ongoing sum with the current value for T
     int new_sum = cur_sum + T->value;
     // update the current path string
-    char valToAddToBuffer = '0' + T->value;
-    if (T->value == desired_sum && T->left == T->right == NULL) {
-        cout << valToAddToBuffer << endl;
-    }
+    string valToAddToBuffer = to_string(T->value);
+    // check if the value is equal to the desired sum and it doesn't have any children
     string new_buffer = buffer + " " + valToAddToBuffer;
     // if the desired sum is found, print the corresponding path
     if (new_sum == desired_sum)
