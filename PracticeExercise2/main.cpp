@@ -14,6 +14,8 @@ struct BinaryTreeNode
     struct BinaryTreeNode *right;
 };
 /**
+ * sets value to data and
+ * left and right pointers to NULL
  * @param data
  * @return struct node
  */
@@ -26,6 +28,16 @@ struct BinaryTreeNode* createNode(int data)
     node->right = NULL;
     return(node);
 }
+
+/**
+ * preOrder helper function returns void
+ * prints ROOT -> LEFT SUBTREE -> RIGHT SUBTREE
+ * so       4
+ *        /  \
+ *       3   5
+ * would print: 4 3 5
+ * @param root
+ */
 void printPreOrder(struct BinaryTreeNode *root){
     // ROOT -> LEFT SUBTREE -> RIGHT SUBTREE
     if(root == NULL)
@@ -66,9 +78,9 @@ void find_and_print_sum_of_nodes (BinaryTreeNode* T, int desired_sum, int cur_su
 
 int find_max_sum_of_nodes (BinaryTreeNode* T, int &temp_max_sum) {
     // exit if T is NULLif (!T) return0;
-    // derivethe maximum sum for the left subtree
+    // derive the maximum sum for the left subtree
     int left_sum = find_max_sum_of_nodes(T->left, temp_max_sum);
-    // derivethe maximum sum for the right subtree
+    // derive the maximum sum for the right subtree
     int right_sum= find_max_sum_of_nodes(T->right, temp_max_sum);
     // TODO: compare T->value, left_sum + T->value, and right_sum + T->value; store as max1
     // TODO: compare max1, left_sum + right_sum + T->value; store as max2
@@ -82,8 +94,9 @@ int find_max_sum_of_nodes(BinaryTreeNode *T) {
 }
 
 int main() {
-    // Testing for find_and_print_sum_of_nodes
-    // First test case
+    cout<<"Testing for find_and_print_sum_of_nodes"<<endl;
+    cout<<"****************************************"<<endl;
+    /** First test case */
     cout << "FIRST TEST CASE" << endl;
     struct BinaryTreeNode * root = createNode(1);
     root->left = createNode(2);
@@ -94,8 +107,10 @@ int main() {
     root->right->right = createNode(7);
     printPreOrder(root);
     cout << endl;
-    // should print 1 2 3, 2 4, 1 5, 6
+    cout<<"should print 1 2 3, 2 4, 1 5, 6"<<endl;
     find_and_print_sum_of_nodes (root, 6, 0, "");
+
+    /** Second test case */
     cout << "SECOND TEST CASE" << endl;
     struct BinaryTreeNode * root2 = createNode(1);
     root2->left = createNode(2);
@@ -106,9 +121,10 @@ int main() {
     root2->right->right = createNode(7);
     printPreOrder(root2);
     cout << endl;
-    // should print 1 2 4, 2 5, 7
+    cout<<"should print 1 2 4, 2 5, 7"<<endl;
     find_and_print_sum_of_nodes (root2, 7, 0, "");
-    // Third test case
+
+    /** Third test case */
     cout << "THIRD TEST CASE" << endl;
     struct BinaryTreeNode * root3 = createNode(7);
     root3->left = createNode(6);
@@ -119,7 +135,7 @@ int main() {
     root3->right->right = createNode(1);
     printPreOrder(root3);
     cout << endl;
-    // should print 7, 5 2
+    cout<<"should print 7, 5 2"<<endl;
     find_and_print_sum_of_nodes (root3, 7, 0, "");
     return 0;
 
