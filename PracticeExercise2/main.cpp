@@ -116,25 +116,25 @@ int main() {
     cout << "****************************************" << endl;
     /** First test case */
     cout << "FIRST TEST CASE" << endl;
-    struct BinaryTreeNode *root = createNode(1);
+    struct BinaryTreeNode *root = createNode(-1);
     root->left = createNode(2);
     root->right = createNode(9);
     root->left->left = createNode(3);
-    root->left->right = createNode(6);
+    root->left->right = createNode(-6);
     root->right->left = createNode(10);
     root->right->right = createNode(13);
     root->left->left->left = createNode(4);
-    root->left->left->right = createNode(5);
+    root->left->left->right = createNode(-5);
     root->left->right->left = createNode(7);
     root->left->right->right = createNode(8);
-    root->right->left->right = createNode(12);
+    root->right->left->right = createNode(-12);
     root->right->left->left = createNode(11);
     root->right->right->left = createNode(14);
     root->right->right->right = createNode(15);
     printPreOrder(root);
     cout << endl;
-    cout << "should print 1 2 6 8" << endl;
-    find_and_print_sum_of_nodes(root, 17, 0, "");
+    cout << "should print -1 2 -6 7, 2, -6 8" << endl;
+    find_and_print_sum_of_nodes(root, 2, 0, "");
 
     /** Second test case */
     cout << "SECOND TEST CASE" << endl;
@@ -174,7 +174,7 @@ int main() {
 
     /** First test case */
     cout << "FIRST TEST CASE" << endl;
-    cout << "should print 54" << endl;
+    cout << "should print 45" << endl;
     cout << find_max_sum_of_nodes(root) << endl;
 
     /** Second test case */
